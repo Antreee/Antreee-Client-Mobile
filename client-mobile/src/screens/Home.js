@@ -8,6 +8,7 @@ import fontStyles from '../../assets/styles/fontStyles';
 import { LinearGradient } from 'expo-linear-gradient';
 import Carousel from 'react-native-snap-carousel';
 import Color from '../assets/Color';
+import restaurant from '../../data/resto';
 
 
 export default Home = ({ navigation }) => {
@@ -80,6 +81,11 @@ export default Home = ({ navigation }) => {
    let carouselRef = useRef();
 
    const onChangeSearch = query => setSearchQuery(query);
+
+   function doDetail() {
+      console.log(restaurant, "<=======")
+      // navigation.navigate('RestaurantScreen', { restaurantId })
+   }
    return (
       <>
          <View style={styles.container}>
@@ -139,39 +145,7 @@ export default Home = ({ navigation }) => {
                         <Text style={fontStyles.darkFontBold}>Restaurant Near You</Text>
                      </View>
                   </View>
-                  <TouchableOpacity onPress={() => navigation.navigate('RestaurantScreen', { restaurantId })}>
-                     <View style={homeStyles.mainCard}>
-                        <View style={homeStyles.cardImg}>
-                           <Image style={homeStyles.imgStyle} source={{ uri: "https://storage.googleapis.com/assets.paprika.co.id/120x120/592804c99a279.jpg" }} />
-                        </View>
-                        <View style={homeStyles.cardDsc}>
-                           <Text
-                              style={fontStyles.cardRestoTitle}>D'Raja Coffee
-                           </Text>
-                           <Text
-                              style={fontStyles.cardRestoAddress}>Perumahan Cemara Asri, Jl. Boulevard No. 85 asdasasd sfsdfs sdfsdf ssdfsd ssdf dsfs sdfs
-                           </Text>
-                           <Text
-                              style={fontStyles.cardRestoNation}>Indonesian
-                           </Text>
-                        </View>
-                     </View>
-                     <View style={homeStyles.mainCard}>
-                        <View style={homeStyles.cardImg}>
-                           <Image style={homeStyles.imgStyle} source={{ uri: "https://storage.googleapis.com/assets.paprika.co.id/120x120/592804c99a279.jpg" }} />
-                        </View>
-                        <View style={homeStyles.cardDsc}>
-                           <Text
-                              style={fontStyles.cardRestoTitle}>D'Raja Coffee
-                           </Text>
-                           <Text
-                              style={fontStyles.cardRestoAddress}>Perumahan Cemara Asri, Jl. Boulevard No. 85 asdasasd sfsdfs sdfsdf ssdfsd ssdf dsfs sdfs
-                           </Text>
-                           <Text
-                              style={fontStyles.cardRestoNation}>Indonesian
-                           </Text>
-                        </View>
-                     </View>
+                  <TouchableOpacity onPress={() => doDetail()}>
                      <View style={homeStyles.mainCard}>
                         <View style={homeStyles.cardImg}>
                            <Image style={homeStyles.imgStyle} source={{ uri: "https://storage.googleapis.com/assets.paprika.co.id/120x120/592804c99a279.jpg" }} />
