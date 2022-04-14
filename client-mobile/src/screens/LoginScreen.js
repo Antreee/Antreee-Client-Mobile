@@ -1,81 +1,156 @@
-import React, { Component, useState, useDispatch, useNavigate } from 'react'
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native'
+import { View, StyleSheet, ImageBackground, TouchableWithoutFeedback } from 'react-native';
+import { Button, Card, Input, Text, Icon } from '@ui-kitten/components';
+import React from 'react';
 
-function TabScreenTwo({ navigation }) {
-  const [input, setInput] = React.useState({
+const AlertIcon = (props) => (
+  <Icon {...props} name='alert-circle-outline' />
+);
+
+export default function Login({ navigation }) {
+  const [value, setValue] = React.useState({
     email: '',
-    password: '',
-  })
+    password: ''
+  });
 
-  function handleChange(event) {
-    const { name, value } = event.target
 
-    setInput(() => {
-      return {
-        ...input,
-        [name]: value,
-      }
-    })
-  }
+  const [secureTextEntry, setSecureTextEntry] = React.useState(true);
+  const toggleSecureEntry = () => {
+    setSecureTextEntry(!secureTextEntry);
+  };
+  const renderIcon = (props) => (
+    <TouchableWithoutFeedback onPress={toggleSecureEntry}>
+      <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} />
+    </TouchableWithoutFeedback>
+  );
 
-  async function handleSubmit(event) {
-    event.preventDefault()
-
-    let data = await axios.post(
-      'http://localhost:4000/customers/login',
-      loginData
+  const renderCaption = () => {
+    return (
+      <View style={styles.captionContainer}>
+        {AlertIcon(styles.captionIcon)}
+      </View>
     )
-
-    //Set local storage with accessToken
-    //Navigate to homepage/cart
   }
+  function onPressLearnMore() {
+    navigation.navigate('Tabs')
+  }
+
+
+  const Footer = (props) => (
+    <View {...props} style={[props.style, styles.footerContainer]}>
+      <Button
+        style={styles.footerControl}
+        appearance='outline'
+        status='warning'
+        onPress={onPressLearnMore}
+        size='small'>
+        LOGIN
+      </Button>
+      <Button
+        style={styles.footerControl}
+        appearance='outline'
+        status='warning'
+        onPress={onPressLearnMore}
+        size='small'>
+        SIGNUP
+      </Button>
+    </View>
+  );
+
+  function mailVaule(el) {
+    setValue({ ...value, email: el })
+  }
+  function passValue(el) {
+    setValue({ ...value, password: el })
+  }
+  console.log(value.email, "==", value.password)
 
   return (
-    <View style={styles.container}>
-      <form className='form' onSubmit={handleSubmit}>
-        <input
-          value={input.email}
-          onChange={handleChange}
-          type='email'
-          className='email form-control'
-          placeholder='Email Address'
-          name='email'
-          required
-        />
-        <input
-          value={input.password}
-          onChange={handleChange}
-          type='password'
-          className='password form-control'
-          placeholder='Password'
-          name='password'
-          required
-        />
-        <button
-          type='submit'
-          className='btn btn-lg col-12'
-          style={{ color: '#f5ebdc' }}
-        >
-          Log in
-        </button>
-      </form>
-    </View>
+    <>
+      <View style={styles.container}>
+        <ImageBackground
+          source={
+            require('../assets/imgTemplate/Signup.png')
+          }
+          resizeMode="cover"
+          style={styles.image}>
+          <React.Fragment>
+
+            <Card style={styles.card} footer={Footer}>
+              <Input
+                placeholder='Email'
+                value={value.email}
+                onChangeText={el => mailVaule(el)}
+              />
+              <Input
+                style={{ marginTop: 10 }}
+                value={value.password}
+                placeholder='Password'
+                caption={renderCaption}
+                accessoryRight={renderIcon}
+                secureTextEntry={secureTextEntry}
+                onChangeText={el => passValue(el)}
+              />
+            </Card>
+
+          </React.Fragment>
+        </ImageBackground>
+      </View>
+    </>
   )
+
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+  },
+  topContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  indicator: {
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10,
-    marginBottom: 10,
-    marginHorizontal: 10,
+  image: {
+    flex: 1,
+    justifyContent: "center",
   },
-})
-
-export default TabScreenTwo
+  btn: {
+    backgroundColor: '#FFFFFF50',
+    borderColor: '#FFFFFF50',
+    width: '70%',
+    alignItems: 'center'
+  },
+  card: {
+    margin: 2,
+    width: '90%',
+    alignSelf: 'center',
+    backgroundColor: '#FFFFFF99',
+    borderColor: '#FFFFFF99',
+  },
+  footerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  footerControl: {
+    marginHorizontal: 2,
+  },
+  captionContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  captionIcon: {
+    width: 10,
+    height: 10,
+    marginRight: 5
+  },
+  captionText: {
+    fontSize: 12,
+    fontWeight: "400",
+    fontFamily: "opensans-regular",
+    color: "#8F9BB3",
+  }
+});

@@ -16,6 +16,7 @@ import Splash from './src/screens/Splash';
 import { TabNav } from './src/components/TabNav';
 import Tabs from './src/components/Tabs'
 import TabScreenThree from './src/screens/TabScreenThree'
+import AuthScreen from './src/screens/AuthScreen';
 // import RestaurantScreen from './src/screens/RestaurantScreen';
 
 export default function App() {
@@ -31,6 +32,7 @@ export default function App() {
               <Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
               <Screen name="TabNav" component={TabNav} options={{ headerShown: false }} />
               <Screen name="TabScreenThree" component={TabScreenThree} options={{ headerShown: false }} />
+              <Screen name="AuthScreen" component={AuthScreen} options={{ headerShown: false }} />
             </Navigator>
           </PaperProvider>
         </ApplicationProvider>

@@ -4,7 +4,7 @@ import { Button } from '@ui-kitten/components';
 
 function Splash({ navigation }) {
    function onPressLearnMore() {
-      navigation.navigate('Tabs')
+      navigation.navigate('AuthScreen');
    }
    return (
       <>
