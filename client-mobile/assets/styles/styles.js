@@ -6,6 +6,9 @@ const styles = StyleSheet.create({
       backgroundColor: 'white',
       paddingTop: 25,
    },
+   restoListWrap: {
+      flex: 1
+   },
    iconSmall: {
       width: 15,
       height: 15,

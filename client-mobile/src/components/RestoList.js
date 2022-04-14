@@ -1,16 +1,28 @@
-export default function RestoList() {
+import { TouchableOpacity, View, Text, Image } from "react-native"
+// Styles ==================================
+import styles from '../../assets/styles/styles';
+import homeStyles from '../../assets/styles/homeStyles';
+import fontStyles from '../../assets/styles/fontStyles';
+import restaurant from '../../data/resto';
+
+export default function RestoList({ resto, navigation }) {
+
+   function doDetail(resto) {
+      navigation.navigate('StackDetail', { resto })
+   }
+
    return (
-      <TouchableOpacity onPress={() => doDetail()}>
+      <TouchableOpacity onPress={() => doDetail(resto)}>
          <View style={homeStyles.mainCard}>
             <View style={homeStyles.cardImg}>
-               <Image style={homeStyles.imgStyle} source={{ uri: "https://storage.googleapis.com/assets.paprika.co.id/120x120/592804c99a279.jpg" }} />
+               <Image style={homeStyles.imgStyle} source={{ uri: resto.logoUrl }} />
             </View>
             <View style={homeStyles.cardDsc}>
                <Text
-                  style={fontStyles.cardRestoTitle}>D'Raja Coffee
+                  style={fontStyles.cardRestoTitle}>{resto.name}
                </Text>
                <Text
-                  style={fontStyles.cardRestoAddress}>Perumahan Cemara Asri, Jl. Boulevard No. 85 asdasasd sfsdfs sdfsdf ssdfsd ssdf dsfs sdfs
+                  style={fontStyles.cardRestoAddress}>{resto.address}
                </Text>
                <Text
                   style={fontStyles.cardRestoNation}>Indonesian

@@ -11,40 +11,44 @@ const restaurant = [
       available: true,
       capacity: 40,
       mainImagesUrl: 'https://awsimages.detik.net.id/community/media/visual/2020/10/20/bukan-romantis-lampu-remang-remang-di-restoran-bikin-makanan-tak-enak_169.png?w=700&q=90',
-      menus: [{
-         Food: [
-            {
-               name: 'Sate Kambing',
-               price: 15000,
-               imagesUrl: 'https://i0.wp.com/resepkoki.id/wp-content/uploads/2017/04/Resep-Sate-kambing.jpg?fit=1920%2C1280&ssl=1',
-               description: 'Gratis BAKSO GORENG ( ISI 8 ) untukmu dengan pesanan min. Rp120.000',
-               available: true
-            },
-            {
-               name: 'Sop Ubi',
-               price: 10000,
-               imagesUrl: 'https://img-global.cpcdn.com/recipes/c9c93860cda69a89/680x482cq70/sop-ubi-khas-makassar-foto-resep-utama.jpg',
-               description: 'ayoo kakak di coba menu baru nih SOP UBI ASLI ENAKNYA',
-               available: true
-            }
-         ],
-         Drink: [
-            {
-               name: 'Brown Sugar',
-               price: 10000,
-               description: 'minuman penyegar dan penambah semangat kerja',
-               imagesUrl: 'https://asset.kompas.com/crops/5075RCk7D4TbptAt2LQJB1k2HoQ=/0x0:1000x667/750x500/data/photo/2019/09/09/5d763bb561af1.jpg',
-               available: true
-            },
-            {
-               name: 'Ice Cofee Boba',
-               description: 'minuman penyegar dan penambah semangat kerja',
-               price: 10000,
-               imagesUrl: 'https://s0.bukalapak.com/bukalapak-kontenz-production/content_attachments/30545/w-740/60628917_368402263784171_7370288076337054705_n_2.jpg',
-               available: true
-            }
-         ]
-      }],
+      menus: [
+         {
+            Food: [
+               {
+                  name: 'Sate Kambing',
+                  price: 15000,
+                  imagesUrl: 'https://i0.wp.com/resepkoki.id/wp-content/uploads/2017/04/Resep-Sate-kambing.jpg?fit=1920%2C1280&ssl=1',
+                  description: 'Gratis BAKSO GORENG ( ISI 8 ) untukmu dengan pesanan min. Rp120.000',
+                  available: true
+               },
+               {
+                  name: 'Sop Ubi',
+                  price: 10000,
+                  imagesUrl: 'https://img-global.cpcdn.com/recipes/c9c93860cda69a89/680x482cq70/sop-ubi-khas-makassar-foto-resep-utama.jpg',
+                  description: 'ayoo kakak di coba menu baru nih SOP UBI ASLI ENAKNYA',
+                  available: true
+               }
+            ]
+         },
+         {
+            Drink: [
+               {
+                  name: 'Brown Sugar',
+                  price: 10000,
+                  description: 'minuman penyegar dan penambah semangat kerja',
+                  imagesUrl: 'https://asset.kompas.com/crops/5075RCk7D4TbptAt2LQJB1k2HoQ=/0x0:1000x667/750x500/data/photo/2019/09/09/5d763bb561af1.jpg',
+                  available: true
+               },
+               {
+                  name: 'Ice Cofee Boba',
+                  description: 'minuman penyegar dan penambah semangat kerja',
+                  price: 10000,
+                  imagesUrl: 'https://s0.bukalapak.com/bukalapak-kontenz-production/content_attachments/30545/w-740/60628917_368402263784171_7370288076337054705_n_2.jpg',
+                  available: true
+               }
+            ]
+         }
+      ],
       admin: 1,
    },
    {
