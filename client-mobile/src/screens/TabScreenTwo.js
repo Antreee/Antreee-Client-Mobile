@@ -1,30 +1,31 @@
-import React, { Component, useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native'
+import { CartContext } from '../components/Tabs'
 
 function TabScreenTwo({ navigation }) {
-  const [cart, setCart] = useState()
-  let tempCart = {}
+  const {cart, setCart} = useContext(CartContext)
 
   function increment(menuName) {
-    if (!tempCart[menuName]) {
-      tempCart[menuName] = 1
+    if (!cart[menuName]) {
+      setCart({ ...cart, [menuName]: 1 })
     } else {
-      tempCart[menuName] += 1
+      setCart({ ...cart, [menuName]: (cart[menuName] += 1) })
     }
-    console.log(tempCart)
+    console.log(cart)
   }
+
   function decrement(menuName) {
-    if (tempCart[menuName] > 0) {
-      tempCart[menuName] -= 1
-      console.log(tempCart)
+    if (cart[menuName] > 0) {
+      setCart({ ...cart, [menuName]: (cart[menuName] -= 1) })
+      console.log(cart)
     }
   }
 
   function addToCart() {
-    setCart(tempCart)
+    const cartContext = useContext(cart)
     console.log(cart)
     //Kirim data cart ke database, untuk diquery di halaman keranjang
-    
+
     //Redirect ke halaman keranjang untuk payment
     //navigation.navigate('cartScreen')
   }
@@ -40,7 +41,7 @@ function TabScreenTwo({ navigation }) {
         >
           <Text>-</Text>
         </TouchableOpacity>
-        <Text>{tempCart['Nasi Goreng'] ? tempCart['Nasi Goreng'] : 0}</Text>
+        <Text>{cart['Nasi Goreng'] ? cart['Nasi Goreng'] : 0}</Text>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
@@ -60,7 +61,7 @@ function TabScreenTwo({ navigation }) {
         >
           <Text>-</Text>
         </TouchableOpacity>
-        <Text>{tempCart['Ice tea'] ? tempCart['Ice tea'] : 0}</Text>
+        <Text>{cart['Ice tea'] ? cart['Ice tea'] : 0}</Text>
 
         <TouchableOpacity
           style={styles.button}
@@ -78,6 +79,7 @@ function TabScreenTwo({ navigation }) {
     </View>
   )
 }
+
 
 const styles = StyleSheet.create({
   container: {
