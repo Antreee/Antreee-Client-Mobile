@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, ColorPropType } from "react-native";
 import Color from "../../src/assets/Color";
 const width = Dimensions.get("window").width;
 const styles = StyleSheet.create({
@@ -319,9 +319,175 @@ const styles = StyleSheet.create({
    textAddChart: {
       color: Color.white,
       fontWeight: 'bold'
-   }
+   },
 
    //? == Style Profil User == //
+   profilHead: {
+      width: width,
+      height: 250,
+      borderBottomLeftRadius: 150,
+      borderBottomRightRadius: 150,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: Color.red,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      // zIndex: 5,
+      // marginTop: -300,
+   },
+   welcomeHome: {
+      marginTop: -150,
+      color: Color.white,
+      fontSize: 30,
+   },
+   profilPic: {
+      width: 150,
+      height: 150,
+      alignSelf: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 100,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      backgroundColor: Color.white,
+      zIndex: 100,
+      marginTop: -200
+   },
+   profilInfo: {
+      width: width / 1.1,
+      alignSelf: 'center',
+      height: '100%',
+      borderTopLeftRadius: 100,
+      borderTopRightRadius: 100,
+      marginTop: -80,
+      paddingTop: 120,
+      backgroundColor: Color.white,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      // zIndex: 3
+   },
+   profilInfoLabel: {
+      color: Color.darkGray,
+      fontSize: 13
+   },
+   infoWrap: {
+      width: '80%',
+      // borderWidth: 1,
+      alignSelf: 'center',
+      marginTop: 30,
+      marginBottom: 30,
+   },
+   profilInfoInputWrap: {
+      width: width / 1.1,
+      height: 25,
+      marginBottom: 20,
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginTop: 2,
+   },
+   iconInput: {
+      marginRight: 10,
+   },
+   profilInfoInput: {
+      color: Color.dark,
+      fontWeight: 'bold',
+   },
+   btnButtomWrap: {
+      width: width / 1.1,
+      // borderWidth: 1,
+      height: 100,
+      marginTop: 10,
+      flexDirection: 'row',
+      justifyContent: 'center'
+   },
+   btnLogout: {
+      width: 60,
+      height: 60,
+      backgroundColor: Color.red,
+      borderRadius: 100,
+      shadowColor: "#000",
+      justifyContent: 'center',
+      alignItems: 'center',
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      margin: 10
+   },
+   btnFavo: {
+      margin: 10,
+      width: 60,
+      height: 60,
+      backgroundColor: Color.white,
+      borderRadius: 100,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      justifyContent: 'center',
+      alignItems: 'center',
+   },
+   cardFavHis: {
+      height: 100,
+      alignSelf: 'center',
+      width: width / 1.2,
+      marginBottom: 15,
+      backgroundColor: Color.white,
+      borderRadius: 10,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      flexDirection: 'row',
+   },
+   badgeTitle: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: 30,
+      width: width / 2,
+      backgroundColor: Color.red,
+      borderTopRightRadius: 10,
+      borderTopLeftRadius: 10,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+   },
+   profileCardWrap: {},
+   cardHisList: {},
 })
 
 export default styles;
