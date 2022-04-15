@@ -31,7 +31,6 @@ function TabScreenThree({ navigation }) {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>
   }
-
   return (
     <View style={styles.container}>
       <BarCodeScanner
