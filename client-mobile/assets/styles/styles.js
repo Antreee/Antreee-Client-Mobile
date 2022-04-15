@@ -490,7 +490,7 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.25,
       shadowRadius: 3.84,
       elevation: 5,
-      flexDirection: 'row',
+      flexDirection: 'column',
    },
    badgeTitle: {
       alignItems: 'center',
@@ -530,6 +530,8 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
       width: 300,
+      height: 50,
+      borderWidth: 1,
    },
    cardHisList: {},
 })

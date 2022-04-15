@@ -1,10 +1,10 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import styles from "../../assets/styles/styles";
-import Color from "../assets/Color";
-import users from "../../data/users"
+import styles from "../../../assets/styles/styles";
+import Color from "../../assets/Color";
+import users from "../../../data/users"
 import Ionicons from "react-native-vector-icons/Ionicons"
 
-function Profile({ navigation }) {
+function ProfileScreen() {
    console.log(users)
    return (
       <View style={styles.container}>
@@ -20,12 +20,12 @@ function Profile({ navigation }) {
             </View>
             <View style={styles.infoWrap}>
                <View style={styles.cardFavHis}>
+                  <View style={styles.badgeTitle} />
                   <View style={styles.profileCardWrap}>
-                     <View style={styles.badgeTitle} />
-                     <View style={styles.badgeTitle2} />
 
+                     <View style={styles.cardHisList}></View>
                   </View>
-                  <View style={styles.cardHisList}></View>
+                  <View style={styles.badgeTitle2} />
                </View>
                <View style={styles.profilInfoInputWrap}>
                   <Ionicons style={styles.iconInput} name="person-circle-sharp" size={19} color={Color.red} />
@@ -56,4 +56,4 @@ function Profile({ navigation }) {
    );
 }
 
-export default Profile
+export default ProfileScreen

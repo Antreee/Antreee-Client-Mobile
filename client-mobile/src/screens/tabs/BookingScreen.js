@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 
-function TabScreenTwo({ navigation }) {
+function BookingScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>NewTab 2</Text>
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default TabScreenTwo
+export default BookingScreen

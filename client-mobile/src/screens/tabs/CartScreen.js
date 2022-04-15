@@ -1,15 +1,15 @@
 import { useContext } from 'react'
 import { View, Text } from 'react-native'
-import { CartContext } from '../components/Tabs'
+import { CartContext } from '../../components/Context'
 
-function TabScreenFour({ navigation }) {
+function CartScreen({ navigation }) {
   const { cart } = useContext(CartContext)
-  console.log(cart)
+  console.log(cart, "<===")
   const carts = Object.keys(cart).map((menu) => {
     return [menu, cart[menu]]
   })
 
-  console.log(carts)
+  // console.log(carts)
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -25,4 +25,4 @@ function TabScreenFour({ navigation }) {
   )
 }
 
-export default TabScreenFour
+export default CartScreen

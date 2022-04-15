@@ -1,17 +1,17 @@
 import React, { useRef, useState } from 'react'
 import { Text, View, FlatList, ScrollView, ImageBackground } from 'react-native'
-import styles from '../../assets/styles/styles'
+import styles from '../../../assets/styles/styles'
 import { Icon } from '@ui-kitten/components'
 import { Searchbar } from 'react-native-paper'
-import fontStyles from '../../assets/styles/fontStyles'
+import fontStyles from '../../../assets/styles/fontStyles'
 import { LinearGradient } from 'expo-linear-gradient'
 import Carousel from 'react-native-snap-carousel'
-import Color from '../assets/Color'
-import RestoList from '../components/RestoList'
+import Color from '../../assets/Color'
+import RestaurantCard from '../../components/RestaurantCard'
 import { useQuery } from '@apollo/client'
-import { GET_RESTAURANTS } from '../../config/queries'
+import { GET_RESTAURANTS } from '../../../config/queries'
 
-export default Home = ({ navigation }) => {
+export default HomeScreen = ({ navigation }) => {
   const { loading, error, data } = useQuery(GET_RESTAURANTS)
 
   const [searchQuery, setSearchQuery] = useState('')
@@ -21,27 +21,27 @@ export default Home = ({ navigation }) => {
       {
         title: 'Ayam Bakar',
         text: "D'Raja",
-        image: require('../assets/imgTemplate/img01.jpg'),
+        image: require('../../assets/imgTemplate/img01.jpg'),
       },
       {
         title: 'Sate Kambing',
         text: "D'Raja",
-        image: require('../assets/imgTemplate/img02.jpg'),
+        image: require('../../assets/imgTemplate/img02.jpg'),
       },
       {
         title: 'Sop Kambing',
         text: "D'Raja",
-        image: require('../assets/imgTemplate/img03.jpg'),
+        image: require('../../assets/imgTemplate/img03.jpg'),
       },
       {
         title: 'Coto Makassar',
         text: "D'Raja",
-        image: require('../assets/imgTemplate/img04.jpg'),
+        image: require('../../assets/imgTemplate/img04.jpg'),
       },
       {
         title: 'Ikan Palumara',
         text: "D'Raja",
-        image: require('../assets/imgTemplate/img05.jpg'),
+        image: require('../../assets/imgTemplate/img05.jpg'),
       },
     ],
   })
@@ -162,9 +162,9 @@ export default Home = ({ navigation }) => {
                 <FlatList
                   data={data.restaurants}
                   renderItem={({ item }) => (
-                    <RestoList resto={item} navigation={navigation} />
+                    <RestaurantCard resto={item} key={item._id} navigation={navigation} />
                   )}
-                  keyExtractor={(item) => item.id}
+                  keyExtractor={(item) => item._id}
                 />
               </View>
             )}

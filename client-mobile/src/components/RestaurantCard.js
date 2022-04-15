@@ -1,15 +1,13 @@
 import { TouchableOpacity, View, Text, Image } from "react-native"
-// Styles ==================================
-import styles from '../../assets/styles/styles';
 import homeStyles from '../../assets/styles/homeStyles';
 import fontStyles from '../../assets/styles/fontStyles';
-import restaurant from '../../data/resto';
 
-export default function RestoList({ resto, navigation }) {
+export default function RestaurantCard({ resto, navigation }) {
 
    function doDetail(id) {
-      navigation.navigate('StackDetail', { id })
+      navigation.navigate('RestaurantScreen', { id })
    }
+   console.log(resto, "<==")
 
    return (
       <TouchableOpacity onPress={() => doDetail(resto._id)}>

@@ -1,14 +1,15 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import TabScreenTwo from '../screens/TabScreenTwo'
-import TabScreenThree from '../screens/TabScreenThree'
-import TabScreenFour from '../screens/TabScreenFour'
-import Profile from '../screens/Profile'
+import BookingScreen from '../screens/tabs/BookingScreen'
+import QrScanScreen from '../screens/tabs/QrScanScreen'
+import CartScreen from '../screens/tabs/CartScreen'
+import ProfileScreen from '../screens/tabs/ProfileScreen'
 import { View, Image, Text, TouchableOpacity } from 'react-native'
 import Color from '../assets/Color'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import Home from '../screens/Home'
-import { createContext, useState } from 'react'
-export const CartContext = createContext()
+import HomeNavigator from './HomeNavigator'
+import { useState } from 'react'
+
+import { CartContext } from './Context'
 
 const Tab = createBottomTabNavigator()
 
@@ -39,8 +40,8 @@ const Tabs = ({ navigation }) => {
         }}
       >
         <Tab.Screen
-          name='Home'
-          component={Home}
+          name='HomeNavigator'
+          component={HomeNavigator}
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size }) => (
@@ -70,24 +71,23 @@ const Tabs = ({ navigation }) => {
           }}
         />
         <Tab.Screen
-          name='TabScreenTwo'
-          component={TabScreenTwo}
+          name='BookingScreen'
+          component={BookingScreen}
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size }) => (
               <Ionicons name='briefcase' color={color} size={size} />
             ),
             tabBarLabel: 'Booking',
-            tabBarBadge: 2,
           }}
         />
         <Tab.Screen
-          name='TabScreenThree'
-          component={TabScreenThree}
+          name='QrScanScreen'
+          component={QrScanScreen}
           options={({ navigation }) => ({
             tabBarButton: (props) => (
               <TouchableOpacity
-                onPress={() => navigation.navigate('TabScreenThree')}
+                onPress={() => navigation.navigate('QrScanScreen')}
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
@@ -119,19 +119,19 @@ const Tabs = ({ navigation }) => {
           })}
         />
         <Tab.Screen
-          name='TabScreenFour'
-          component={TabScreenFour}
+          name='CartScreen'
+          component={CartScreen}
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name='ios-heart' color={color} size={size} />
+              <Ionicons name='ios-cart' color={color} size={size} />
             ),
-            tabBarLabel: 'Favourite',
+            tabBarLabel: 'My Cart',
           }}
         />
         <Tab.Screen
-          name='Profile'
-          component={Profile}
+          name='ProfileScreen'
+          component={ProfileScreen}
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size }) => (

@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Text, View, StyleSheet, Button } from 'react-native'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 
-function TabScreenThree({ navigation }) {
+function QrScanScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null)
   const [scanned, setScanned] = useState(false)
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync()
       setHasPermission(status === 'granted')
     })()
@@ -19,7 +19,7 @@ function TabScreenThree({ navigation }) {
     const qrData = JSON.parse(data)
     console.log('qrData', qrData)
 
-    navigation.navigate('StackDetail', {
+    navigation.navigate('RestaurantScreen', {
       id: qrData.restaurantId,
       tableNumber: qrData.tableNumber,
     })
@@ -53,4 +53,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default TabScreenThree
+export default QrScanScreen

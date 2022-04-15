@@ -1,20 +1,18 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
-import styles from '../../assets/styles/styles'
-// import restaurant from "../../data/restaurant"; // sementara
-import Color from '../assets/Color'
+import styles from '../../../assets/styles/styles'
+import Color from '../../assets/Color'
 import Carousel from 'react-native-snap-carousel'
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
-import { useContext, useEffect, useRef, useState } from 'react'
-import { CartContext } from '../components/Tabs'
+import { useEffect, useRef, useState } from 'react'
 
-import CardListMenu from '../components/CardListMenu'
+import CardListMenu from '../../components/CardListMenu'
 import { useQuery } from '@apollo/client'
-import { GET_RESTAURANT_BY_ID } from '../../config/queries'
+import { GET_RESTAURANT_BY_ID } from '../../../config/queries'
 
-function StackDetail({ route, navigation }) {
+function RestaurantScreen({ route, navigation }) {
   const { id, tableNumber } = route.params
   console.log('idddddddddddddd', id)
   console.log('tableNumberrrrrrrrrrrrrrr', tableNumber)
@@ -36,45 +34,6 @@ function StackDetail({ route, navigation }) {
 
   const restaurant = data.restaurant
   const items = data.itemsByRestaurantId
-  // console.log('items', items)
-  // const [restaurant, setrestaurant] = useState([])
-
-  // useEffect(() => {
-  //    const { id } = route.params
-  //    if (id) {
-  //       const tmp = restaurant.find(item => item._id === id)
-  //       setrestaurant(tmp)
-  //    }
-  // }, [id])
-
-  //    let imagesList = []
-
-  //    restaurant.mainImagesUrl.forEach(el => {
-  //       if (el) {
-  //          imagesList.push({ images: el })
-  //       }
-  //    })
-  //    setState({
-  //       ...state,
-  //       carouselItems: imagesList
-  //    })
-  // }, [id])
-
-  // const restaurant = restaurant.find(item => item._id === id)
-  // console.log("🚀 ~ file: StackDetail.js ~ line 50 ~ restaurant", restaurant)
-
-  // let imagesList = []
-
-  // restaurant.mainImagesUrl.forEach(el => {
-  //    if (el) {
-  //       setState({
-  //          ...state,
-  //          carouselItems: { image: el }
-  //       })
-  //    }
-  // })
-
-  // console.log(imagesList, "==")
 
   const myCuisine = restaurant.cuisine.join(', ')
   const able = () => {
@@ -196,7 +155,7 @@ function StackDetail({ route, navigation }) {
             </View>
             <View style={styles.menuListWrap}>
               <View>
-                <CardListMenu myMenus={myMenus} />
+                <CardListMenu key={restaurant._id} myMenus={myMenus} />
               </View>
             </View>
           </ScrollView>
@@ -206,4 +165,4 @@ function StackDetail({ route, navigation }) {
   )
 }
 
-export default StackDetail
+export default RestaurantScreen;

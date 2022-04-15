@@ -2,13 +2,13 @@ import { useContext } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo'
 import styles from '../../assets/styles/styles'
-import { CartContext } from './Tabs'
+import { CartContext } from './Context'
 import Color from '../assets/Color';
-import { useMutation } from '@apollo/client'
-import { ADD_TO_CART } from '../../config/queries'
+// import { useMutation } from '@apollo/client'
+// import { ADD_TO_CART } from '../../config/queries'
 
 export default function CardListMenu({ myMenus }) {
-   const [mutationAddToCart, { data, loading, error }] = useMutation(ADD_TO_CART)
+   // const [mutationAddToCart, { data, loading, error }] = useMutation(ADD_TO_CART)
    const { cart, setCart } = useContext(CartContext)
 
    function currencyFormat(num) {
@@ -22,20 +22,20 @@ export default function CardListMenu({ myMenus }) {
       } else {
          setCart({ ...cart, [itemId]: (cart[itemId] += 1) })
       }
-      console.log(cart)
+      // console.log(cart)
    }
 
    function decrement(itemId) {
       if (cart[itemId] > 0) {
          setCart({ ...cart, [itemId]: (cart[itemId] -= 1) })
-         console.log(cart)
+         // console.log(cart)
       }
    }
    function addToCart() {
-      const cartContext = useContext(cart)
+      // const cartContext = useContext(cart)
       console.log(cart)
 
-      mutationAddToCart({ variables: cart });
+      // mutationAddToCart({ variables: cart });
       setCart({})
       //Kirim data cart ke database, untuk diquery di halaman keranjang
 

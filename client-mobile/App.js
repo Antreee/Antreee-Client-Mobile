@@ -13,9 +13,8 @@ const { Navigator, Screen } = createNativeStackNavigator()
 
 // Screens:
 import Splash from './src/screens/Splash'
-import { TabNav } from './src/components/TabNav'
 import Tabs from './src/components/Tabs'
-import TabScreenThree from './src/screens/TabScreenThree'
+import QrScanScreen from './src/screens/tabs/QrScanScreen'
 import AuthScreen from './src/screens/AuthScreen'
 // import RestaurantScreen from './src/screens/RestaurantScreen';
 import { ApolloProvider } from '@apollo/client'
@@ -41,13 +40,8 @@ export default function App() {
                   options={{ headerShown: false }}
                 />
                 <Screen
-                  name='TabNav'
-                  component={TabNav}
-                  options={{ headerShown: false }}
-                />
-                <Screen
-                  name='TabScreenThree'
-                  component={TabScreenThree}
+                  name='QrScanScreen'
+                  component={QrScanScreen}
                   options={{ headerShown: false }}
                 />
                 <Screen
