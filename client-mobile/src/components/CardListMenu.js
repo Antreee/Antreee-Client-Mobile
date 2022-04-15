@@ -58,7 +58,7 @@ export default function CardListMenu({ myMenus }) {
                            menu[Object.keys(menu)].map((item, index) => {
                               return (
                                  <View key={index} style={styles.itemListItem}>
-                                    <Image source={{ uri: item.imagesUrl }} style={styles.imgCardMenu} />
+                                    <Image source={{ uri: item.imageUrl }} style={styles.imgCardMenu} />
                                     <View style={styles.itemListItemLeft}>
                                        <Text style={styles.itemListItemName}>{item.name}</Text>
                                        <Text style={styles.itemListItemPrice}>{
@@ -77,7 +77,7 @@ export default function CardListMenu({ myMenus }) {
                                              <Entypo name="squared-minus" size={20} color={Color.red} />
                                           </TouchableOpacity>
 
-                                          <Text style={styles.itemCounter}>{cart[item.name] ? cart[item.name] : 0}</Text>
+                                          <Text style={styles.itemCounter}>{cart[item._id] ? cart[item._id] : 0}</Text>
 
                                           <TouchableOpacity
                                              style={styles.button}

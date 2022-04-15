@@ -16,26 +16,24 @@ import { GET_RESTAURANT_BY_ID } from '../../config/queries'
 
 function StackDetail({ route, navigation }) {
   const { id } = route.params
-  console.log('id', id)
-  let carouselRef = useRef()
-  const [state, setState] = useState({
-   activeIndex: 0,
-   carouselItems: [],
- })
-  const { cart, setCart } = useContext(CartContext)
+  //   let carouselRef = useRef()
+  //   const [state, setState] = useState({
+  //    activeIndex: 0,
+  //    carouselItems: [],
+  //  })
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
-    variables: { id },
+    variables: { id, itemsByRestaurantIdId2: id },
   })
   if (loading) {
     return <Text>Loading...</Text>
   }
+  if (error) {
+    return <Text>error...</Text>
+  }
 
-  console.log('data', data)
   const restaurant = data.restaurant
-
-
-  
-
+  const items = data.itemsByRestaurantId
+  console.log('items', items)
   // const [restaurant, setrestaurant] = useState([])
 
   // useEffect(() => {
@@ -88,9 +86,12 @@ function StackDetail({ route, navigation }) {
     }
   }
 
-  const foods = restaurant.Items.filter((item) => item.category === 'Food')
-  const drinks = restaurant.Items.filter((item) => item.category === 'Drink')
-  const snacks = restaurant.Items.filter((item) => item.category === 'Snack')
+  const foods = items.filter((item) => item.categoryItem === 'food')
+  console.log('foods', foods)
+  const drinks = items.filter((item) => item.categoryItem === 'drink')
+  console.log('drinks', drinks)
+  const snacks = items.filter((item) => item.categoryItem === 'snack')
+  console.log('snacks', snacks)
   const myMenus = [
     {
       Foods: foods,

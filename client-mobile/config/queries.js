@@ -22,7 +22,7 @@ export const GET_RESTAURANTS = gql`
 `
 
 export const GET_RESTAURANT_BY_ID = gql`
-  query Restaurant($id: ID!) {
+  query Restaurant($id: ID!, $itemsByRestaurantIdId2: ID!) {
     restaurant(_id: $id) {
       _id
       name
@@ -38,6 +38,15 @@ export const GET_RESTAURANT_BY_ID = gql`
       capacity
       mainImagesUrl
       adminId
+    }
+    itemsByRestaurantId(_id: $itemsByRestaurantIdId2) {
+      _id
+      restaurantId
+      name
+      price
+      categoryItem
+      imageUrl
+      description
     }
   }
 `
