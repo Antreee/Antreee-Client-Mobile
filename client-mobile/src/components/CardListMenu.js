@@ -4,8 +4,11 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import styles from '../../assets/styles/styles'
 import { CartContext } from './Tabs'
 import Color from '../assets/Color';
+import { useMutation } from '@apollo/client'
+import { ADD_TO_CART } from '../../config/queries'
 
 export default function CardListMenu({ myMenus }) {
+   const [mutationAddToCart, { data, loading, error }] = useMutation(ADD_TO_CART)
    const { cart, setCart } = useContext(CartContext)
 
    function currencyFormat(num) {
@@ -13,24 +16,27 @@ export default function CardListMenu({ myMenus }) {
    }
 
    // == CART FUNCTION ==
-   function increment(menuName) {
-      if (!cart[menuName]) {
-         setCart({ ...cart, [menuName]: 1 })
+   function increment(itemId) {
+      if (!cart[itemId]) {
+         setCart({ ...cart, [itemId]: 1 })
       } else {
-         setCart({ ...cart, [menuName]: (cart[menuName] += 1) })
+         setCart({ ...cart, [itemId]: (cart[itemId] += 1) })
       }
       console.log(cart)
    }
 
-   function decrement(menuName) {
-      if (cart[menuName] > 0) {
-         setCart({ ...cart, [menuName]: (cart[menuName] -= 1) })
+   function decrement(itemId) {
+      if (cart[itemId] > 0) {
+         setCart({ ...cart, [itemId]: (cart[itemId] -= 1) })
          console.log(cart)
       }
    }
    function addToCart() {
       const cartContext = useContext(cart)
       console.log(cart)
+
+      mutationAddToCart({ variables: cart });
+      setCart({})
       //Kirim data cart ke database, untuk diquery di halaman keranjang
 
       //Redirect ke halaman keranjang untuk payment
@@ -52,7 +58,7 @@ export default function CardListMenu({ myMenus }) {
                            menu[Object.keys(menu)].map((item, index) => {
                               return (
                                  <View key={index} style={styles.itemListItem}>
-                                    <Image source={{ uri: item.imagesUrl }} style={styles.imgCardMenu} />
+                                    <Image source={{ uri: item.imageUrl }} style={styles.imgCardMenu} />
                                     <View style={styles.itemListItemLeft}>
                                        <Text style={styles.itemListItemName}>{item.name}</Text>
                                        <Text style={styles.itemListItemPrice}>{
@@ -66,24 +72,24 @@ export default function CardListMenu({ myMenus }) {
                                        <View style={styles.groupOrderView}>
                                           <TouchableOpacity
                                              style={styles.btnOrder}
-                                             onPress={() => decrement(item.name)}
+                                             onPress={() => decrement(item._id)}
                                           >
                                              <Entypo name="squared-minus" size={20} color={Color.red} />
                                           </TouchableOpacity>
 
-                                          <Text style={styles.itemCounter}>{cart[item.name] ? cart[item.name] : 0}</Text>
+                                          <Text style={styles.itemCounter}>{cart[item._id] ? cart[item._id] : 0}</Text>
 
                                           <TouchableOpacity
                                              style={styles.button}
                                              onPress={() => {
-                                                increment(item.name)
+                                                increment(item._id)
                                              }}
                                           >
                                              <Entypo name="squared-plus" size={20} color={Color.red} />
                                           </TouchableOpacity>
                                        </View>
                                        <View style={styles.addChart}>
-                                          <TouchableOpacity style={styles.btnAddChart} onPress={() => addToCart}>
+                                          <TouchableOpacity style={styles.btnAddChart} onPress={() => addToCart(item._id)}>
                                              <Entypo name="shopping-cart" size={15} color={Color.white} />
                                              <Text style={styles.textAddChart}>Add</Text>
                                           </TouchableOpacity>
