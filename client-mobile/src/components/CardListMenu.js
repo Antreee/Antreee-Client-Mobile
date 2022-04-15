@@ -8,7 +8,7 @@ import { useMutation } from '@apollo/client'
 import { ADD_TO_CART } from '../../config/queries'
 
 export default function CardListMenu({ myMenus }) {
-   // const [mutationAddToCart, { data, loading, error }] = useMutation(ADD_TO_CART)
+   const [mutationAddToCart, { data, loading, error }] = useMutation(ADD_TO_CART)
    const { cart, setCart } = useContext(CartContext)
 
    function currencyFormat(num) {
@@ -89,7 +89,7 @@ export default function CardListMenu({ myMenus }) {
                                           </TouchableOpacity>
                                        </View>
                                        <View style={styles.addChart}>
-                                          <TouchableOpacity style={styles.btnAddChart} onPress={() => addToCart}>
+                                          <TouchableOpacity style={styles.btnAddChart} onPress={() => addToCart(item._id)}>
                                              <Entypo name="shopping-cart" size={15} color={Color.white} />
                                              <Text style={styles.textAddChart}>Add</Text>
                                           </TouchableOpacity>

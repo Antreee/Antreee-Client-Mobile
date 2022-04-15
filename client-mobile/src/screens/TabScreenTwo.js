@@ -1,15 +1,12 @@
-import React, { createContext, useContext, useState } from 'react'
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native'
-import { CartContext } from '../components/Tabs'
+import { StyleSheet, Text, View } from 'react-native'
 
 function TabScreenTwo({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-       <Text>NewTab 2</Text>
+      <Text>NewTab 2</Text>
     </View>
- );
+  )
 }
-
 
 const styles = StyleSheet.create({
   container: {

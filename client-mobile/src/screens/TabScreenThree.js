@@ -16,7 +16,13 @@ function TabScreenThree({ navigation }) {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true)
 
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`)
+    const qrData = JSON.parse(data)
+    console.log('qrData', qrData)
+
+    navigation.navigate('StackDetail', {
+      id: qrData.restaurantId,
+      tableNumber: qrData.tableNumber,
+    })
   }
 
   if (hasPermission === null) {

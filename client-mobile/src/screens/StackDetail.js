@@ -15,7 +15,10 @@ import { useQuery } from '@apollo/client'
 import { GET_RESTAURANT_BY_ID } from '../../config/queries'
 
 function StackDetail({ route, navigation }) {
-  const { id } = route.params
+  const { id, tableNumber } = route.params
+  console.log('idddddddddddddd', id)
+  console.log('tableNumberrrrrrrrrrrrrrr', tableNumber)
+
   //   let carouselRef = useRef()
   //   const [state, setState] = useState({
   //    activeIndex: 0,
@@ -33,7 +36,7 @@ function StackDetail({ route, navigation }) {
 
   const restaurant = data.restaurant
   const items = data.itemsByRestaurantId
-  console.log('items', items)
+  // console.log('items', items)
   // const [restaurant, setrestaurant] = useState([])
 
   // useEffect(() => {
@@ -87,11 +90,8 @@ function StackDetail({ route, navigation }) {
   }
 
   const foods = items.filter((item) => item.categoryItem === 'food')
-  console.log('foods', foods)
   const drinks = items.filter((item) => item.categoryItem === 'drink')
-  console.log('drinks', drinks)
   const snacks = items.filter((item) => item.categoryItem === 'snack')
-  console.log('snacks', snacks)
   const myMenus = [
     {
       Foods: foods,
@@ -187,6 +187,12 @@ function StackDetail({ route, navigation }) {
                 />
               </View>
               {able()}
+
+              {tableNumber && (
+                <View>
+                  <Text>Table Number: {tableNumber}</Text>
+                </View>
+              )}
             </View>
             <View style={styles.menuListWrap}>
               <View>

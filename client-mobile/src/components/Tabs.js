@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import TabScreen from '../screens/TabScreen'
 import TabScreenTwo from '../screens/TabScreenTwo'
 import TabScreenThree from '../screens/TabScreenThree'
 import TabScreenFour from '../screens/TabScreenFour'
@@ -12,37 +11,6 @@ import { createContext, useState } from 'react'
 export const CartContext = createContext()
 
 const Tab = createBottomTabNavigator()
-const tabBarButton = ({ props }) => {
-  return (
-    <TouchableOpacity
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: Color.red,
-        width: 65,
-        height: 65,
-        marginTop: -35,
-        borderRadius: 100,
-        borderColor: '#FFFFFF',
-        borderWidth: 2,
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.23,
-        shadowRadius: 2.62,
-        elevation: 4,
-      }}
-    >
-      <Image
-        source={require('../../assets/icons/scan.png')}
-        style={{ width: 38, height: 38, tintColor: Color.white }}
-      />
-    </TouchableOpacity>
-  )
-}
 
 const Tabs = ({ navigation }) => {
   const [cart, setCart] = useState({})
