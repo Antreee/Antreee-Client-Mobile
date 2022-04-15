@@ -140,6 +140,29 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center'
    },
+   restaurantAddress: {
+      width: width / 1.1,
+      height: 50,
+      // borderWidth: 1,
+      alignSelf: 'center',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+   },
+   restaurantAddressIcon: {},
+   restaurantAddressText: {
+      width: 300,
+      color: Color.dark,
+   },
+   restaurantAvailable: {
+      width: width / 1.1,
+      height: 35,
+      // borderWidth: 1,
+      alignSelf: 'center',
+      flexDirection: 'row',
+      marginTop: 5,
+      // justifyContent: 'space-between',
+   },
+   restaurantAddressIcon: {},
    btnLove: {
       backgroundColor: Color.white,
       height: 35,
@@ -472,10 +495,10 @@ const styles = StyleSheet.create({
    badgeTitle: {
       alignItems: 'center',
       justifyContent: 'center',
-      height: 30,
-      width: width / 2,
+      height: 10,
+      width: width / 2.4,
       backgroundColor: Color.red,
-      borderTopRightRadius: 10,
+      borderBottomRightRadius: 10,
       borderTopLeftRadius: 10,
       shadowColor: "#000",
       shadowOffset: {
@@ -486,7 +509,28 @@ const styles = StyleSheet.create({
       shadowRadius: 3.84,
       elevation: 5,
    },
-   profileCardWrap: {},
+   badgeTitle2: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: 10,
+      width: width / 2.4,
+      backgroundColor: Color.red,
+      borderBottomLeftRadius: 10,
+      borderTopRightRadius: 10,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+   },
+   profileCardWrap: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: 300,
+   },
    cardHisList: {},
 })
 

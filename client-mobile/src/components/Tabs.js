@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import TabScreenTwo from '../screens/TabScreenTwo'
 import TabScreenThree from '../screens/TabScreenThree'
 import TabScreenFour from '../screens/TabScreenFour'
-import TabScreenFive from '../screens/TabScreenFive'
+import Profile from '../screens/Profile'
 import { View, Image, Text, TouchableOpacity } from 'react-native'
 import Color from '../assets/Color'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -130,8 +130,8 @@ const Tabs = ({ navigation }) => {
           }}
         />
         <Tab.Screen
-          name='TabScreenFive'
-          component={TabScreenFive}
+          name='Profile'
+          component={Profile}
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size }) => (
