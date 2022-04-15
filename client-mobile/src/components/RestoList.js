@@ -7,12 +7,12 @@ import restaurant from '../../data/resto';
 
 export default function RestoList({ resto, navigation }) {
 
-   function doDetail(resto) {
-      navigation.navigate('StackDetail', { resto })
+   function doDetail(id) {
+      navigation.navigate('StackDetail', { id })
    }
 
    return (
-      <TouchableOpacity onPress={() => doDetail(resto)}>
+      <TouchableOpacity onPress={() => doDetail(resto._id)}>
          <View style={homeStyles.mainCard}>
             <View style={homeStyles.cardImg}>
                <Image style={homeStyles.imgStyle} source={{ uri: resto.logoUrl }} />

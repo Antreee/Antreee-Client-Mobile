@@ -1,8 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { Text, Image, View, FlatList, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
-// import { FlatList } from "react-native-gesture-handler";
+import { Text, View, FlatList, ScrollView, ImageBackground } from 'react-native';
 import styles from '../../assets/styles/styles';
-import homeStyles from '../../assets/styles/homeStyles';
 import { Icon } from '@ui-kitten/components';
 import { Searchbar } from 'react-native-paper';
 import fontStyles from '../../assets/styles/fontStyles';
@@ -44,8 +42,7 @@ export default Home = ({ navigation }) => {
             image: require('../assets/imgTemplate/img05.jpg'),
          },
       ]
-   }
-   )
+   })
 
    function _renderItem({ item, index }) {
       return (
@@ -61,7 +58,7 @@ export default Home = ({ navigation }) => {
                   resizeMode: 'cover',
                   justifyContent: 'flex-end',
                }}
-               imageStyle={{ borderBottomRightRadius: 20, borderTopRightRadius: 20 }}
+               imageStyle={{ borderRadius: 20 }}
             >
                <View style={{
                   backgroundColor: 'rgba(0,0,0,0.5)',
@@ -69,6 +66,7 @@ export default Home = ({ navigation }) => {
                   justifyContent: 'space-between',
                   alignItems: 'center',
                   borderBottomRightRadius: 20,
+                  borderBottomLeftRadius: 20,
                   paddingBottom: 10,
                }}>
                   <Text style={{ fontSize: 30, color: Color.light }}>{item.title}</Text>
