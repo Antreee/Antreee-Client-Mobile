@@ -8,9 +8,15 @@ import { useMutation } from '@apollo/client'
 import { CREATE_ORDER } from '../../config/queries'
 import { WebView } from 'react-native-webview'
 
-export default function CardListMenu({ myMenus }) {
-  const [mutationCreateOrder, { data, loading, error }] = useMutation(CREATE_ORDER)
-  const { cart, setCart } = useContext(CartContext)
+
+export default function CardListMenu({ myMenus, navigation, id }) {
+   // const [mutationAddToCart, { data, loading, error }] = useMutation(ADD_TO_CART)
+   const { cart, setCart } = useContext(CartContext)
+
+// export default function CardListMenu({ myMenus }) {
+  // const [mutationCreateOrder, { data, loading, error }] = useMutation(CREATE_ORDER)
+  // const { cart, setCart } = useContext(CartContext)
+
 
   function currencyFormat(num) {
     return 'Rp.' + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
@@ -25,54 +31,74 @@ export default function CardListMenu({ myMenus }) {
     }
   }
 
-  function decrement(itemId) {
-    if (cart[itemId] > 0) {
-      setCart({ ...cart, [itemId]: (cart[itemId] -= 1) })
-    }
-  }
-  function createOrder() {
-    // const cartContext = useContext(cart)
-    mutationCreateOrder({
-      variables: {
-        customerName: 'Tom',
-        customerPhoneNumber: '012345',
-        tableNumber: 'A-11',
-        totalPrice: 55000,
-        bookingDate: new Date().toString(),
-        numberOfPeople: 10,
-        orderDetails: {
-          data: [
-            {
-              itemId: '625932ad9cca7a6a8c90133a',
-              quantity: 2,
-            },
-            {
-              itemId: '6259334fe01676bc8c826d93',
-              quantity: 3,
-            },
-          ],
-        },
-      },
-    })
-    setCart({})
-    //Kirim data cart ke database, untuk diquery di halaman keranjang
 
-    //Redirect ke halaman keranjang untuk payment
-    //navigation.navigate('cartScreen')
-  }
-  //  == CART FUNCTION END ==
-  if (data) {
-    return (
-      <WebView
-        source={{
-          uri: data.createOrder.message,
-        }}
-        style={{ marginTop: 20, height: 500, width: 500 }}
-      />
-    )
-  }
-  if (loading) return <Text>'Submitting...'</Text>
-  if (error) return <Text>`Submission error! ${error.message}`</Text>
+   function decrement(itemId) {
+      if (cart[itemId] > 0) {
+         setCart({ ...cart, [itemId]: (cart[itemId] -= 1) })
+         // console.log(cart)
+      }
+   }
+   function goToCartScreen() {
+      // const cartContext = useContext(cart)
+      // console.log(cart)
+      navigation.navigate('CartScreen', { id })
+
+      // mutationgoToCartScreen({ variables: cart });
+
+      // setCart({})
+
+   }
+      //Kirim data cart ke database, untuk diquery di halaman keranjang
+
+//   function decrement(itemId) {
+//     if (cart[itemId] > 0) {
+//       setCart({ ...cart, [itemId]: (cart[itemId] -= 1) })
+//     }
+//   }
+//   function createOrder() {
+//     // const cartContext = useContext(cart)
+//     mutationCreateOrder({
+//       variables: {
+//         customerName: 'Tom',
+//         customerPhoneNumber: '012345',
+//         tableNumber: 'A-11',
+//         totalPrice: 55000,
+//         bookingDate: new Date().toString(),
+//         numberOfPeople: 10,
+//         orderDetails: {
+//           data: [
+//             {
+//               itemId: '625932ad9cca7a6a8c90133a',
+//               quantity: 2,
+//             },
+//             {
+//               itemId: '6259334fe01676bc8c826d93',
+//               quantity: 3,
+//             },
+//           ],
+//         },
+//       },
+//     })
+//     setCart({})
+//     //Kirim data cart ke database, untuk diquery di halaman keranjang
+
+//     //Redirect ke halaman keranjang untuk payment
+//     //navigation.navigate('cartScreen')
+//   }
+//   //  == CART FUNCTION END ==
+//   if (data) {
+//     return (
+//       <WebView
+//         source={{
+//           uri: data.createOrder.message,
+//         }}
+//         style={{ marginTop: 20, height: 500, width: 500 }}
+//       />
+//     )
+//   }
+//   if (loading) return <Text>'Submitting...'</Text>
+//   if (error) return <Text>`Submission error! ${error.message}`</Text>
+
 
   return (
     <>
@@ -118,40 +144,37 @@ export default function CardListMenu({ myMenus }) {
                           {cart[item._id] ? cart[item._id] : 0}
                         </Text>
 
-                        <TouchableOpacity
-                          style={styles.button}
-                          onPress={() => {
-                            increment(item._id)
-                          }}
-                        >
-                          <Entypo
-                            name='squared-plus'
-                            size={20}
-                            color={Color.red}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                      <View style={styles.addChart}>
-                        <TouchableOpacity
-                          style={styles.btnAddChart}
-                          onPress={() => createOrder(item._id)}
-                        >
-                          <Entypo
-                            name='shopping-cart'
-                            size={15}
-                            color={Color.white}
-                          />
-                          <Text style={styles.textAddChart}>Add</Text>
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                  </View>
-                )
-              })}
-            </View>
-          </>
-        )
-      })}
-    </>
-  )
+
+                                          <Text style={styles.itemCounter}>{cart[item._id] ? cart[item._id] : 0}</Text>
+
+                                          <TouchableOpacity
+                                             style={styles.button}
+                                             onPress={() => {
+                                                increment(item._id)
+                                             }}
+                                          >
+                                             <Entypo name="squared-plus" size={20} color={Color.red} />
+                                          </TouchableOpacity>
+                                       </View>
+                                       <View style={styles.addChart}>
+                                          <TouchableOpacity style={styles.btnAddChart} onPress={() => goToCartScreen(item._id)}>
+                                             <Entypo name="shopping-cart" size={15} color={Color.white} />
+                                             <Text style={styles.textAddChart}>Add</Text>
+                                          </TouchableOpacity>
+                                       </View>
+                                    </View>
+                                 </View>
+                              )
+                           }
+                           )
+                        }
+                     </View>
+                  </>
+               )
+            }
+            )
+         }
+      </>
+   )
+
 }

@@ -20,26 +20,34 @@ function ProfileScreen() {
             </View>
             <View style={styles.infoWrap}>
                <View style={styles.cardFavHis}>
-                  <View style={styles.badgeTitle} />
-                  <View style={styles.profileCardWrap}>
-
-                     <View style={styles.cardHisList}></View>
+                  <View style={styles.cardWrapAll}>
+                     <View style={styles.badgeTitle} />
+                     <View style={styles.profileCardWrap}>
+                        {/* flatlist untuk history */}
+                     </View>
+                     <View style={styles.badgeTitle2} />
                   </View>
-                  <View style={styles.badgeTitle2} />
+                  <View style={styles.cardMoney}>
+                     <Ionicons name="wallet-outline" style={{ marginLeft: 6 }} size={25} color={Color.white} />
+                     <View style={styles.inputMoney}>
+                        <Text style={styles.textMoney}>Rp.100.000</Text>
+                     </View>
+                  </View>
                </View>
-               <View style={styles.profilInfoInputWrap}>
-                  <Ionicons style={styles.iconInput} name="person-circle-sharp" size={19} color={Color.red} />
-                  <Text style={styles.profilInfoInput}>{users.fullName}</Text>
+               <View style={styles.inputWrapAll}>
+                  <View style={styles.profilInfoInputWrap}>
+                     <Ionicons style={styles.iconInput} name="person-circle-sharp" size={19} color={Color.red} />
+                     <Text style={styles.profilInfoInput}>{users.fullName}</Text>
+                  </View>
+                  <View style={styles.profilInfoInputWrap}>
+                     <Ionicons name="ios-at-circle" style={styles.iconInput} size={19} color={Color.red} />
+                     <Text style={styles.profilInfoInput}>{users.email}</Text>
+                  </View>
+                  <View style={styles.profilInfoInputWrap}>
+                     <Ionicons name="md-call" size={19} style={styles.iconInput} color={Color.red} />
+                     <Text style={styles.profilInfoInput}>{users.phoneNumber}</Text>
+                  </View>
                </View>
-               <View style={styles.profilInfoInputWrap}>
-                  <Ionicons name="ios-at-circle" style={styles.iconInput} size={19} color={Color.red} />
-                  <Text style={styles.profilInfoInput}>{users.email}</Text>
-               </View>
-               <View style={styles.profilInfoInputWrap}>
-                  <Ionicons name="md-call" size={19} style={styles.iconInput} color={Color.red} />
-                  <Text style={styles.profilInfoInput}>{users.phoneNumber}</Text>
-               </View>
-
             </View>
             <View style={styles.btnButtomWrap} >
                <TouchableOpacity style={styles.btnFavo}>

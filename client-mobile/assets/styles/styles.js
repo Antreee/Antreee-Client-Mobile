@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
    },
-   carouselWrap: {
+   carouselWrap: { //<=====
       height: 200,
       width: width,
       alignItems: 'center',
@@ -255,8 +255,9 @@ const styles = StyleSheet.create({
    },
    itemListItem: {
       width: width / 2.3,
-      paddingBottom: 10,
+      // paddingBottom: 10,
       paddingTop: 10,
+      // borderWidth: 1,
       alignItems: 'center',
       backgroundColor: Color.white,
       borderRadius: 5,
@@ -274,13 +275,14 @@ const styles = StyleSheet.create({
       marginRight: 10
    },
    imgCardMenu: {
-      width: '90%',
+      width: 100,
       height: 100,
-      borderRadius: 5,
-      borderWidth: 1,
+      // marginBottom: 10,
    },
    itemListItemLeft: {
-      alignItems: 'center'
+      alignItems: 'center',
+      paddingLeft: 5,
+      paddingRight: 5,
    },
    itemListItemName: {
       fontSize: 14,
@@ -303,9 +305,10 @@ const styles = StyleSheet.create({
       borderTopColor: Color.gray,
       borderTopWidth: 1,
       paddingTop: 3,
+      paddingBottom: 3,
       marginTop: 5,
       width: '90%',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       flexDirection: 'row',
    },
    itemCounter: {
@@ -315,6 +318,9 @@ const styles = StyleSheet.create({
    },
    groupOrderView: {
       flexDirection: 'row',
+      justifyContent: 'space-between',
+      // borderWidth: 1,
+      width: '100%'
    },
    addChart: {
       backgroundColor: Color.red,
@@ -414,16 +420,16 @@ const styles = StyleSheet.create({
       width: '80%',
       // borderWidth: 1,
       alignSelf: 'center',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
       marginTop: 30,
       marginBottom: 30,
    },
    profilInfoInputWrap: {
       width: width / 1.1,
-      height: 25,
-      marginBottom: 20,
       flexDirection: 'row',
       alignItems: 'center',
-      marginTop: 2,
    },
    iconInput: {
       marginRight: 10,
@@ -434,11 +440,9 @@ const styles = StyleSheet.create({
    },
    btnButtomWrap: {
       width: width / 1.1,
-      // borderWidth: 1,
-      height: 100,
-      marginTop: 10,
+      marginTop: -15,
       flexDirection: 'row',
-      justifyContent: 'center'
+      justifyContent: 'center',
    },
    btnLogout: {
       width: 60,
@@ -477,6 +481,7 @@ const styles = StyleSheet.create({
    cardFavHis: {
       height: 100,
       alignSelf: 'center',
+      justifyContent: 'space-between',
       width: width / 1.2,
       marginBottom: 15,
       backgroundColor: Color.white,
@@ -489,16 +494,22 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.25,
       shadowRadius: 3.84,
       elevation: 5,
+      flexDirection: 'row',
+
+   },
+   cardWrapAll: {
       flexDirection: 'column',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginLeft: 10
    },
    badgeTitle: {
-      alignItems: 'center',
-      justifyContent: 'center',
+      alignSelf: 'center',
       height: 10,
-      width: width / 2.4,
-      backgroundColor: Color.red,
+      width: width / 4,
+      backgroundColor: Color.gray,
       borderBottomRightRadius: 10,
-      borderTopLeftRadius: 10,
+      borderBottomLeftRadius: 10,
       shadowColor: "#000",
       shadowOffset: {
          width: 0,
@@ -509,13 +520,13 @@ const styles = StyleSheet.create({
       elevation: 5,
    },
    badgeTitle2: {
-      alignItems: 'center',
+      alignSelf: 'center',
       justifyContent: 'center',
       height: 10,
-      width: width / 2.4,
-      backgroundColor: Color.red,
-      borderBottomLeftRadius: 10,
+      width: width / 4,
+      backgroundColor: Color.gray,
       borderTopRightRadius: 10,
+      borderTopLeftRadius: 10,
       shadowColor: "#000",
       shadowOffset: {
          width: 0,
@@ -525,14 +536,198 @@ const styles = StyleSheet.create({
       shadowRadius: 3.84,
       elevation: 5,
    },
+   inputMoney: {
+      width: 94,
+      height: 40,
+      backgroundColor: Color.white,
+      borderTopLeftRadius: 5,
+      borderBottomLeftRadius: 5,
+      alignSelf: 'flex-end',
+      justifyContent: 'center',
+      alignSelf: 'center',
+      alignItems: 'center',
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+   },
+   inputWrapAll: {
+      width: width / 1.3,
+      paddingBottom: 20,
+      paddingTop: 20,
+      backgroundColor: Color.white,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      height: 150,
+      borderRadius: 5,
+      paddingLeft: 10,
+      justifyContent: 'space-between',
+      flexDirection: 'column',
+
+   },
    profileCardWrap: {
+      flexDirection: 'column',
+      alignSelf: 'center',
+      borderRadius: 5,
+      width: width / 2.4,
+      height: 70,
+      backgroundColor: Color.white,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+   },
+   cardMoney: {
+      height: 50,
+      width: 130,
       flexDirection: 'row',
       justifyContent: 'space-between',
-      width: 300,
+      alignItems: 'center',
+      backgroundColor: Color.red,
+      borderTopLeftRadius: 10,
+      borderBottomLeftRadius: 10,
+      alignSelf: 'center',
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+   },
+
+   // ? MY CART
+
+   cartTitle: {
+      backgroundColor: Color.red,
+      width: width,
       height: 50,
+      borderRadius: 5,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      alignItems: 'center',
+      justifyContent: 'center',
+   },
+   cartTitleText: {
+      color: Color.white,
+      fontSize: 20,
+      fontWeight: 'bold',
+   },
+   cartWrap: {
+      width: width / 1.1,
+      justifyContent: 'space-between',
+      alignSelf: 'center',
+      marginTop: 15,
+      borderRadius: 5,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      backgroundColor: Color.white,
+      flexDirection: 'row'
+   },
+   checkOut: {
+      width: width / 1.1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      alignSelf: 'center',
+      marginTop: 15,
+      height: 'auto',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: Color.white,
+   },
+   headCheckout: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: "100%",
+   },
+   headCheckoutText: {
+      color: Color.dark,
+      fontWeight: 'bold'
+   },
+   headPriceText: {
+      color: Color.dark,
+      fontWeight: 'bold',
+      fontSize: 18,
+   },
+   btnCheckOut: {
+      width: width / 2,
+      alignItems: 'center',
+      justifyContent: 'center',
+      alignSelf: 'center',
+      marginTop: 15,
+      height: 40,
+      borderRadius: 10,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      backgroundColor: Color.red,
+   },
+   btnCheckOutText: {
+      color: Color.white,
+      fontWeight: 'bold',
+      fontSize: 18,
+   },
+   imgCartMenu: {
+      width: 80,
+      height: 80,
       borderWidth: 1,
    },
-   cardHisList: {},
+   detailCartMenu: {
+      width: 150,
+      borderWidth: 1,
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+   },
+   cartMenuName: {
+      color: Color.dark,
+      fontWeight: 'bold',
+      fontSize: 13,
+   },
+   cartMenuNameSub: {
+      color: Color.darkGray,
+      fontSize: 11,
+   },
+   cartMenuNamePrice: {
+      fontWeight: 'bold',
+      fontSize: 13,
+   },
+   priceCartMenu: {
+      width: 80,
+      height: 80,
+      borderWidth: 1,
+   },
 })
 
 export default styles;

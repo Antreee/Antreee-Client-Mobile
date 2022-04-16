@@ -93,9 +93,9 @@ const Tabs = ({ navigation }) => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   backgroundColor: Color.red,
-                  width: 65,
-                  height: 65,
-                  marginTop: -35,
+                  width: 55,
+                  height: 55,
+                  marginTop: -20,
                   borderRadius: 100,
                   borderColor: '#FFFFFF',
                   borderWidth: 2,
@@ -111,7 +111,7 @@ const Tabs = ({ navigation }) => {
               >
                 <Image
                   source={require('../../assets/icons/scan.png')}
-                  style={{ width: 38, height: 38, tintColor: Color.white }}
+                  style={{ width: 28, height: 28, tintColor: Color.white }}
                 />
               </TouchableOpacity>
             ),
