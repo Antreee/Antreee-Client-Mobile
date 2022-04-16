@@ -62,7 +62,6 @@ export default function Login({ navigation }) {
   function passValue(el) {
     setValue({ ...value, password: el })
   }
-  console.log(value.email, "==", value.password)
 
   return (
     <>

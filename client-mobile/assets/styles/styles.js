@@ -142,7 +142,6 @@ const styles = StyleSheet.create({
    },
    restaurantAddress: {
       width: width / 1.1,
-      height: 50,
       // borderWidth: 1,
       alignSelf: 'center',
       flexDirection: 'row',

@@ -51,14 +51,15 @@ export const GET_RESTAURANT_BY_ID = gql`
   }
 `
 
-export const ADD_TO_CART = gql`
-  mutation Mutation(
+export const CREATE_ORDER = gql`
+  mutation CreateOrder(
     $customerName: String
     $customerPhoneNumber: String
     $tableNumber: String
     $totalPrice: Int
     $bookingDate: String
     $numberOfPeople: Int
+    $orderDetails: OrderDetails
   ) {
     createOrder(
       customerName: $customerName
@@ -67,6 +68,7 @@ export const ADD_TO_CART = gql`
       totalPrice: $totalPrice
       bookingDate: $bookingDate
       numberOfPeople: $numberOfPeople
+      orderDetails: $orderDetails
     ) {
       message
     }
