@@ -1,7 +1,7 @@
-import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { View, Text, ScrollView, ActivityIndicator, ImageBackground, Dimensions, TouchableOpacity, StyleSheet } from 'react-native'
 import styles from '../../../assets/styles/styles'
 import Color from '../../assets/Color'
-import Carousel from 'react-native-snap-carousel'
+import Carousel from 'react-native-anchor-carousel';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -12,25 +12,45 @@ import CardListMenu from '../../components/CardListMenu'
 import { useQuery } from '@apollo/client'
 import { GET_RESTAURANT_BY_ID } from '../../../config/queries'
 
+import MyPagination from '../../components/MyPagination'
+const INITIAL_INDEX = 0;
+
 function RestaurantScreen({ route, navigation }) {
   const { id, tableNumber } = route.params
 
-  //   let carouselRef = useRef()
-  //   const [state, setState] = useState({
-  //    activeIndex: 0,
-  //    carouselItems: [],
-  //  })
+  const carouselRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
+
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { id, itemsByRestaurantIdId2: id },
   })
+  const { width: windowWidth } = Dimensions.get('window');
+
   if (loading) {
-    return <Text>Loading...</Text>
+    return (
+      <>
+        <View style={{
+          flex: 1,
+          justifyContent: "center", alignItems: 'center', flexDirection: "row",
+          justifyContent: "space-around",
+          padding: 10
+        }}>
+          <ActivityIndicator size="small" color={Color.red} />
+        </View>
+      </>
+    )
   }
   if (error) {
     return <Text>error...</Text>
   }
 
   const restaurant = data.restaurant
+  const carouselImage = restaurant.mainImagesUrl.map(el => {
+    return {
+      uri: el,
+    }
+  })
+
   const items = data.itemsByRestaurantId
 
   const myCuisine = restaurant.cuisine.join(', ')
@@ -61,36 +81,25 @@ function RestaurantScreen({ route, navigation }) {
     },
   ]
 
-  //   function _renderItem({ item, index }) {
-  //      return (
-  //         <View style={{
-  //            backgroundColor: 'floralwhite',
-  //            borderRadius: 20,
-  //            height: 200,
-  //         }}>
-  //            <ImageBackground
-  //               source={item.image}
-  //               style={{
-  //                  flex: 1,
-  //                  resizeMode: 'cover',
-  //                  justifyContent: 'flex-end',
-  //               }}
-  //               imageStyle={{ borderRadius: 20 }}
-  //            >
-  //               <View style={{
-  //                  backgroundColor: 'rgba(0,0,0,0.5)',
-  //                  flexDirection: 'column',
-  //                  justifyContent: 'space-between',
-  //                  alignItems: 'center',
-  //                  borderBottomRightRadius: 20,
-  //                  paddingBottom: 10,
-  //               }}>
-  //               </View>
-  //            </ImageBackground>
-  //         </View>
 
-  //      )
-  //   }
+  function handleCarouselScrollEnd(item, index) {
+    setCurrentIndex(index);
+  }
+  function renderItem({ item, index }) {
+    const { uri } = item;
+    return (
+      <TouchableOpacity
+        activeOpacity={1}
+        style={stylex.item}
+        onPress={() => {
+          carouselRef.current.scrollToIndex(index);
+        }}>
+        <ImageBackground source={{ uri: uri }} style={stylex.imageBackground}>
+        </ImageBackground>
+      </TouchableOpacity>
+    );
+  }
+  // ======================================================
 
   return (
     <>
@@ -99,16 +108,17 @@ function RestaurantScreen({ route, navigation }) {
           <ScrollView>
             <View style={styles.carouselWrap}>
               <View style={styles.contentWrap}>
-                {/* <View style={styles.carouselWrap}> */}
-                {/* <Carousel
-                     layout={"default"}
-                     ref={carouselRef}
-                     data={state.carouselItems}
-                     sliderWidth={300}
-                     itemWidth={300}
-                     renderItem={_renderItem}
-                     onSnapToItem={index => setState({ ...state, activeIndex: index })} /> */}
-                {/* </View> */}
+                <Carousel
+                  style={stylex.carousel}
+                  data={carouselImage}
+                  renderItem={renderItem}
+                  itemWidth={windowWidth}
+                  inActiveOpacity={0.3}
+                  containerWidth={windowWidth}
+                  onScrollEnd={handleCarouselScrollEnd}
+                  ref={carouselRef}
+                />
+                <MyPagination currentIndex={currentIndex} length={carouselImage.length} />
               </View>
             </View>
             <View style={styles.doubleBtn}>
@@ -152,8 +162,8 @@ function RestaurantScreen({ route, navigation }) {
               )}
             </View>
             <View style={styles.menuListWrap}>
-              <View>
-                <CardListMenu key={restaurant._id} myMenus={myMenus} navigation={navigation} id={restaurant._id} />
+              <View style={styles.lestOfWrap}>
+                <CardListMenu key={restaurant._id} myMenus={myMenus} navigation={navigation} tableNumber={tableNumber} id={restaurant._id} />
               </View>
             </View>
           </ScrollView>
@@ -164,3 +174,29 @@ function RestaurantScreen({ route, navigation }) {
 }
 
 export default RestaurantScreen;
+
+const stylex = StyleSheet.create({
+  container: {
+    backgroundColor: '#141518',
+    paddingVertical: 20,
+  },
+  carousel: {
+    backgroundColor: 'white',
+    aspectRatio: 1.5,
+    flexGrow: 0,
+  },
+  item: {
+    borderWidth: 2,
+    backgroundColor: 'white',
+    flex: 1,
+    borderRadius: 5,
+    borderColor: 'white',
+    elevation: 3,
+  },
+  imageBackground: {
+    flex: 2,
+    backgroundColor: '#EBEBEB',
+    borderWidth: 5,
+    borderColor: 'white',
+  },
+});
