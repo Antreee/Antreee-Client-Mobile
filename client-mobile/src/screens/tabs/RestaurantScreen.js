@@ -15,7 +15,6 @@ import { GET_RESTAURANT_BY_ID } from '../../../config/queries'
 function RestaurantScreen({ route, navigation }) {
   const { id, tableNumber } = route.params
 
-
   //   let carouselRef = useRef()
   //   const [state, setState] = useState({
   //    activeIndex: 0,

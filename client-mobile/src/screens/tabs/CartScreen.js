@@ -8,6 +8,7 @@ import { GET_RESTAURANT_BY_ID } from '../../../config/queries'
 function CartScreen({ navigation, route }) {
   const { cart } = useContext(CartContext)
 
+
   const { id } = route.params
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { id, itemsByRestaurantIdId2: id },
@@ -32,6 +33,7 @@ function CartScreen({ navigation, route }) {
   })
 
   console.log("🚀 ~ file: CartScreen.js ~ line 29 ~ carts ~ carts", itemDetail)
+
 
   return (
     <>
