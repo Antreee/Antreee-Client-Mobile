@@ -15,6 +15,13 @@ export default HomeScreen = ({ navigation }) => {
   const { loading, error, data } = useQuery(GET_RESTAURANTS)
 
   const [searchQuery, setSearchQuery] = useState('')
+
+  let filteredQuery
+  if (searchQuery) {
+    data.filter()
+  }
+
+
   const [state, setState] = useState({
     activeIndex: 0,
     carouselItems: [

@@ -7,7 +7,6 @@ export default function RestaurantCard({ resto, navigation }) {
    function doDetail(id) {
       navigation.navigate('RestaurantScreen', { id })
    }
-   console.log(resto, "<==")
 
    return (
       <TouchableOpacity onPress={() => doDetail(resto._id)}>

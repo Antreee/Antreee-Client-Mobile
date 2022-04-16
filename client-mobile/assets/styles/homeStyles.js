@@ -5,11 +5,10 @@ const { width: windowWidth } = Dimensions.get('window')
 const homeStyles = StyleSheet.create({
    mainCard: {
       backgroundColor: 'white',
-      height: 120,
       width: (windowWidth * 95 / 100),
       borderRadius: 8,
       justifyContent: 'flex-start',
-      alignContent: 'center',
+      alignItems: 'center',
       flexWrap: 'wrap',
       flexDirection: 'row',
       padding: 12,
