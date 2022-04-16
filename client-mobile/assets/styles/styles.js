@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
    },
-   carouselWrap: {
+   carouselWrap: { //<=====
       height: 200,
       width: width,
       alignItems: 'center',
@@ -255,8 +255,9 @@ const styles = StyleSheet.create({
    },
    itemListItem: {
       width: width / 2.3,
-      paddingBottom: 10,
+      // paddingBottom: 10,
       paddingTop: 10,
+      // borderWidth: 1,
       alignItems: 'center',
       backgroundColor: Color.white,
       borderRadius: 5,
@@ -274,13 +275,14 @@ const styles = StyleSheet.create({
       marginRight: 10
    },
    imgCardMenu: {
-      width: '90%',
+      width: 100,
       height: 100,
-      borderRadius: 5,
-      borderWidth: 1,
+      // marginBottom: 10,
    },
    itemListItemLeft: {
-      alignItems: 'center'
+      alignItems: 'center',
+      paddingLeft: 5,
+      paddingRight: 5,
    },
    itemListItemName: {
       fontSize: 14,
@@ -303,9 +305,10 @@ const styles = StyleSheet.create({
       borderTopColor: Color.gray,
       borderTopWidth: 1,
       paddingTop: 3,
+      paddingBottom: 3,
       marginTop: 5,
       width: '90%',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       flexDirection: 'row',
    },
    itemCounter: {
@@ -315,6 +318,9 @@ const styles = StyleSheet.create({
    },
    groupOrderView: {
       flexDirection: 'row',
+      justifyContent: 'space-between',
+      // borderWidth: 1,
+      width: '100%'
    },
    addChart: {
       backgroundColor: Color.red,
@@ -603,6 +609,124 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.25,
       shadowRadius: 3.84,
       elevation: 5,
+   },
+
+   // ? MY CART
+
+   cartTitle: {
+      backgroundColor: Color.red,
+      width: width,
+      height: 50,
+      borderRadius: 5,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      alignItems: 'center',
+      justifyContent: 'center',
+   },
+   cartTitleText: {
+      color: Color.white,
+      fontSize: 20,
+      fontWeight: 'bold',
+   },
+   cartWrap: {
+      width: width / 1.1,
+      justifyContent: 'space-between',
+      alignSelf: 'center',
+      marginTop: 15,
+      borderRadius: 5,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      backgroundColor: Color.white,
+      flexDirection: 'row'
+   },
+   checkOut: {
+      width: width / 1.1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      alignSelf: 'center',
+      marginTop: 15,
+      height: 'auto',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: Color.white,
+   },
+   headCheckout: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: "100%",
+   },
+   headCheckoutText: {
+      color: Color.dark,
+      fontWeight: 'bold'
+   },
+   headPriceText: {
+      color: Color.dark,
+      fontWeight: 'bold',
+      fontSize: 18,
+   },
+   btnCheckOut: {
+      width: width / 2,
+      alignItems: 'center',
+      justifyContent: 'center',
+      alignSelf: 'center',
+      marginTop: 15,
+      height: 40,
+      borderRadius: 10,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      backgroundColor: Color.red,
+   },
+   btnCheckOutText: {
+      color: Color.white,
+      fontWeight: 'bold',
+      fontSize: 18,
+   },
+   imgCartMenu: {
+      width: 80,
+      height: 80,
+      borderWidth: 1,
+   },
+   detailCartMenu: {
+      width: 150,
+      borderWidth: 1,
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+   },
+   cartMenuName: {
+      color: Color.dark,
+      fontWeight: 'bold',
+      fontSize: 13,
+   },
+   cartMenuNameSub: {
+      color: Color.darkGray,
+      fontSize: 11,
+   },
+   cartMenuNamePrice: {
+      fontWeight: 'bold',
+      fontSize: 13,
+   },
+   priceCartMenu: {
+      width: 80,
+      height: 80,
+      borderWidth: 1,
    },
 })
 

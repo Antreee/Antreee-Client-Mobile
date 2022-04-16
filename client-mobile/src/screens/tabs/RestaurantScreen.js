@@ -14,8 +14,7 @@ import { GET_RESTAURANT_BY_ID } from '../../../config/queries'
 
 function RestaurantScreen({ route, navigation }) {
   const { id, tableNumber } = route.params
-  console.log('idddddddddddddd', id)
-  console.log('tableNumberrrrrrrrrrrrrrr', tableNumber)
+
 
   //   let carouselRef = useRef()
   //   const [state, setState] = useState({
@@ -155,7 +154,7 @@ function RestaurantScreen({ route, navigation }) {
             </View>
             <View style={styles.menuListWrap}>
               <View>
-                <CardListMenu key={restaurant._id} myMenus={myMenus} />
+                <CardListMenu key={restaurant._id} myMenus={myMenus} navigation={navigation} id={restaurant._id} />
               </View>
             </View>
           </ScrollView>

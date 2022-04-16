@@ -7,7 +7,7 @@ import Color from '../assets/Color';
 // import { useMutation } from '@apollo/client'
 // import { ADD_TO_CART } from '../../config/queries'
 
-export default function CardListMenu({ myMenus }) {
+export default function CardListMenu({ myMenus, navigation, id }) {
    // const [mutationAddToCart, { data, loading, error }] = useMutation(ADD_TO_CART)
    const { cart, setCart } = useContext(CartContext)
 
@@ -31,12 +31,16 @@ export default function CardListMenu({ myMenus }) {
          // console.log(cart)
       }
    }
-   function addToCart() {
+   function goToCartScreen() {
       // const cartContext = useContext(cart)
-      console.log(cart)
+      // console.log(cart)
+      navigation.navigate('CartScreen', { id })
 
-      // mutationAddToCart({ variables: cart });
-      setCart({})
+      // mutationgoToCartScreen({ variables: cart });
+
+      // setCart({})
+
+
       //Kirim data cart ke database, untuk diquery di halaman keranjang
 
       //Redirect ke halaman keranjang untuk payment
@@ -89,7 +93,7 @@ export default function CardListMenu({ myMenus }) {
                                           </TouchableOpacity>
                                        </View>
                                        <View style={styles.addChart}>
-                                          <TouchableOpacity style={styles.btnAddChart} onPress={() => addToCart(item._id)}>
+                                          <TouchableOpacity style={styles.btnAddChart} onPress={() => goToCartScreen(item._id)}>
                                              <Entypo name="shopping-cart" size={15} color={Color.white} />
                                              <Text style={styles.textAddChart}>Add</Text>
                                           </TouchableOpacity>
