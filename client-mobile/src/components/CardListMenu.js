@@ -31,6 +31,7 @@ export default function CardListMenu({ myMenus, navigation, id, tableNumber }) {
    }
    function goToCartScreen() {
       navigation.navigate('CartScreen', { id, tableNumber })
+
       // mutationgoToCartScreen({ variables: cart });
       // setCart({})
    }

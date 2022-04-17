@@ -8,6 +8,7 @@ import { CREATE_ORDER } from '../../../config/queries'
 import { WebView } from 'react-native-webview'
 import Color from '../../assets/Color'
 
+
 import { TextInput, Snackbar, Button } from 'react-native-paper';
 import CartListItems from '../../components/CartListItems'
 
@@ -19,6 +20,7 @@ function CartScreen({ navigation, route }) {
   const [mutationCreateOrder, { data: mutationData, loading: mutationLoading, error: mutationError }] = useMutation(CREATE_ORDER)
   const { cart, setCart } = useContext(CartContext)
   const { id, tableNumber } = route.params ? route.params : { id: null, tableNumber: null }
+
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { id, itemsByRestaurantIdId2: id },
   })
@@ -69,8 +71,9 @@ function CartScreen({ navigation, route }) {
   let itemDetail = []
   let myPrice = 0
   Object.keys(cart).forEach(key => {
+
     let menuItem = data.itemsByRestaurantId
-    menuItem.forEach(elx => {
+    menuItem.forEach((elx) => {
       if (elx._id === key) {
         myPrice += elx.price * cart[key]
         itemDetail.push(
@@ -183,6 +186,7 @@ function CartScreen({ navigation, route }) {
   //     }
   //   })
   // })
+
 
 
   function currencyFormat(num) {

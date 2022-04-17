@@ -24,7 +24,9 @@ function RestaurantScreen({ route, navigation }) {
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { id, itemsByRestaurantIdId2: id },
   })
+
   const { width: windowWidth } = Dimensions.get('window');
+
 
   if (loading) {
     return (
@@ -172,6 +174,7 @@ function RestaurantScreen({ route, navigation }) {
     </>
   )
 }
+
 
 export default RestaurantScreen;
 
