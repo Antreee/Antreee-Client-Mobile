@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
    contentWrap: {
       flex: 1,
       width: width,
+      height: 260,
       alignItems: 'center',
    },
    contentMenuWrap: {
@@ -220,8 +221,34 @@ const styles = StyleSheet.create({
    },
    menuListWrap: {
       width: width / 1.1,
+      // height: 500,
       alignSelf: 'center',
       flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignContent: 'center',
+   },
+   btnGoToCart: {
+      backgroundColor: Color.red,
+      height: 30,
+      width: 80,
+      borderRadius: 10,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 7,
+      },
+      shadowOpacity: 0.41,
+      shadowRadius: 9.11,
+      // borderColor: Color.gray,
+      elevation: 14,
+      justifyContent: 'center',
+      alignItems: 'center',
+      position: 'relative',
+      // zIndex: 10,
+      flexDirection: 'row',
+      // borderWidth: 1,
    },
    menuListItem: {
       height: 30,
@@ -238,7 +265,6 @@ const styles = StyleSheet.create({
       },
       shadowOpacity: 0.23,
       shadowRadius: 2.62,
-
       elevation: 4,
       justifyContent: 'center',
       alignItems: 'center',
@@ -252,12 +278,20 @@ const styles = StyleSheet.create({
    listWrapper: {
       width: width / 1.1,
       flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: "space-between",
+   },
+   lestOfWrap: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: width / 1.1,
+      alignContent: 'center',
+      alignSelf: 'center',
    },
    itemListItem: {
       width: width / 2.3,
-      // paddingBottom: 10,
       paddingTop: 10,
-      // borderWidth: 1,
       alignItems: 'center',
       backgroundColor: Color.white,
       borderRadius: 5,
@@ -272,7 +306,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       elevation: 4,
       marginBottom: 15,
-      marginRight: 10
    },
    imgCardMenu: {
       width: 100,
@@ -281,13 +314,13 @@ const styles = StyleSheet.create({
    },
    itemListItemLeft: {
       alignItems: 'center',
-      paddingLeft: 5,
-      paddingRight: 5,
    },
    itemListItemName: {
       fontSize: 14,
       fontWeight: 'bold',
       color: Color.dark,
+      paddingLeft: 3,
+      paddingRight: 3,
    },
    itemListItemPrice: {
       fontSize: 12.5,
@@ -312,7 +345,7 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
    },
    itemCounter: {
-      color: Color.red,
+      color: Color.white,
       marginRight: 5,
       marginLeft: 5,
    },
@@ -639,6 +672,7 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       alignSelf: 'center',
       marginTop: 15,
+      marginBottom: 15,
       borderRadius: 5,
       shadowColor: "#000",
       shadowOffset: {
@@ -649,7 +683,21 @@ const styles = StyleSheet.create({
       shadowRadius: 3.84,
       elevation: 5,
       backgroundColor: Color.white,
-      flexDirection: 'row'
+      flexDirection: 'row',
+   },
+   cartEmpty: {
+      width: width / 1.1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: Color.redAlpha,
+      borderRadius: 5,
+   },
+   cartEmptyText: {
+      color: Color.red,
+      fontSize: 20,
+      fontWeight: 'bold',
+      marginTop: 12,
+      marginBottom: 12,
    },
    checkOut: {
       width: width / 1.1,
@@ -657,10 +705,16 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignSelf: 'center',
       marginTop: 15,
+      borderBottomWidth: 2,
+      marginBottom: 15,
+      borderBottomColor: Color.red,
       height: 'auto',
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: Color.white,
+   },
+   checkOutBtn: {
+      // marginTop: 100,
    },
    headCheckout: {
       flexDirection: 'row',
@@ -676,12 +730,15 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       fontSize: 18,
    },
+   formInputCart: {
+      width: width / 1.5,
+      marginBottom: 10,
+   },
    btnCheckOut: {
       width: width / 2,
       alignItems: 'center',
       justifyContent: 'center',
       alignSelf: 'center',
-      marginTop: 15,
       height: 40,
       borderRadius: 10,
       shadowColor: "#000",
@@ -694,6 +751,11 @@ const styles = StyleSheet.create({
       elevation: 5,
       backgroundColor: Color.red,
    },
+   cartMenuText: {
+      height: 70,
+      width: 70,
+      borderRadius: 100,
+   },
    btnCheckOutText: {
       color: Color.white,
       fontWeight: 'bold',
@@ -702,11 +764,13 @@ const styles = StyleSheet.create({
    imgCartMenu: {
       width: 80,
       height: 80,
-      borderWidth: 1,
+      borderRadius: 100,
+      alignItems: 'center',
+      justifyContent: 'center',
+      alignSelf: 'center'
    },
    detailCartMenu: {
       width: 150,
-      borderWidth: 1,
       alignItems: 'flex-start',
       justifyContent: 'center',
    },
@@ -723,10 +787,87 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       fontSize: 13,
    },
-   priceCartMenu: {
+   detailCartPrice: {
       width: 80,
-      height: 80,
-      borderWidth: 1,
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+   },
+   priceUpDown: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      width: 60,
+      height: 30,
+      alignSelf: 'center',
+   },
+   priceMinus: {
+      width: 30,
+      height: 25,
+      borderTopLeftRadius: 10,
+      borderBottomLeftRadius: 10,
+      backgroundColor: Color.red,
+      alignItems: 'center',
+      justifyContent: 'center',
+   },
+   priceMax: {
+      width: 30,
+      height: 25,
+      borderTopRightRadius: 10,
+      borderBottomRightRadius: 10,
+      backgroundColor: Color.red,
+      alignItems: 'center',
+      justifyContent: 'center',
+   },
+   cartMenuQty: {
+      fontSize: 13,
+      color: Color.dark,
+      alignSelf: 'center',
+   },
+
+   // ? Booking Screen =======
+
+   emptyBook: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 300,
+   },
+   calendarImg: {
+      height: 300,
+      width: 300,
+   },
+   btnBackHome: {
+      height: 50,
+      width: 150,
+      backgroundColor: Color.red,
+      borderRadius: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+   },
+   btnBackHomeText: {
+      color: Color.white,
+      fontSize: 20,
+      fontWeight: 'bold',
+   },
+   emptyBookText: {
+      height: 100,
+      width: width / 1.1,
+      justifyContent: 'center',
+      alignItems: 'center',
+   },
+   textEmptyBooked: {
+      color: Color.red,
+      fontSize: 20,
+      fontWeight: 'bold',
+   },
+   textEmptyBookedSub: {
+      color: Color.darkGray,
    },
 })
 
