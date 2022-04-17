@@ -1,29 +1,43 @@
-import { useContext, useEffect, useState } from 'react'
-import { View, Text, Image, TouchableOpacity, Dimensions, FlatList, ActivityIndicator } from 'react-native'
-import { CartContext } from '../../components/Context'
-import styles from '../../../assets/styles/styles'
-import { useMutation, useQuery } from '@apollo/client'
-import { GET_RESTAURANT_BY_ID } from '../../../config/queries'
-import { CREATE_ORDER } from '../../../config/queries'
-import { WebView } from 'react-native-webview'
-import Color from '../../assets/Color'
+import { useContext, useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
+import { CartContext } from "../../components/Context";
+import styles from "../../../assets/styles/styles";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_RESTAURANT_BY_ID } from "../../../config/queries";
+import { CREATE_ORDER } from "../../../config/queries";
+import { WebView } from "react-native-webview";
+import Color from "../../assets/Color";
 
-
-import { TextInput, Snackbar, Button } from 'react-native-paper';
-import CartListItems from '../../components/CartListItems'
+import { TextInput, Snackbar, Button } from "react-native-paper";
+import CartListItems from "../../components/CartListItems";
+import { RestaurantContext } from "../../components/Context";
 
 function CartScreen({ navigation, route }) {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [message, setMessage] = useState({ visible: false });
   // const [myPrice, setMyPrice] = useState(0)
-  const [mutationCreateOrder, { data: mutationData, loading: mutationLoading, error: mutationError }] = useMutation(CREATE_ORDER)
-  const { cart, setCart } = useContext(CartContext)
-  const { id, tableNumber } = route.params ? route.params : { id: null, tableNumber: null }
+  const [
+    mutationCreateOrder,
+    { data: mutationData, loading: mutationLoading, error: mutationError },
+  ] = useMutation(CREATE_ORDER);
+  const { cart, setCart } = useContext(CartContext);
+  const { restaurantState, setRestaurantState } = useContext(RestaurantContext);
 
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
-    variables: { id, itemsByRestaurantIdId2: id },
-  })
+    variables: {
+      id: restaurantState.restaurantId,
+      itemsByRestaurantIdId2: restaurantState.restaurantId,
+    },
+  });
   // const [itemDetail, setItemDetail] = useState([])
 
   // useEffect(() => {
@@ -52,87 +66,14 @@ function CartScreen({ navigation, route }) {
   //     setMyPrice(tmpPrice)
   //   }
   // }, [data])
-
-  if (loading) {
-    return (
-      <>
-        <View style={{
-          flex: 1,
-          justifyContent: "center", alignItems: 'center', flexDirection: "row",
-          justifyContent: "space-around",
-          padding: 10
-        }}>
-          <ActivityIndicator size="small" color={Color.red} />
-        </View>
-      </>
-    )
-  }
-
-  let itemDetail = []
-  let myPrice = 0
-  Object.keys(cart).forEach(key => {
-
-    let menuItem = data.itemsByRestaurantId
-    menuItem.forEach((elx) => {
-      if (elx._id === key) {
-        myPrice += elx.price * cart[key]
-        itemDetail.push(
-          {
-            id: key,
-            name: elx.name,
-            price: elx.price,
-            quantity: cart[key],
-            description: elx.description,
-            image: elx.imageUrl,
-          }
-        )
-      }
-    })
-  })
-
-  // ? CREATE ORDER
-  function createOrder() {
-    if (name === '' || email === '') {
-      setMessage({ visible: true })
-      setTimeout(() => { setMessage({ visible: false }) }, 2000)
-    } else {
-      // const cartContext = useContext(cart)
-      mutationCreateOrder({
-        //1. nama, email, belum dinamis <==
-        variables: {
-          customerName: name,
-          customerEmail: email,
-          tableNumber: tableNumber,
-          totalPrice: 55000,
-          bookingDate: null,
-          numberOfPeople: null,
-          orderDetails: {
-            data: [
-              {
-                itemId: '625932ad9cca7a6a8c90133a',
-                quantity: 2,
-              },
-              {
-                itemId: '6259334fe01676bc8c826d93',
-                quantity: 3,
-              },
-            ],
-          },
-        },
-      })
-      // setCart({})
-    }
-  }
-
-  const goToHome = () => navigation.navigate('HomeScreen')
   if (error) {
     return (
       <>
-        <View style={[styles.container, { alignItems: 'center', justifyContent: 'center' }]}>
+        <View style={[styles.container, { alignItems: "center", justifyContent: "center" }]}>
           <View style={styles.emptyBook}>
             <View style={styles.calendar}>
               <Image
-                source={require('../../assets/imgTemplate/cart.png')}
+                source={require("../../assets/imgTemplate/cart.png")}
                 style={styles.calendarImg}
               />
             </View>
@@ -146,12 +87,86 @@ function CartScreen({ navigation, route }) {
           </View>
         </View>
       </>
-    )
+    );
   }
+
+  if (loading) {
+    return (
+      <>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "space-around",
+            padding: 10,
+          }}
+        >
+          <ActivityIndicator size="small" color={Color.red} />
+        </View>
+      </>
+    );
+  }
+
+  let itemDetail = [];
+  let myPrice = 0;
+  Object.keys(cart).forEach((key) => {
+    let menuItem = data.itemsByRestaurantId;
+    menuItem.forEach((elx) => {
+      if (elx._id === key) {
+        myPrice += elx.price * cart[key];
+        itemDetail.push({
+          id: key,
+          name: elx.name,
+          price: elx.price,
+          quantity: cart[key],
+          description: elx.description,
+          image: elx.imageUrl,
+        });
+      }
+    });
+  });
+
+  // ? CREATE ORDER
+  function createOrder() {
+    if (name === "" || email === "") {
+      setMessage({ visible: true });
+      setTimeout(() => {
+        setMessage({ visible: false });
+      }, 2000);
+    } else {
+      // const cartContext = useContext(cart)
+      mutationCreateOrder({
+        //1. nama, email, belum dinamis <==
+        variables: {
+          customerName: name,
+          customerEmail: email,
+          customerPhoneNumber: "082374563889",
+          tableNumber: restaurantState.tableNumber,
+          totalPrice: myPrice,
+          bookingDate: null,
+          numberOfPeople: null,
+          orderDetails: {
+            data: itemDetail.map((item) => {
+              return {
+                itemId: item.id,
+                quantity: item.quantity,
+              };
+            }),
+          },
+        },
+      });
+      // setCart({})
+    }
+  }
+
+  const goToHome = () => navigation.navigate("HomeScreen");
+
   // ======
 
   // -================
-  const width = Dimensions.get("window").width
+  const width = Dimensions.get("window").width;
   if (mutationData) {
     // return (
     // <WebView
@@ -162,35 +177,11 @@ function CartScreen({ navigation, route }) {
     // />
     // )
   }
-  if (mutationLoading) return <Text>'Submitting...'</Text>
-  if (mutationError) return <Text>`Submission error! ${error.message}`</Text>
-  // =================
-
-
-  // ================
-  // let itemDetail = []
-  // Object.keys(cart).forEach(key => {
-  //   let menuItem = data.itemsByRestaurantId
-  //   menuItem.forEach(elx => {
-  //     if (elx._id === key) {
-  //       itemDetail.push(
-  //         {
-  //           id: elx._id,
-  //           name: elx.name,
-  //           price: elx.price,
-  //           quantity: cart[key],
-  //           description: elx.description,
-  //           image: elx.imageUrl,
-  //         }
-  //       )
-  //     }
-  //   })
-  // })
-
-
+  if (mutationLoading) return <Text>'Submitting...'</Text>;
+  if (mutationError) return <Text>`Submission error! ${error.message}`</Text>;
 
   function currencyFormat(num) {
-    return 'Rp.' + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    return "Rp." + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
   return (
     <>
@@ -203,18 +194,18 @@ function CartScreen({ navigation, route }) {
             <TextInput
               label="Name"
               value={email}
-              mode={'outlined'}
+              mode={"outlined"}
               style={{ backgroundColor: Color.white, height: 30, fontSize: 13, marginBottom: 3 }}
               theme={{ colors: { text: Color.dark, primary: Color.red } }}
-              onChangeText={email => setEmail(email)}
+              onChangeText={(email) => setEmail(email)}
             />
             <TextInput
               label="Email"
               value={name}
-              mode={'outlined'}
+              mode={"outlined"}
               style={{ backgroundColor: Color.white, height: 30, fontSize: 13, marginTop: 3 }}
               theme={{ colors: { text: Color.dark, primary: Color.red } }}
-              onChangeText={name => setName(name)}
+              onChangeText={(name) => setName(name)}
             />
           </View>
           <View style={styles.headCheckout}>
@@ -233,10 +224,10 @@ function CartScreen({ navigation, route }) {
                   quantity={item.quantity}
                   description={item.description}
                   image={item.image}
-                  itemId={id}
+                  itemId={item.id}
                 />
               )}
-              keyExtractor={item => item.id}
+              keyExtractor={(item) => item.id}
             />
           </View>
         </View>
@@ -245,21 +236,18 @@ function CartScreen({ navigation, route }) {
             visible={message.visible}
             onDismiss={() => setMessage({ visible: false })}
             action={{
-              label: 'X',
+              label: "X",
             }}
           >
             Name/Email is required.
           </Snackbar>
         </View>
-        <TouchableOpacity
-          style={styles.btnCheckOut}
-          onPress={createOrder}
-        >
+        <TouchableOpacity style={styles.btnCheckOut} onPress={createOrder}>
           <Text style={styles.btnCheckOutText}>Checkout</Text>
         </TouchableOpacity>
       </View>
     </>
-  )
+  );
 }
 
-export default CartScreen
+export default CartScreen;

@@ -1,14 +1,8 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, gql } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: 'https://5d52-180-249-11-70.ngrok.io',
+  uri: "https://b4e4-202-80-212-193.ngrok.io",
   cache: new InMemoryCache(),
-})
+});
 
-export default client
+export default client;
