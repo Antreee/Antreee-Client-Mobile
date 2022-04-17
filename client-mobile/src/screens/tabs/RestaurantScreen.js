@@ -23,6 +23,7 @@ function RestaurantScreen({ route, navigation }) {
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { id, itemsByRestaurantIdId2: id },
   })
+
   if (loading) {
     return <Text>Loading...</Text>
   }
@@ -153,7 +154,13 @@ function RestaurantScreen({ route, navigation }) {
             </View>
             <View style={styles.menuListWrap}>
               <View>
-                <CardListMenu key={restaurant._id} myMenus={myMenus} navigation={navigation} id={restaurant._id} />
+                <CardListMenu
+                  key={restaurant._id}
+                  myMenus={myMenus}
+                  navigation={navigation}
+                  id={restaurant._id}
+                  tableNumber={tableNumber}
+                />
               </View>
             </View>
           </ScrollView>
@@ -163,4 +170,4 @@ function RestaurantScreen({ route, navigation }) {
   )
 }
 
-export default RestaurantScreen;
+export default RestaurantScreen
