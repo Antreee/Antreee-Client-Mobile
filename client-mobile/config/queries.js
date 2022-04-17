@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from "@apollo/client";
 
 export const GET_RESTAURANTS = gql`
   query Restaurants {
@@ -20,7 +20,7 @@ export const GET_RESTAURANTS = gql`
       restaurantDistance
     }
   }
-`
+`;
 
 export const GET_RESTAURANT_BY_ID = gql`
   query Restaurant($id: ID!, $itemsByRestaurantIdId2: ID!) {
@@ -51,11 +51,12 @@ export const GET_RESTAURANT_BY_ID = gql`
       description
     }
   }
-`
+`;
 
 export const CREATE_ORDER = gql`
   mutation CreateOrder(
     $customerName: String
+    $customerEmail: String
     $customerPhoneNumber: String
     $tableNumber: String
     $totalPrice: Int
@@ -65,6 +66,7 @@ export const CREATE_ORDER = gql`
   ) {
     createOrder(
       customerName: $customerName
+      customerEmail: $customerEmail
       customerPhoneNumber: $customerPhoneNumber
       tableNumber: $tableNumber
       totalPrice: $totalPrice
@@ -75,4 +77,4 @@ export const CREATE_ORDER = gql`
       message
     }
   }
-`
+`;

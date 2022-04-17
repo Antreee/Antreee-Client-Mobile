@@ -1,37 +1,44 @@
-import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, Button, Image } from 'react-native'
-import { BarCodeScanner } from 'expo-barcode-scanner'
+import React, { useState, useEffect, useContext } from "react";
+import { Text, View, StyleSheet, Button } from "react-native";
+import { BarCodeScanner } from "expo-barcode-scanner";
+import { RestaurantContext } from "../../components/Context";
+
 
 function QrScanScreen({ navigation }) {
-  const [hasPermission, setHasPermission] = useState(null)
-  const [scanned, setScanned] = useState(false)
+  const [hasPermission, setHasPermission] = useState(null);
+  const [scanned, setScanned] = useState(false);
+  const { restaurantState, setRestaurantState } = useContext(RestaurantContext);
 
   useEffect(() => {
-    ;(async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync()
-      setHasPermission(status === 'granted')
-    })()
-  }, [])
+
+    (async () => {
+      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
+
 
   const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true)
+    setScanned(true);
 
-    const qrData = JSON.parse(data)
-    console.log('qrData', qrData)
+    const qrData = JSON.parse(data);
+    console.log("qrData", qrData);
 
-    navigation.navigate('RestaurantScreen', {
+    navigation.navigate("RestaurantScreen", {
       id: qrData.restaurantId,
       tableNumber: qrData.tableNumber,
-    })
 
+    });
+    setRestaurantState(qrData);
     setScanned(false)
-  }
+  };
+
 
   if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>
+    return <Text>Requesting for camera permission</Text>;
   }
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>
+    return <Text>No access to camera</Text>;
   }
 
   return (
@@ -45,15 +52,15 @@ function QrScanScreen({ navigation }) {
         style={StyleSheet.absoluteFillObject}
       />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
+    flexDirection: "column",
+    justifyContent: "center",
   },
-})
+});
 
-export default QrScanScreen
+export default QrScanScreen;
