@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { RestaurantContext } from "../../components/Context";
 
