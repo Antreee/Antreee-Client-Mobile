@@ -3,17 +3,20 @@ import { Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { RestaurantContext } from "../../components/Context";
 
+
 function QrScanScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const { restaurantState, setRestaurantState } = useContext(RestaurantContext);
 
   useEffect(() => {
+
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
   }, []);
+
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
@@ -24,10 +27,12 @@ function QrScanScreen({ navigation }) {
     navigation.navigate("RestaurantScreen", {
       id: qrData.restaurantId,
       tableNumber: qrData.tableNumber,
-    });
 
+    });
     setRestaurantState(qrData);
+    setScanned(false)
   };
+
 
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
@@ -38,11 +43,14 @@ function QrScanScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Image
+        style={{ height: 400, width: 400, zIndex: 1 }}
+        source={require('../../assets/imgTemplate/scan.png')}
+      />
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />}
     </View>
   );
 }
