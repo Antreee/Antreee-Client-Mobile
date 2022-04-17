@@ -52,17 +52,3 @@ const styles = StyleSheet.create({
 
 
 export default Splash
-
-
-/*
-- Login per resto
-   - Halaman profile
-   - Halaman khusu lihat bookings, realtime kalau ada booking masuk
-   - Halaman transaction history (Orders dan OrderDetails)
-   - Dashboard earnings, total pendapatan per minggu atau per bulan
-   - CRUD items
-   - Update column available (true/false)
-   - Customer favourite (Berapa customer favorite resto anda)
-   - (Notify SMS atau WA customer kalau besok ada booking, atau meja sudah ready)
-
-*/

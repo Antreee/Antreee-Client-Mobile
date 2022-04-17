@@ -17,6 +17,7 @@ export const GET_RESTAURANTS = gql`
       capacity
       mainImagesUrl
       adminId
+      restaurantDistance
     }
   }
 `
@@ -38,6 +39,7 @@ export const GET_RESTAURANT_BY_ID = gql`
       capacity
       mainImagesUrl
       adminId
+      restaurantDistance
     }
     itemsByRestaurantId(_id: $itemsByRestaurantIdId2) {
       _id

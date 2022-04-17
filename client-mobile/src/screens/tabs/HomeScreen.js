@@ -1,5 +1,13 @@
 import React, { useRef, useState } from 'react'
-import { Text, View, FlatList, ScrollView, ImageBackground, ActivityIndicator, Dimensions } from 'react-native'
+import {
+  Text,
+  View,
+  FlatList,
+  ScrollView,
+  ImageBackground,
+  ActivityIndicator,
+  Dimensions,
+} from 'react-native'
 import styles from '../../../assets/styles/styles'
 import { Icon } from '@ui-kitten/components'
 import { Searchbar } from 'react-native-paper'
@@ -20,7 +28,6 @@ export default HomeScreen = ({ navigation }) => {
   if (searchQuery) {
     data.filter()
   }
-
 
   const [state, setState] = useState({
     activeIndex: 0,
@@ -93,7 +100,7 @@ export default HomeScreen = ({ navigation }) => {
   }
 
   let carouselRef = useRef()
-  const width = Dimensions.get("window").width;
+  const width = Dimensions.get('window').width
   const onChangeSearch = (query) => setSearchQuery(query)
 
   return (
@@ -163,24 +170,27 @@ export default HomeScreen = ({ navigation }) => {
               </View>
             </View>
 
-            {
-              loading &&
-
+            {loading && (
               <>
-                <View style={{
-                  height: 40,
-                }}>
-                  <ActivityIndicator size="small" color={Color.red} />
+                <View
+                  style={{
+                    height: 40,
+                  }}
+                >
+                  <ActivityIndicator size='small' color={Color.red} />
                 </View>
               </>
-
-            }
+            )}
             {data && (
               <View style={styles.restoListWrap}>
                 <FlatList
                   data={data.restaurants}
                   renderItem={({ item }) => (
-                    <RestaurantCard resto={item} key={item._id} navigation={navigation} />
+                    <RestaurantCard
+                      resto={item}
+                      key={item._id}
+                      navigation={navigation}
+                    />
                   )}
                   keyExtractor={(item) => item._id}
                 />
