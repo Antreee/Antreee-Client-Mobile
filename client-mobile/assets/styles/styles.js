@@ -822,6 +822,53 @@ const styles = StyleSheet.create({
       color: Color.dark,
       alignSelf: 'center',
    },
+
+   // ? Booking Screen =======
+
+   emptyBook: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 300,
+   },
+   calendarImg: {
+      height: 300,
+      width: 300,
+   },
+   btnBackHome: {
+      height: 50,
+      width: 150,
+      backgroundColor: Color.red,
+      borderRadius: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+   },
+   btnBackHomeText: {
+      color: Color.white,
+      fontSize: 20,
+      fontWeight: 'bold',
+   },
+   emptyBookText: {
+      height: 100,
+      width: width / 1.1,
+      justifyContent: 'center',
+      alignItems: 'center',
+   },
+   textEmptyBooked: {
+      color: Color.red,
+      fontSize: 20,
+      fontWeight: 'bold',
+   },
+   textEmptyBookedSub: {
+      color: Color.darkGray,
+   },
 })
 
 export default styles;

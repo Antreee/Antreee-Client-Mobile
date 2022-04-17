@@ -1,26 +1,30 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Text, Image, View, TouchableOpacity } from 'react-native'
+import styles from '../../../assets/styles/styles'
 
 function BookingScreen({ navigation }) {
+
+  function goBackHome() {
+    navigation.navigate('HomeScreen')
+  }
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>NewTab 2</Text>
+    <View style={[styles.container, { alignItems: 'center', justifyContent: 'center' }]}>
+      <View style={styles.emptyBook}>
+        <View style={styles.calendar}>
+          <Image
+            source={require('../../assets/imgTemplate/calendar.png')}
+            style={styles.calendarImg}
+          />
+        </View>
+        <View style={styles.emptyBookText}>
+          <Text style={styles.textEmptyBooked}>No Apointment Booked</Text>
+          <Text style={styles.textEmptyBookedSub}>You have not booked any apointment yet.</Text>
+        </View>
+        <TouchableOpacity onPress={goBackHome} style={styles.btnBackHome}>
+          <Text style={styles.btnBackHomeText}>Book Now</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10,
-    marginBottom: 10,
-    marginHorizontal: 10,
-  },
-})
 
 export default BookingScreen

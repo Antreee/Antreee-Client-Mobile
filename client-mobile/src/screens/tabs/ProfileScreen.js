@@ -4,8 +4,11 @@ import Color from "../../assets/Color";
 import users from "../../../data/users"
 import Ionicons from "react-native-vector-icons/Ionicons"
 
-function ProfileScreen() {
-   console.log(users)
+function ProfileScreen({ navigation }) {
+   // console.log(users)
+   function goLogOut() {
+      navigation.navigate('AuthScreen')
+   }
    return (
       <View style={styles.container}>
          <View style={styles.profilHead}>
@@ -54,7 +57,9 @@ function ProfileScreen() {
                   <Ionicons name="heart-outline" size={45}
                      color={Color.red} />
                </TouchableOpacity>
-               <TouchableOpacity style={styles.btnLogout}>
+               <TouchableOpacity style={styles.btnLogout}
+                  onPress={goLogOut}
+               >
                   <Ionicons name="log-out-outline" size={45}
                      color={Color.white} />
                </TouchableOpacity>

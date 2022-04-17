@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { View, Text, Alert, TouchableOpacity, Dimensions, FlatList, ActivityIndicator } from 'react-native'
+import { View, Text, Image, TouchableOpacity, Dimensions, FlatList, ActivityIndicator } from 'react-native'
 import { CartContext } from '../../components/Context'
 import styles from '../../../assets/styles/styles'
 import { useMutation, useQuery } from '@apollo/client'
@@ -125,17 +125,22 @@ function CartScreen({ navigation, route }) {
   if (error) {
     return (
       <>
-        <View style={styles.container}>
-          <View style={styles.cartTitle}>
-            <Text style={styles.cartTitleText}>My Cart</Text>
-          </View>
-          <TouchableOpacity style={styles.cartWrap}
-            onPress={goToHome}
-          >
-            <View style={styles.cartEmpty}>
-              <Text style={styles.cartEmptyText}>Your cart is empty!</Text>
+        <View style={[styles.container, { alignItems: 'center', justifyContent: 'center' }]}>
+          <View style={styles.emptyBook}>
+            <View style={styles.calendar}>
+              <Image
+                source={require('../../assets/imgTemplate/cart.png')}
+                style={styles.calendarImg}
+              />
             </View>
-          </TouchableOpacity>
+            <View style={styles.emptyBookText}>
+              <Text style={styles.textEmptyBooked}>Oops! your cart is empty</Text>
+              <Text style={styles.textEmptyBookedSub}>Please fill your cart to continue.</Text>
+            </View>
+            <TouchableOpacity onPress={goToHome} style={styles.btnBackHome}>
+              <Text style={styles.btnBackHomeText}>Buy Now</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </>
     )

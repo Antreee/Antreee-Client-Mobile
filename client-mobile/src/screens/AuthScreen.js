@@ -64,9 +64,9 @@ export default function AuthScreen({ navigation }) {
          </View>
          {
             isAble ?
-               <SignIn />
-               :
                <SignUp />
+               :
+               <SignIn />
          }
       </View>
    );
@@ -116,7 +116,6 @@ const stylesAuth = StyleSheet.create({
       backgroundColor: 'white',
       justifyContent: 'center',
       alignItems: 'center',
-      borderWidth: 1,
       borderEndColor: '#f2f2f2',
       shadowColor: '#000',
       shadowOffset: {

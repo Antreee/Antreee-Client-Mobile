@@ -122,16 +122,16 @@ function RestaurantScreen({ route, navigation }) {
               </View>
             </View>
             <View style={styles.doubleBtn}>
-              <View style={styles.btnMap}>
+              <TouchableOpacity style={styles.btnMap}>
                 <FontAwesome5 name='map-marked-alt' size={20} color={'white'} />
-              </View>
-              <View style={styles.btnLove}>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.btnLove}>
                 <MaterialCommunityIcons
                   name='heart-outline'
                   size={25}
                   color={Color.red}
                 />
-              </View>
+              </TouchableOpacity>
             </View>
             <View style={styles.headTitleWrap}>
               <Text style={styles.headTitle}>{restaurant.name}</Text>
