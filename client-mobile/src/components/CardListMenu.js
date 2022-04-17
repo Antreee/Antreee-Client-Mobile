@@ -9,7 +9,7 @@ import { CREATE_ORDER } from '../../config/queries'
 import { WebView } from 'react-native-webview'
 
 
-export default function CardListMenu({ myMenus, navigation, id }) {
+export default function CardListMenu({ myMenus, navigation, id, tableNumber }) {
    // const [mutationAddToCart, { data, loading, error }] = useMutation(ADD_TO_CART)
    const { cart, setCart } = useContext(CartContext)
 
@@ -41,7 +41,7 @@ export default function CardListMenu({ myMenus, navigation, id }) {
    function goToCartScreen() {
       // const cartContext = useContext(cart)
       // console.log(cart)
-      navigation.navigate('CartScreen', { id })
+      navigation.navigate('CartScreen', { id, tableNumber })
 
       // mutationgoToCartScreen({ variables: cart });
 

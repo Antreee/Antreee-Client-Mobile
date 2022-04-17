@@ -8,32 +8,27 @@ import { GET_RESTAURANT_BY_ID } from '../../../config/queries'
 function CartScreen({ navigation, route }) {
   const { cart } = useContext(CartContext)
 
-
-  const { id } = route.params
+  const { id, tableNumber } = route.params
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { id, itemsByRestaurantIdId2: id },
   })
 
   let itemDetail = []
-  Object.keys(cart).forEach(key => {
+  Object.keys(cart).forEach((key) => {
     let menuItem = data.itemsByRestaurantId
-    menuItem.forEach(elx => {
+    menuItem.forEach((elx) => {
       if (elx._id === key) {
-        itemDetail.push(
-          {
-            name: elx.name,
-            price: elx.price,
-            quantity: cart[key],
-            image: elx.imageUrl,
-          }
-        )
+        itemDetail.push({
+          name: elx.name,
+          price: elx.price,
+          quantity: cart[key],
+          image: elx.imageUrl,
+        })
       }
     })
-
   })
 
-  console.log("🚀 ~ file: CartScreen.js ~ line 29 ~ carts ~ carts", itemDetail)
-
+  console.log('🚀 ~ file: CartScreen.js ~ line 29 ~ carts ~ carts', itemDetail)
 
   return (
     <>
@@ -45,28 +40,24 @@ function CartScreen({ navigation, route }) {
           <View style={styles.imgCartMenu}>
             <Text style={styles.cartMenuText}>Menu</Text>
           </View>
-          {
-            itemDetail &&
-            itemDetail.map(item, idx) => {
+          {itemDetail &&
+            itemDetail.map(item, (idx) => {
               return (
-          <>
-            <View style={styles.detailCartMenu}>
-              <Text style={styles.cartMenuName}>Menu Name</Text>
-              <Text style={styles.cartMenuNameSub}>Menu Name</Text>
-              <Text style={styles.cartMenuNamePrice}>Rp. 10.000</Text>
-            </View>
-            <View styles={styles.priceCartMenu}>
-              <Text style={styles.priceCartMenuText}>Price</Text>
-            </View>
-          </>
-          )
-            }
-          }
+                <>
+                  <View style={styles.detailCartMenu}>
+                    <Text style={styles.cartMenuName}>Menu Name</Text>
+                    <Text style={styles.cartMenuNameSub}>Menu Name</Text>
+                    <Text style={styles.cartMenuNamePrice}>Rp. 10.000</Text>
+                  </View>
+                  <View styles={styles.priceCartMenu}>
+                    <Text style={styles.priceCartMenuText}>Price</Text>
+                  </View>
+                </>
+              )
+            })}
         </View>
         <Text>NewTab 4</Text>
-        <View style={styles.cartCard}>
-
-        </View>
+        <View style={styles.cartCard}></View>
         <View style={styles.checkOut}>
           <View style={styles.headCheckout}>
             <Text style={styles.headCheckoutText}>Total Price</Text>
