@@ -62,6 +62,7 @@ export const CREATE_ORDER = gql`
     $totalPrice: Int
     $bookingDate: String
     $numberOfPeople: Int
+    $restaurantId: String
     $orderDetails: OrderDetails
   ) {
     createOrder(
@@ -72,6 +73,7 @@ export const CREATE_ORDER = gql`
       totalPrice: $totalPrice
       bookingDate: $bookingDate
       numberOfPeople: $numberOfPeople
+      restaurantId: $restaurantId
       orderDetails: $orderDetails
     ) {
       message

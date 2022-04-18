@@ -29,7 +29,7 @@ export default HomeScreen = ({ navigation }) => {
   });
 
   const [state, setState] = useState({
-    activeIndex: 0,
+    activeIndex: 2,
     carouselItems: [
       {
         title: "Ayam Bakar",
