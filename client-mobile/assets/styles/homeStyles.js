@@ -1,18 +1,18 @@
 import { StyleSheet, Dimensions } from "react-native";
-
+import Color from "../../src/assets/Color";
 
 const { width: windowWidth } = Dimensions.get('window')
 const homeStyles = StyleSheet.create({
    mainCard: {
       backgroundColor: 'white',
-      width: (windowWidth * 95 / 100),
+      width: windowWidth / 1.1,
       borderRadius: 8,
-      justifyContent: 'flex-start',
+      justifyContent: 'space-between',
       alignItems: 'center',
-      flexWrap: 'wrap',
       flexDirection: 'row',
-      padding: 12,
+      padding: 10,
       margin: 10,
+      flexWrap: 'wrap',
       shadowColor: "#000",
       shadowOffset: {
          width: 0,
@@ -25,14 +25,18 @@ const homeStyles = StyleSheet.create({
    imgStyle: {
       height: 80,
       width: 80,
-      borderRadius: 8,
+   },
+   cardImg: {
+      // borderRadius: 8,
       alignSelf: 'center',
-      marginRight: 12
+      marginRight: 10,
+      // borderWidth: 1,
    },
    cardDsc: {
-      // height: '100%',
-      width: 225,
-      flexDirection: 'column'
+      flexDirection: 'column',
+      // flexWrap: 'wrap'
+      width: windowWidth / 1.7,
+      // borderWidth: 1,
    },
 })
 

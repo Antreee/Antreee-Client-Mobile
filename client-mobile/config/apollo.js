@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, gql } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: 'http://0bbc-158-140-164-51.ngrok.io',
+  uri: 'https://53fb-180-249-11-70.ngrok.io',
 
   cache: new InMemoryCache(),
 });
