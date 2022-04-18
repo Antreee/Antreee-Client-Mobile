@@ -26,6 +26,25 @@ const styles = StyleSheet.create({
       borderBottomLeftRadius: 30,
       borderBottomRightRadius: 30,
    },
+   fabRestaurant: {
+      width: 200,
+      height: 40,
+      position: 'absolute',
+      bottom: 100,
+      alignSelf: 'center',
+      borderRadius: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: Color.red,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.23,
+      shadowRadius: 2.62,
+      elevation: 4,
+   },
    headerApp: {
       height: 50,
       width: '100%',
@@ -54,7 +73,6 @@ const styles = StyleSheet.create({
    search: {
       backgroundColor: '#F4F4F4',
       height: 30,
-      borderWidth: 1,
       borderColor: '#797A7E',
       width: '80%',
       borderRadius: 10,
@@ -114,20 +132,21 @@ const styles = StyleSheet.create({
 
    //? == Style Detail Resto == //
    doubleBtn: {
-      alignSelf: 'center',
+      // alignSelf: 'center',
       height: 35,
-      width: width / 1.1,
-      // alignSelf: 'flex-end',
+      width: width / 3.5,
+      alignSelf: 'flex-end',
       flexDirection: 'row',
       justifyContent: 'space-between',
       marginTop: -20,
       // marginRight: 30,
-      // borderWidth: 1,
    },
    btnBookNow: {
       borderWidth: 1,
       width: 100,
       backgroundColor: Color.red,
+      alignSelf: 'center',
+      top: 15
    },
    loveAndMap: {
       flexDirection: 'row',
@@ -242,18 +261,21 @@ const styles = StyleSheet.create({
    },
    btnGoToCart: {
       backgroundColor: Color.red,
-      height: 30,
-      width: 80,
-      borderRadius: 10,
-      shadowColor: "#000",
-      shadowOffset: {
-         width: 0,
-         height: 7,
-      },
-      shadowOpacity: 0.41,
-      shadowRadius: 9.11,
-      // borderColor: Color.gray,
-      elevation: 14,
+      height: 28,
+      width: 40,
+      borderRadius: 5,
+      justifyContent: 'center',
+      alignItems: 'center',
+      position: 'relative',
+      // zIndex: 10,
+      flexDirection: 'row',
+      // borderWidth: 1,
+   },
+   button: {
+      // backgroundColor: Color.red,
+      height: 28,
+      width: 40,
+      borderRadius: 5,
       justifyContent: 'center',
       alignItems: 'center',
       position: 'relative',
@@ -279,7 +301,7 @@ const styles = StyleSheet.create({
       elevation: 4,
       justifyContent: 'center',
       alignItems: 'center',
-      marginBottom: 15
+      marginBottom: 15,
    },
    menuCategoryName: {
       color: Color.white,
@@ -291,6 +313,8 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       flexWrap: 'wrap',
       justifyContent: "space-between",
+      // padding: 10,
+      marginBottom: 20,
    },
    lestOfWrap: {
       flex: 1,
@@ -299,10 +323,11 @@ const styles = StyleSheet.create({
       width: width / 1.1,
       // alignContent: 'center',
       alignSelf: 'center',
+      // marginBottom: 230,
    },
    itemListItem: {
       width: width / 2.3,
-      paddingTop: 10,
+      padding: 10,
       alignItems: 'center',
       backgroundColor: Color.white,
       borderRadius: 5,
@@ -314,9 +339,11 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.23,
       shadowRadius: 2.62,
       flexDirection: 'column',
-      // justifyContent: 'center',
+      justifyContent: 'space-between',
       elevation: 4,
-      marginBottom: 15,
+      marginTop: 10,
+      marginBottom: 10,
+      maxHeight: 300,
    },
    imgCardMenu: {
       width: 100,
@@ -325,6 +352,7 @@ const styles = StyleSheet.create({
    },
    itemListItemLeft: {
       alignItems: 'center',
+      // borderWidth: 1,
    },
    itemListItemName: {
       fontSize: 14,
@@ -339,32 +367,25 @@ const styles = StyleSheet.create({
    },
    itemListItemRight: {
       alignItems: 'center',
-      padding: 3
+      padding: 3,
+      // borderWidth: 1
    },
    itemListItemDesc: {
       fontSize: 12,
       color: Color.darkGray
    },
    orderList: {
-      borderTopColor: Color.gray,
-      borderTopWidth: 1,
-      paddingTop: 3,
       paddingBottom: 3,
       marginTop: 5,
-      width: '90%',
       justifyContent: 'center',
       flexDirection: 'row',
+      // height: 50,
+      // borderWidth: 1,
    },
    itemCounter: {
       color: Color.white,
       marginRight: 5,
       marginLeft: 5,
-   },
-   groupOrderView: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      // borderWidth: 1,
-      width: '100%'
    },
    addChart: {
       backgroundColor: Color.red,

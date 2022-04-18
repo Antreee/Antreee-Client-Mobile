@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import BookingScreen from "../screens/tabs/BookingScreen";
+// import BookingScreen from "../screens/tabs/BookingScreen";
+// import CartScreen from "../screens/tabs/CartScreen";
 import QrScanScreen from "../screens/tabs/QrScanScreen";
-import CartScreen from "../screens/tabs/CartScreen";
 import ProfileScreen from "../screens/tabs/ProfileScreen";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import Color from "../assets/Color";
@@ -71,17 +71,6 @@ const Tabs = ({ navigation }) => {
             }}
           />
           <Tab.Screen
-            name="BookingScreen"
-            component={BookingScreen}
-            options={{
-              headerShown: false,
-              tabBarIcon: ({ color, size }) => (
-                <Ionicons name="briefcase" color={color} size={size} />
-              ),
-              tabBarLabel: "Booking",
-            }}
-          />
-          <Tab.Screen
             name="QrScanScreen"
             component={QrScanScreen}
             options={({ navigation }) => ({
@@ -118,18 +107,6 @@ const Tabs = ({ navigation }) => {
               unmountOnBlur: true,
               headerShown: false,
             })}
-          />
-          <Tab.Screen
-            name="CartScreen"
-            component={CartScreen}
-            options={{
-              headerShown: false,
-              tabBarIcon: ({ color, size }) => (
-                <Ionicons name="ios-cart" color={color} size={size} />
-              ),
-              unmountOnBlur: true,
-              tabBarLabel: "My Cart",
-            }}
           />
           <Tab.Screen
             name="ProfileScreen"

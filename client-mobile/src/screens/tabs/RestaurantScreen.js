@@ -2,7 +2,7 @@ import { View, Text, ScrollView, ActivityIndicator, ImageBackground, Dimensions,
 import styles from '../../../assets/styles/styles'
 import Color from '../../assets/Color'
 import Carousel from 'react-native-anchor-carousel';
-import { Button } from "react-native-paper"
+import { Button, Modal } from "react-native-paper"
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
@@ -47,7 +47,6 @@ function RestaurantScreen({ route, navigation }) {
   }
 
   const restaurant = data.restaurant
-  // console.log("🚀 ~ file: RestaurantScreen.js ~ line 50 ~ RestaurantScreen ~ restaurant", restaurant)
   const carouselImage = restaurant.mainImagesUrl.map(el => {
     return {
       uri: el,
@@ -84,7 +83,12 @@ function RestaurantScreen({ route, navigation }) {
     },
   ]
 
+  function goToCartScreen() {
+    navigation.navigate('CartScreen', { id, tableNumber })
 
+    // mutationgoToCartScreen({ variables: cart });
+    // setCart({})
+  }
   function handleCarouselScrollEnd(item, index) {
     setCurrentIndex(index);
   }
@@ -126,13 +130,7 @@ function RestaurantScreen({ route, navigation }) {
             </View>
             <View style={styles.doubleBtn}>
               {/* <View style={styles.btnBookNow}></View> */}
-              <Button
-                style={styles.btnBookNow}
-                mode="contained"
-                labelStyle={{ fontSize: 10 }}
-                onPress={() => navigation.navigate('BookingScreen', { id })}>
-                Book Now
-              </Button>
+
               <View style={styles.loveAndMap}>
                 <TouchableOpacity style={styles.btnMap}>
                   <FontAwesome5 name='map-marked-alt' size={20} color={'white'} />
@@ -146,6 +144,13 @@ function RestaurantScreen({ route, navigation }) {
                 </TouchableOpacity>
               </View>
             </View>
+            <Button
+              style={styles.btnBookNow}
+              mode="contained"
+              labelStyle={{ fontSize: 10 }}
+              onPress={() => navigation.navigate('BookingScreen', { id })}>
+              Book Now
+            </Button>
             <View style={styles.headTitleWrap}>
               <Text style={styles.headTitle}>{restaurant.name}</Text>
               <Text style={styles.cuisine}>{myCuisine}</Text>
@@ -180,8 +185,26 @@ function RestaurantScreen({ route, navigation }) {
               </View>
             </View>
           </ScrollView>
+          {
+            tableNumber && (
+              <View style={styles.fabRestaurant}>
+                <TouchableOpacity
+                  style={styles.btnAddChart}
+                  onPress={() => goToCartScreen(id)}
+                >
+                  <Entypo
+                    name='shopping-cart'
+                    size={15}
+                    color={Color.white}
+                  />
+                  <Text style={styles.textAddChart}>Add</Text>
+                </TouchableOpacity>
+              </View>
+            )
+          }
         </View>
       )}
+
     </>
   )
 }
