@@ -1,9 +1,11 @@
 import styles from '../../../assets/styles/styles'
-import { StyleSheet, Text, Image, TouchableOpacity, View, Button, ScrollView } from 'react-native'
+import { Text, Image, TouchableOpacity, View, ScrollView, FlatList } from 'react-native'
 import * as React from 'react'
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import { LocaleConfig } from 'react-native-calendars';
 import Color from '../../assets/Color'
+import { TimePicker } from 'react-native-simple-time-picker';
+import PortionBtn from '../../components/PortionBtn'
 
 LocaleConfig.locales['en'] = {
   monthNames: [
@@ -27,11 +29,13 @@ LocaleConfig.locales['en'] = {
 };
 LocaleConfig.defaultLocale = 'en';
 
-import { TextInput } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 
 function BookingScreen({ navigation }) {
   const [text, setText] = React.useState("");
-
+  const [selectedHours, setSelectedHours] = React.useState({});
+  // const [selectedMinutes, setSelectedMinutes] = React.useState(0);
+  console.log(selectedHours)
   //   function goBackHome() {
   //     navigation.navigate('HomeScreen')
   //   }
@@ -80,7 +84,6 @@ function BookingScreen({ navigation }) {
         <View style={styles.calendarWrapper}>
           <View style={styles.calendarItems}>
             <CalendarList
-              // style={[styles.calendar, { height: 300 }]}
               current={'2022-03-01'}
               minDate={'2022-03-01'}
               // Callback which gets executed when visible months change in scroll view. Default = undefined
@@ -110,43 +113,68 @@ function BookingScreen({ navigation }) {
         </View>
         <View style={styles.dateWrapper}>
           <View style={styles.dateItemsHead}>
-            <Text style={styles.textDateHead}>Enter Time</Text>
+            <Text style={styles.textDateHead}>Select Time</Text>
           </View>
-          <View style={styles.dateItemsTime}>
-            <TextInput
-              style={styles.timeHour}
-              value={text}
-              theme={{ colors: { text: Color.dark, primary: Color.red } }}
-              onChangeText={text => setText(text)}
-            />
-            <TextInput
-              style={styles.timeSecond}
-              value={text}
-              theme={{ colors: { text: Color.dark, primary: Color.red } }}
-              onChangeText={text => setText(text)}
-            />
-            <View style={styles.timeAmPm}>
-              <View style={styles.timeAm}></View>
-              <View style={styles.timePm}></View>
-            </View>
-          </View>
-          <View style={styles.dateItemsFooter}>
-            <View style={styles.timeFooterIcon}></View>
-            <Text style={styles.timeFooterIcon}>Time</Text>
-            <Text style={styles.timeFooterIcon}>Cancle</Text>
-            <Text style={styles.timeFooterIcon}>Reset</Text>
-            <Text style={styles.timeFooterIcon}>OK</Text>
-          </View>
+          <TimePicker
+            // selectedHours={selectedHours}
+            //initial Hourse value
+            // selectedMinutes={selectedMinutes}
+            isAmpm={true}
+            itemStyle={styles.timePicker}
+            zeroPadding={true}
+            defaultValue={{ hours: 9, minutes: 0, ampm: 'am' }}
+            //initial Minutes value
+            onChange={(hours, minutes) => {
+              // console.log(hours, "-+++++")
+              setSelectedHours(hours);
+              // setSelectedMinutes(minutes);
+            }}
+          />
         </View>
-        <Text>{description}</Text>
-        {facialRecognitionAvailable || fingerprintAvailable || irisAvailable ? (
+        <View style={styles.headerCalendar}>
+          <Text style={styles.textHeaderCalendar}>Select Portion</Text>
+        </View>
+        <View style={styles.portionWrapper}>
+          <FlatList
+            data={[
+              { key: '1' },
+              { key: '2' },
+              { key: '3' },
+              { key: '4' },
+              { key: '5' },
+              { key: '6' },
+              { key: '7' },
+              { key: '8' },
+              { key: '9' },
+              { key: '10' },
+              { key: '11' },
+              { key: '12' },
+              { key: '13' },
+              { key: '14' },
+              { key: '15' },
+              { key: '16' },
+              { key: '17' },
+              { key: '18' },
+              { key: '19' },
+              { key: '20' },
+            ]}
+            horizontal={true}
+            renderItem={({ item }) => (
+              <PortionBtn
+                data={item}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
+
+        {/* {facialRecognitionAvailable || fingerprintAvailable || irisAvailable ? (
           <Button onPress={authenticate} title={'Authenticate'}>
             Authenticate
           </Button>
-        ) : null}
-        {resultMessage ? <Text>{resultMessage}</Text> : null}
-      </ScrollView>
-    </View>
+        ) : null} */}
+      </ScrollView >
+    </View >
   )
 }
 

@@ -8,9 +8,6 @@ const styles = StyleSheet.create({
       paddingTop: 25,
       paddingBottom: 50,
    },
-   restoListWrap: {
-      flex: 1
-   },
    iconSmall: {
       width: 15,
       height: 15,
@@ -76,9 +73,9 @@ const styles = StyleSheet.create({
       alignItems: 'center',
    },
    contentMenuWrap: {
-      height: 500,
       width: width,
       alignItems: 'center',
+      marginBottom: 20,
    },
    titleWrap: {
       height: 50,
@@ -332,7 +329,7 @@ const styles = StyleSheet.create({
    },
    itemListItemDesc: {
       fontSize: 12,
-      color: Color.dark
+      color: Color.darkGray
    },
    orderList: {
       borderTopColor: Color.gray,
@@ -925,10 +922,9 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
    },
    dateWrapper: {
-      width: width / 1.5,
-      height: 200,
+      width: width / 1.1,
+      height: 100,
       borderRadius: 10,
-      borderWidth: 1,
       alignSelf: 'center',
       flexDirection: 'column',
       marginTop: 30,
@@ -938,50 +934,36 @@ const styles = StyleSheet.create({
       height: 30,
       justifyContent: 'center',
       paddingLeft: 10,
+      borderBottomColor: Color.darkGray,
+      borderBottomWidth: 1
    },
    textDateHead: {
       color: Color.darkGray,
    },
-   dateItemsTime: {
-      height: 50,
+   portionWrapper: {
+      width: width / 1.1,
+      height: 100,
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      marginTop: 20,
+      alignSelf: 'center'
    },
-   timeHour: {
-      width: 60,
+   btnPortion: {
+      backgroundColor: Color.white,
+      alignItems: 'center',
+      width: 40,
       height: 70,
-      fontSize: 10,
-      // paddingLeft: 10,
-      borderRadius: 5,
-      marginLeft: 10,
-      // borderWidth: 1,
-   },
-   timeSecond: {
-      width: 60,
-      height: 70,
-      fontSize: 10,
-      borderRadius: 5,
-      // paddingLeft: 10,
-      marginLeft: 10,
-      // borderWidth: 1,
-   },
-   timeAmPm: {
-      width: 60,
-      height: 70,
-      borderRadius: 5,
-      // paddingLeft: 10,
-      marginLeft: 10,
-      borderWidth: 1,
-      marginRight: 10,
-   },
-   timeAm: {},
-   timePm: {},
-   dateItemsFooter: {},
-   timeFooterIcon: {},
-   timeFooterIcon: {},
-   timeFooterIcon: {},
-   timeFooterIcon: {},
-   timeFooterIcon: {},
+      justifyContent: 'center',
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      marginLeft: 30,
+      marginRight: 30,
+   }
 })
 
 export default styles;

@@ -108,8 +108,6 @@ export default HomeScreen = ({ navigation }) => {
       <View style={styles.container}>
         {/* Header */}
         <ScrollView
-          contentInsetAdjustmentBehavior='automatic'
-          showsVerticalScrollIndicator={false}
         >
           <View style={styles.headerApp}>
             <LinearGradient
@@ -169,7 +167,6 @@ export default HomeScreen = ({ navigation }) => {
                 </Text>
               </View>
             </View>
-
             {loading && (
               <>
                 <View
@@ -182,20 +179,17 @@ export default HomeScreen = ({ navigation }) => {
               </>
             )}
             {data && (
-              <View style={styles.restoListWrap}>
-                <FlatList
-                  data={data.restaurants}
-                  renderItem={({ item }) => (
-                    <RestaurantCard
-                      resto={item}
-                      key={item._id}
-                      navigation={navigation}
-                    />
-                  )}
-                  keyExtractor={(item) => item._id}
-                />
-              </View>
-            )}
+              data.restaurants.map(el => {
+                return (
+                  <RestaurantCard
+                    key={el._id}
+                    resto={el}
+                    navigation={navigation}
+                  />
+                )
+              })
+            )
+            }
           </View>
           {/* ============== */}
         </ScrollView>

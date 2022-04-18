@@ -12,7 +12,7 @@ const restaurant = [
       //    },
       // ],
       contactNumber: '085234345654',
-      openingHours: '08.00 - 22.00',
+      openingHours: ['08.00', '22.00'],
       available: true,
       capacity: 40,
       mainImagesUrl: ['https://awsimages.detik.net.id/community/media/visual/2020/10/20/bukan-romantis-lampu-remang-remang-di-restoran-bikin-makanan-tak-enak_169.png?w=700&q=90', "https://images.bisnis-cdn.com/posts/2020/05/18/1242169/manila-lockdown-3.jpg"],
