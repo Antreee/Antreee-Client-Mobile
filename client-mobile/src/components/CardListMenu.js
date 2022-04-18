@@ -10,8 +10,6 @@ export default function CardListMenu({ myMenus, navigation, id, tableNumber }) {
   const { cart, setCart } = useContext(CartContext)
   const { restaurantState, setRestaurantState } = useContext(RestaurantContext)
 
-
-
   function currencyFormat(num) {
     return 'Rp.' + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
   }
@@ -32,10 +30,7 @@ export default function CardListMenu({ myMenus, navigation, id, tableNumber }) {
     if (cart[itemId] == 0) {
       delete cart[itemId]
     }
-    console.log(cart)
   }
-
-  //Kirim data cart ke database, untuk diquery di halaman keranjang
 
   return (
     <>
