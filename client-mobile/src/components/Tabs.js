@@ -104,6 +104,7 @@ const Tabs = ({ navigation }) => {
                   />
                 </TouchableOpacity>
               ),
+              unmountOnBlur: true,
               headerShown: false,
             })}
           />
