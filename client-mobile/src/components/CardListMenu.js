@@ -41,8 +41,8 @@ export default function CardListMenu({ myMenus, navigation, id, tableNumber }) {
     <>
       {myMenus.map((menu, index) => {
         return (
-          <View style={{}}>
-            <View key={index} style={styles.menuListItem}>
+          <View key={index} style={{}}>
+            <View style={styles.menuListItem}>
               <Text style={styles.menuCategoryName}>{Object.keys(menu)}</Text>
             </View>
             <View style={styles.listWrapper}>

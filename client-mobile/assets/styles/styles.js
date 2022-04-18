@@ -1,11 +1,11 @@
-import { StyleSheet, Dimensions, ColorPropType } from "react-native";
+import { StyleSheet, Platform, StatusBar, Dimensions } from "react-native";
 import Color from "../../src/assets/Color";
 const width = Dimensions.get("window").width;
 const styles = StyleSheet.create({
    container: {
       flex: 1,
       backgroundColor: Color.white,
-      paddingTop: 25,
+      paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
       paddingBottom: 50,
    },
    iconSmall: {
@@ -258,6 +258,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       alignContent: 'center',
+      marginBottom: 100,
    },
    btnGoToCart: {
       backgroundColor: Color.red,
@@ -343,7 +344,7 @@ const styles = StyleSheet.create({
       elevation: 4,
       marginTop: 10,
       marginBottom: 10,
-      maxHeight: 300,
+      height: 300,
    },
    imgCardMenu: {
       width: 100,
@@ -912,23 +913,14 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: Color.white,
       width: width,
-      height: 350,
+      height: 380,
       flexDirection: 'column'
    },
    headerCalendar: {
-      width: width / 1.1,
+      width: width,
       height: 40,
       paddingLeft: 10,
       backgroundColor: Color.red,
-      borderRadius: 10,
-      shadowColor: "#000",
-      shadowOffset: {
-         width: 0,
-         height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      elevation: 5,
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'center',
@@ -1004,7 +996,8 @@ const styles = StyleSheet.create({
    btnPortion: {
       backgroundColor: Color.white,
       alignItems: 'center',
-      width: 40,
+      width: 60,
+      borderRadius: 10,
       height: 70,
       justifyContent: 'center',
       shadowColor: "#000",
@@ -1019,12 +1012,22 @@ const styles = StyleSheet.create({
       marginRight: 30,
    },
    wrapIdentity: {
-      width: width / 1.1,
-      height: 100,
+      width: width / 1.2,
+      // height: 200,
+      padding: 15,
       borderRadius: 10,
       alignSelf: 'center',
       marginBottom: 70,
       marginTop: 20,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      backgroundColor: Color.white,
    }
 })
 

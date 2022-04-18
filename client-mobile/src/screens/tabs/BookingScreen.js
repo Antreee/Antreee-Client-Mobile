@@ -1,13 +1,16 @@
 import styles from '../../../assets/styles/styles'
 import { Text, Image, TouchableOpacity, View, ScrollView, FlatList, ActivityIndicator, StyleSheet, Dimensions, ImageBackground } from 'react-native'
 import * as React from 'react'
+import { useState, useRef } from "react"
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import { LocaleConfig } from 'react-native-calendars';
 import Color from '../../assets/Color'
 import { TimePicker } from 'react-native-simple-time-picker';
-import PortionBtn from '../../components/PortionBtn'
 import { TextInput } from 'react-native-paper'
-
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Entypo from 'react-native-vector-icons/Entypo'
+import { Modal, Portal, Provider } from 'react-native-paper';
 LocaleConfig.locales['en'] = {
   monthNames: [
     'January',
@@ -36,24 +39,28 @@ import { GET_RESTAURANT_BY_ID } from '../../../config/queries';
 import MyPagination from '../../components/MyPagination';
 import Carousel from 'react-native-anchor-carousel';
 const INITIAL_INDEX = 0;
+const { width: windowWidth } = Dimensions.get('window');
 
 function BookingScreen({ navigation, route }) {
-  const [text, setText] = React.useState("");
-  const [selectedHours, setSelectedHours] = React.useState({});
-  const [email, setEmail] = React.useState('')
-  const [name, setName] = React.useState('')
-  const [phoneNumber, setPhoneNumber] = React.useState('')
-  const carouselRef = React.useRef(null);
-  const [currentIndex, setCurrentIndex] = React.useState(INITIAL_INDEX);
+  const [text, setText] = useState("");
+  const [selectedHours, setSelectedHours] = useState({
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
+  const [selectedDate, setSelectedDate] = useState('');
+  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const carouselRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
+  const [portion, setPortion] = useState('')
   const { id } = route.params ? route.params : { id: null }
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { id, itemsByRestaurantIdId2: id },
   })
+  const [visible, setVisible] = useState(false);
 
-  // const [selectedMinutes, setSelectedMinutes] = React.useState(0);
-  //   function goBackHome() {
-  //     navigation.navigate('HomeScreen')
-  //   }
   if (loading) {
     return (
       <>
@@ -90,11 +97,153 @@ function BookingScreen({ navigation, route }) {
       </View>
     )
   }
-  // console.log(data)
-  const { width: windowWidth } = Dimensions.get('window');
 
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const containerStyle = {
+    backgroundColor: Color.white,
+    padding: 20,
+    height: 400,
+    width: windowWidth / 1.1,
+    alignSelf: 'center',
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: 'center',
+  };
+
+  if (visible) {
+    return (
+      <Provider>
+        <Portal>
+          <Modal visible={visible}
+            onDismiss={hideModal}
+            contentContainerStyle={containerStyle}>
+            <View style={{
+              width: windowWidth / 1.1,
+              height: 50,
+              backgroundColor: Color.red,
+              justifyContent: "center",
+              alignItems: 'center',
+            }}>
+              <Text style={{ color: Color.white, fontSize: 15, fontWeight: 'bold' }}>Input Your Identity</Text>
+            </View>
+            <View style={styles.wrapIdentity}>
+              <TextInput
+                label='Name'
+                value={name}
+                mode={'outlined'}
+                style={{
+                  backgroundColor: Color.white,
+                  height: 40,
+                  fontSize: 13,
+                  marginBottom: 3,
+                }}
+                theme={{ colors: { text: Color.dark, primary: Color.red } }}
+                onChangeText={(name) => setName(name)}
+              />
+              <TextInput
+                label='PhoneNumber'
+                value={phoneNumber}
+                mode={'outlined'}
+                style={{
+                  backgroundColor: Color.white,
+                  height: 40,
+                  fontSize: 13,
+                  marginBottom: 3,
+                }}
+                theme={{ colors: { text: Color.dark, primary: Color.red } }}
+                onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+              />
+              <TextInput
+                label='Email'
+                value={email}
+                mode={'outlined'}
+                style={{
+                  backgroundColor: Color.white,
+                  height: 40,
+                  fontSize: 13,
+                  marginTop: 3,
+                }}
+                theme={{ colors: { text: Color.dark, primary: Color.red } }}
+                onChangeText={(email) => {
+                  setEmail(email)
+                }}
+              />
+            </View>
+            <TouchableOpacity
+              style={{
+                backgroundColor: Color.red,
+                width: 150,
+                height: 50,
+                borderRadius: 10,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+              onPress={() => {
+                console.log({
+                  identity: {
+                    name,
+                    email,
+                    phoneNumber,
+                  },
+                  dateTime: {
+                    date: selectedDate,
+                    time: `${selectedHours.hours}:${selectedHours.minutes}:${selectedHours.seconds}`
+                  },
+                  numberOfPerson: portion,
+                })
+                navigation.navigate('RestaurantScreen')
+              }}
+            >
+              <Text style={{ color: Color.white, fontWeight: 'bold' }}>Pay Now!</Text>
+            </TouchableOpacity>
+          </Modal>
+        </Portal>
+      </Provider>
+    );
+  }
+
+  function portionBtn(item) {
+    if (portion === item) {
+      return (
+        <TouchableOpacity
+          style={[styles.btnPortion, { backgroundColor: Color.red }]}
+          mode="contained"
+          onPress={() => setPortion(item)}>
+          <Text style={{ fontWeight: 'bold', fontSize: 20, color: Color.white }}>{item}</Text>
+        </TouchableOpacity>
+      )
+    } else {
+      return (
+        <TouchableOpacity
+          style={styles.btnPortion}
+          onPress={() => setPortion(item)}>
+          <Text style={{ fontSize: 20, color: Color.red }}>{item}</Text>
+        </TouchableOpacity>
+      )
+    }
+  }
   const restaurant = data.restaurant
-  // console.log("🚀 ~ file: RestaurantScreen.js ~ line 50 ~ RestaurantScreen ~ restaurant", restaurant)
+  const myCuisine = restaurant.cuisine.join(', ')
+  const able = () => {
+    if (restaurant.available) {
+      return (
+        <Text style={styles.available}>
+          {' '}
+          <Text style={styles.availableOpen}>OPEN</Text>{' '}
+          {restaurant.openingHours}
+        </Text>
+      )
+    }
+  }
+
+
+  const date = new Date();
+  date.setDate(date.getDate() + 1);
+  let todayDate = date.toISOString().slice(0, 10);
+
+
+
   const carouselImage = restaurant.mainImagesUrl.map(el => {
     return {
       uri: el,
@@ -118,6 +267,10 @@ function BookingScreen({ navigation, route }) {
     );
   }
 
+  const theDate = {
+    [todayDate]: { selected: true, selectedColor: Color.red }
+  }
+  console.log(theDate)
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -136,52 +289,41 @@ function BookingScreen({ navigation, route }) {
             <MyPagination currentIndex={currentIndex} length={carouselImage.length} />
           </View>
         </View>
-        <View style={styles.headerIdentity}>
-          <Text style={styles.textHeaderCalendar}>Your Identity</Text>
+        <View style={styles.doubleBtn}>
+          <View style={styles.loveAndMap}>
+            <TouchableOpacity style={styles.btnMap}>
+              <FontAwesome5 name='map-marked-alt' size={20} color={'white'} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.btnLove}>
+              <MaterialCommunityIcons
+                name='heart-outline'
+                size={25}
+                color={Color.red}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.wrapIdentity}>
-          <TextInput
-            label='Name'
-            value={name}
-            mode={'outlined'}
-            style={{
-              backgroundColor: Color.white,
-              height: 40,
-              fontSize: 13,
-              marginBottom: 3,
-            }}
-            theme={{ colors: { text: Color.dark, primary: Color.red } }}
-            onChangeText={(name) => setName(name)}
-          />
-          <TextInput
-            label='PhoneNumber'
-            value={phoneNumber}
-            mode={'outlined'}
-            style={{
-              backgroundColor: Color.white,
-              height: 40,
-              fontSize: 13,
-              marginBottom: 3,
-            }}
-            theme={{ colors: { text: Color.dark, primary: Color.red } }}
-            onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
-          />
-          <TextInput
-            label='Email'
-            value={email}
-            mode={'outlined'}
-            style={{
-              backgroundColor: Color.white,
-              height: 40,
-              fontSize: 13,
-              marginTop: 3,
-            }}
-            theme={{ colors: { text: Color.dark, primary: Color.red } }}
-            onChangeText={(email) => {
-              setEmail(email)
-              validate(email)
-            }}
-          />
+        <View style={styles.headTitleWrap}>
+          <Text style={styles.headTitle}>{restaurant.name}</Text>
+          <Text style={styles.cuisine}>{myCuisine}</Text>
+        </View>
+        <View style={styles.restaurantAddress}>
+          <View style={styles.restaurantAddressIcon}>
+            <Entypo name='shop' size={20} color={Color.red} />
+          </View>
+          <Text style={styles.restaurantAddressText}>
+            {restaurant.address}
+          </Text>
+        </View>
+        <View style={styles.restaurantAvailable}>
+          <View style={styles.restaurantAddressIcon}>
+            <MaterialCommunityIcons
+              name='calendar-clock'
+              size={20}
+              color={Color.red}
+            />
+          </View>
+          {able()}
         </View>
         <View style={styles.headerCalendar}>
           <Text style={styles.textHeaderCalendar}>Select Date</Text>
@@ -189,8 +331,8 @@ function BookingScreen({ navigation, route }) {
         <View style={styles.calendarWrapper}>
           <View style={styles.calendarItems}>
             <CalendarList
-              current={'2022-03-01'}
-              minDate={'2022-03-01'}
+              current={todayDate}
+              minDate={todayDate}
               // Callback which gets executed when visible months change in scroll view. Default = undefined
               onVisibleMonthsChange={(months) => { console.log('now these months are visible', months); }}
               // Max amount of months allowed to scroll to the past. Default = 50
@@ -203,9 +345,10 @@ function BookingScreen({ navigation, route }) {
               horizontal={true}
               hideArrows={false}
               pagingEnabled={true}
-              // calendarWidth={320}
+              hideExtraDays={true}
+              markedDates={{ [selectedDate]: { selected: true, selectedColor: Color.red } }}
               onDayPress={day => {
-                console.log('selected day', day);
+                setSelectedDate(day.dateString);
               }}
               // Enable or disable vertical scroll indicator. Default = false
               showScrollIndicator={true}
@@ -225,20 +368,18 @@ function BookingScreen({ navigation, route }) {
             //initial Hourse value
             // selectedMinutes={selectedMinutes}
             minutesInterval={15}
-            isAmpm={true}
             itemStyle={styles.timePicker}
             zeroPadding={true}
-            defaultValue={{ hours: 9, minutes: 0, ampm: 'am' }}
+            defaultValue={{ hours: 9, minutes: 0 }}
             //initial Minutes value
             onChange={(hours, minutes) => {
-              // console.log(hours, "-+++++")
               setSelectedHours(hours);
               // setSelectedMinutes(minutes);
             }}
           />
         </View>
         <View style={styles.headerCalendar}>
-          <Text style={styles.textHeaderCalendar}>Select Portion</Text>
+          <Text style={styles.textHeaderCalendar}>Number of Person</Text>
         </View>
         <View style={styles.portionWrapper}>
           <FlatList
@@ -265,11 +406,7 @@ function BookingScreen({ navigation, route }) {
               { key: '20' },
             ]}
             horizontal={true}
-            renderItem={({ item }) => (
-              <PortionBtn
-                data={item}
-              />
-            )}
+            renderItem={({ item }) => portionBtn(item.key)}
             keyExtractor={(item) => item.id}
           />
         </View>
@@ -279,6 +416,11 @@ function BookingScreen({ navigation, route }) {
             Authenticate
           </Button>
         ) : null} */}
+        <TouchableOpacity style={styles.headerIdentity}
+          onPress={showModal}>
+          <Text style={styles.textHeaderCalendar}>Checkout Now!</Text>
+        </TouchableOpacity>
+
       </ScrollView >
     </View >
   )

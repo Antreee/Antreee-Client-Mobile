@@ -30,9 +30,10 @@ const fontStyles = StyleSheet.create({
    },
    cardRestoAddress: {
       fontSize: 12,
-      marginTop: 5,
+      marginTop: 10,
       textAlign: 'left',
-      flexWrap: 'wrap'
+      flexWrap: 'wrap',
+      color: Color.dark
    },
    cardRestoNation: {
       fontSize: 8,

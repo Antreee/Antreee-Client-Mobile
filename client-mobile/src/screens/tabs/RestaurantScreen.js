@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, ActivityIndicator, ImageBackground, Dimensions, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, ScrollView, ActivityIndicator, ImageBackground, Dimensions, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import styles from '../../../assets/styles/styles'
 import Color from '../../assets/Color'
 import Carousel from 'react-native-anchor-carousel';
@@ -6,7 +6,7 @@ import { Button, Modal } from "react-native-paper"
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import CardListMenu from '../../components/CardListMenu'
 import { useQuery } from '@apollo/client'
@@ -14,19 +14,15 @@ import { GET_RESTAURANT_BY_ID } from '../../../config/queries'
 
 import MyPagination from '../../components/MyPagination'
 const INITIAL_INDEX = 0;
+const { width: windowWidth } = Dimensions.get('window');
 
 function RestaurantScreen({ route, navigation }) {
-  const { id, tableNumber } = route.params
-
+  const { id, tableNumber } = route.params ? route.params : { id: null, tableNumber: null }
   const carouselRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
-
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { id, itemsByRestaurantIdId2: id },
   })
-
-  const { width: windowWidth } = Dimensions.get('window');
-
 
   if (loading) {
     return (
@@ -42,8 +38,29 @@ function RestaurantScreen({ route, navigation }) {
       </>
     )
   }
+  const goBackHome = () => navigation.navigate('HomeScreen')
   if (error) {
-    return <Text>error...</Text>
+    return (
+      <>
+        <View style={[styles.container, { alignItems: 'center', justifyContent: 'center' }]}>
+          <View style={styles.emptyBook}>
+            <View style={styles.calendar}>
+              <Image
+                source={require('../../assets/imgTemplate/404.png')}
+                style={styles.calendarImg}
+              />
+            </View>
+            <View style={styles.emptyBookText}>
+              <Text style={styles.textEmptyBooked}>Oops! Something wrong</Text>
+              <Text style={styles.textEmptyBookedSub}>Please reload your app or go back to home screen.</Text>
+            </View>
+            <TouchableOpacity onPress={goBackHome} style={styles.btnBackHome}>
+              <Text style={styles.btnBackHomeText}>Back Home</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </>
+    )
   }
 
   const restaurant = data.restaurant
@@ -54,7 +71,6 @@ function RestaurantScreen({ route, navigation }) {
   })
 
   const items = data.itemsByRestaurantId
-  // console.log("🚀 ~ file: RestaurantScreen.js ~ line 57 ~ RestaurantScreen ~ items", items)
   const myCuisine = restaurant.cuisine.join(', ')
   const able = () => {
     if (restaurant.available) {
@@ -85,9 +101,6 @@ function RestaurantScreen({ route, navigation }) {
 
   function goToCartScreen() {
     navigation.navigate('CartScreen', { id, tableNumber })
-
-    // mutationgoToCartScreen({ variables: cart });
-    // setCart({})
   }
   function handleCarouselScrollEnd(item, index) {
     setCurrentIndex(index);
@@ -106,7 +119,7 @@ function RestaurantScreen({ route, navigation }) {
       </TouchableOpacity>
     );
   }
-  // ======================================================
+
 
   return (
     <>
@@ -129,8 +142,6 @@ function RestaurantScreen({ route, navigation }) {
               </View>
             </View>
             <View style={styles.doubleBtn}>
-              {/* <View style={styles.btnBookNow}></View> */}
-
               <View style={styles.loveAndMap}>
                 <TouchableOpacity style={styles.btnMap}>
                   <FontAwesome5 name='map-marked-alt' size={20} color={'white'} />
@@ -172,7 +183,6 @@ function RestaurantScreen({ route, navigation }) {
                 />
               </View>
               {able()}
-
               {tableNumber && (
                 <View>
                   <Text>Table Number: {tableNumber}</Text>
@@ -204,7 +214,6 @@ function RestaurantScreen({ route, navigation }) {
           }
         </View>
       )}
-
     </>
   )
 }

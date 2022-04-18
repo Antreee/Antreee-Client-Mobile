@@ -9,3 +9,5 @@ const users = {
 }
 
 export default users;
+
+// {"restaurantId": "625a63636ab2f903486ecc74", "tableNumber": "A-11"} 
