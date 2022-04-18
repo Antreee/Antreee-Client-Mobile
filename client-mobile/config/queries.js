@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_RESTAURANTS = gql`
-query Restaurants($stringCoordinates: String) 
-    { restaurants(stringCoordinates: $stringCoordinates) { 
+  query Restaurants($stringCoordinates: String, $search: String) {
+    restaurants(stringCoordinates: $stringCoordinates, search: $search) {
       _id
       name
       logoUrl
