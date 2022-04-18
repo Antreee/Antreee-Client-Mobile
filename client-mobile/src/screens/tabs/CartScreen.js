@@ -17,8 +17,14 @@ import { GET_RESTAURANT_BY_ID } from '../../../config/queries'
 import { CREATE_ORDER } from '../../../config/queries'
 import { WebView } from 'react-native-webview'
 import Color from '../../assets/Color'
-
-import { TextInput, Snackbar, Button } from 'react-native-paper'
+import {
+  TextInput,
+  Snackbar,
+  Button,
+  Modal,
+  Portal,
+  Provider,
+} from 'react-native-paper'
 import CartListItems from '../../components/CartListItems'
 import { RestaurantContext } from '../../components/Context'
 
@@ -41,6 +47,21 @@ function CartScreen({ navigation, route }) {
       itemsByRestaurantIdId2: restaurantState.restaurantId,
     },
   })
+  const { width: windowWidth, height: windowHeight } = Dimensions.get('window')
+  const [visible, setVisible] = React.useState(false)
+
+  const showModal = () => setVisible(true)
+  const hideModal = () => setVisible(false)
+  const containerStyle = {
+    alignSelf: 'center',
+    borderRadius: 10,
+    top: -windowHeight * 0.05,
+    backgroundColor: 'white',
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    height: windowHeight * 0.85,
+    width: windowWidth * 0.9,
+  }
 
   const [facialRecognitionAvailable, setFacialRecognitionAvailable] =
     React.useState(false)
@@ -94,44 +115,6 @@ function CartScreen({ navigation, route }) {
   React.useEffect(() => {
     checkSupportedAuthentication()
   }, [])
-
-  let resultMessage
-  switch (result) {
-    case 'cancelled':
-      resultMessage = 'Authentication process has been cancelled'
-      break
-    case 'disabled':
-      resultMessage = 'Biometric authentication has been disabled'
-      break
-    case 'error':
-      resultMessage = 'There was an error in authentication'
-      break
-    case 'success':
-      resultMessage = 'Successfully authenticated'
-      break
-    default:
-      resultMessage = ''
-      break
-  }
-
-  let description
-  if (facialRecognitionAvailable && fingerprintAvailable && irisAvailable) {
-    description = 'Authenticate with Face ID, touch ID or iris ID'
-  } else if (facialRecognitionAvailable && fingerprintAvailable) {
-    description = 'Authenticate with Face ID or touch ID'
-  } else if (facialRecognitionAvailable && irisAvailable) {
-    description = 'Authenticate with Face ID or iris ID'
-  } else if (fingerprintAvailable && irisAvailable) {
-    description = 'Authenticate with touch ID or iris ID'
-  } else if (facialRecognitionAvailable) {
-    description = 'Authenticate with Face ID'
-  } else if (fingerprintAvailable) {
-    description = 'Authenticate with touch ID '
-  } else if (irisAvailable) {
-    description = 'Authenticate with iris ID'
-  } else {
-    description = 'No biometric authentication methods available'
-  }
 
   // const [itemDetail, setItemDetail] = useState([])
 
@@ -243,40 +226,65 @@ function CartScreen({ navigation, route }) {
     }
   }
 
-  // ? CREATE ORDER
-  function createOrder() {
-    mutationCreateOrder({
-      variables: {
-        customerName: name,
-        customerEmail: email,
-        customerPhoneNumber: phoneNumber,
-        tableNumber: restaurantState.tableNumber,
-        totalPrice: myPrice,
-        bookingDate: null,
-        numberOfPeople: null,
-        orderDetails: {
-          data: itemDetail.map((item) => {
-            return {
-              itemId: item.id,
-              quantity: item.quantity,
-            }
-          }),
-        },
-      },
-    })
-    setCart({})
-  }
-
   const goToHome = () => navigation.navigate('HomeScreen')
   const width = Dimensions.get('window').width
   if (mutationData) {
     return (
-      <WebView
-        source={{
-          uri: mutationData.createOrder.message,
-        }}
-        style={{ marginTop: 20, height: 500, width: width }}
-      />
+      <Provider>
+        <Portal>
+          <Modal
+            visible={visible}
+            onDismiss={hideModal}
+            contentContainerStyle={containerStyle}
+          >
+            <WebView
+              source={{
+                uri: mutationData.createOrder.message,
+              }}
+              style={{
+                marginTop: 20,
+                height: windowHeight * 0.8,
+                width: windowWidth * 0.8,
+              }}
+            />
+          </Modal>
+          {!visible && (
+            <>
+              <View
+                style={[
+                  styles.container,
+                  { alignItems: 'center', justifyContent: 'center' },
+                ]}
+              >
+                <View style={styles.emptyBook}>
+                  <View style={styles.calendar}>
+                    <Image
+                      source={require('../../assets/imgTemplate/cart.png')}
+                      style={styles.calendarImg}
+                    />
+                  </View>
+                  <View style={styles.emptyBookText}>
+                    <Text style={styles.textEmptyBooked}>
+                      Thank you for your patronage.
+                    </Text>
+                    <Text style={styles.textEmptyBookedSub}>
+                      Please enjoy your meal!
+                    </Text>
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setVisible(true)
+                    }}
+                    style={styles.btnBackHome}
+                  >
+                    <Text style={styles.btnBackHomeText}>Open Modal</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </>
+          )}
+        </Portal>
+      </Provider>
     )
   }
   if (mutationLoading) return <Text>'Submitting...'</Text>
@@ -296,6 +304,32 @@ function CartScreen({ navigation, route }) {
       setEmail(text)
       console.log('Email is Correct')
     }
+  }
+
+  // ? CREATE ORDER
+  function createOrder() {
+    mutationCreateOrder({
+      variables: {
+        customerName: name,
+        customerEmail: email,
+        customerPhoneNumber: phoneNumber,
+        tableNumber: restaurantState.tableNumber,
+        totalPrice: myPrice,
+        bookingDate: null,
+        numberOfPeople: null,
+        restaurantId: restaurantState.restaurantId,
+        orderDetails: {
+          data: itemDetail.map((item) => {
+            return {
+              itemId: item.id,
+              quantity: item.quantity,
+            }
+          }),
+        },
+      },
+    })
+    showModal()
+    setCart({})
   }
 
   return (

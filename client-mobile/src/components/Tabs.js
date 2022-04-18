@@ -115,6 +115,7 @@ const Tabs = ({ navigation }) => {
                   />
                 </TouchableOpacity>
               ),
+              unmountOnBlur: true,
               headerShown: false,
             })}
           />
@@ -126,6 +127,7 @@ const Tabs = ({ navigation }) => {
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="ios-cart" color={color} size={size} />
               ),
+              unmountOnBlur: true,
               tabBarLabel: "My Cart",
             }}
           />
