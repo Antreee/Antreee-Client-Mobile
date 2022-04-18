@@ -4,6 +4,7 @@ import React from 'react'
 import * as eva from '@eva-design/eva'
 import { ApplicationProvider, IconRegistry, Text } from '@ui-kitten/components'
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { Provider as PaperProvider } from 'react-native-paper'
 // Navigator:
@@ -26,43 +27,45 @@ export default function App() {
     <>
       <ApolloProvider client={client}>
         <NavigationContainer>
-          <IconRegistry icons={EvaIconsPack} />
-          <ApplicationProvider {...eva} theme={eva.light}>
-            <PaperProvider>
-              <Navigator>
-                {/* <Screen
+          <SafeAreaProvider>
+            <IconRegistry icons={EvaIconsPack} />
+            <ApplicationProvider {...eva} theme={eva.light}>
+              <PaperProvider>
+                <Navigator>
+                  {/* <Screen
                   name='Splash'
                   component={Splash}
                   options={{ headerShown: false }}
                 /> */}
-                <Screen
-                  name='Tabs'
-                  component={Tabs}
-                  options={{ headerShown: false }}
-                />
-                <Screen
-                  name='QrScanScreen'
-                  component={QrScanScreen}
-                  options={{ headerShown: false }}
-                />
-                <Screen
-                  name='AuthScreen'
-                  component={AuthScreen}
-                  options={{ headerShown: false }}
-                />
-                <Screen
-                  name='BookingScreen'
-                  component={BookingScreen}
-                  options={{ headerShown: false }}
-                />
-                <Screen
-                  name='CartScreen'
-                  component={CartScreen}
-                  options={{ headerShown: false }}
-                />
-              </Navigator>
-            </PaperProvider>
-          </ApplicationProvider>
+                  <Screen
+                    name='Tabs'
+                    component={Tabs}
+                    options={{ headerShown: false }}
+                  />
+                  <Screen
+                    name='QrScanScreen'
+                    component={QrScanScreen}
+                    options={{ headerShown: false }}
+                  />
+                  <Screen
+                    name='AuthScreen'
+                    component={AuthScreen}
+                    options={{ headerShown: false }}
+                  />
+                  <Screen
+                    name='BookingScreen'
+                    component={BookingScreen}
+                    options={{ headerShown: false }}
+                  />
+                  <Screen
+                    name='CartScreen'
+                    component={CartScreen}
+                    options={{ headerShown: false }}
+                  />
+                </Navigator>
+              </PaperProvider>
+            </ApplicationProvider>
+          </SafeAreaProvider>
         </NavigationContainer>
       </ApolloProvider>
     </>
