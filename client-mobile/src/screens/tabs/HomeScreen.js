@@ -18,9 +18,10 @@ import Color from '../../assets/Color'
 import RestaurantCard from '../../components/RestaurantCard'
 import { useQuery } from '@apollo/client'
 import { GET_RESTAURANTS } from '../../../config/queries'
+import { animatedStyles, scrollInterpolator } from '../../components/animations'
 
 export default HomeScreen = ({ navigation }) => {
-  const { loading, error, data } = useQuery(GET_RESTAURANTS)
+  const { loading, error, data } = useQuery(GET_RESTAURANTS, { variables: { stringCoordinates: '98.628043,3.573613', }, })
 
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -67,6 +68,7 @@ export default HomeScreen = ({ navigation }) => {
           backgroundColor: 'floralwhite',
           borderRadius: 20,
           height: 200,
+          width: Dimensions.get('window').width - 125,
         }}
       >
         <ImageBackground
@@ -147,8 +149,12 @@ export default HomeScreen = ({ navigation }) => {
                 layout={'default'}
                 ref={carouselRef}
                 data={state.carouselItems}
-                sliderWidth={300}
-                itemWidth={width}
+                sliderWidth={width}
+                itemWidth={Math.round(width * 0.7)}
+                useScrollView={true}
+                scrollInterpolator={scrollInterpolator}
+                slideInterpolatedStyle={animatedStyles}
+                inactiveSlideShift={0}
                 renderItem={_renderItem}
                 onSnapToItem={(index) =>
                   setState({ ...state, activeIndex: index })

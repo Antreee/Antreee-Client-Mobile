@@ -30,8 +30,9 @@ const homeStyles = StyleSheet.create({
       marginRight: 12
    },
    cardDsc: {
-      height: '100%',
+      // height: '100%',
       width: 225,
+      flexDirection: 'column'
    },
 })
 

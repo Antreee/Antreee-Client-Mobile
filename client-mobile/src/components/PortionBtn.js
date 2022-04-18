@@ -4,9 +4,9 @@ import styles from "../../assets/styles/styles"
 import Color from "../assets/Color"
 
 export default function PortionBtn({ data }) {
-   const [portion, setPortion] = useState(1)
-   console.log(portion)
+   const [portion, setPortion] = useState('')
    // console.log(data)
+   console.log(portion, "==")
    return (
       <>
          <Button

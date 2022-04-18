@@ -10,7 +10,7 @@ export default function CardListMenu({ myMenus, navigation, id, tableNumber }) {
   const { cart, setCart } = useContext(CartContext)
   const { restaurantState, setRestaurantState } = useContext(RestaurantContext)
 
-  
+
 
   function currencyFormat(num) {
     return 'Rp.' + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
@@ -53,6 +53,7 @@ export default function CardListMenu({ myMenus, navigation, id, tableNumber }) {
             <View style={styles.listWrapper}>
               {menu[Object.keys(menu)].map((item, index) => {
                 return (
+
                   <View key={index} style={styles.itemListItem}>
                     <Image
                       source={{ uri: item.imageUrl }}
@@ -116,8 +117,10 @@ export default function CardListMenu({ myMenus, navigation, id, tableNumber }) {
                       )}
                     </View>
                   </View>
+
                 )
               })}
+
             </View>
           </>
         )

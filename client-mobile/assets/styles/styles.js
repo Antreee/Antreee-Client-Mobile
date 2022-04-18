@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'center',
+      // marginBottom: 35,
       // borderWidth: 1
    },
 
@@ -113,13 +114,25 @@ const styles = StyleSheet.create({
 
    //? == Style Detail Resto == //
    doubleBtn: {
+      alignSelf: 'center',
       height: 35,
-      width: width / 2 / 2.2,
-      alignSelf: 'flex-end',
+      width: width / 1.1,
+      // alignSelf: 'flex-end',
       flexDirection: 'row',
       justifyContent: 'space-between',
       marginTop: -20,
-      marginRight: 30
+      // marginRight: 30,
+      // borderWidth: 1,
+   },
+   btnBookNow: {
+      borderWidth: 1,
+      width: 100,
+      backgroundColor: Color.red,
+   },
+   loveAndMap: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: 80,
    },
    btnMap: {
       backgroundColor: Color.red,
@@ -181,6 +194,7 @@ const styles = StyleSheet.create({
       width: width / 1.1,
       alignSelf: 'center',
       marginBottom: 10,
+      marginTop: 20,
    },
    headTitle: {
       fontSize: 20,
@@ -281,9 +295,9 @@ const styles = StyleSheet.create({
    lestOfWrap: {
       flex: 1,
       alignItems: 'center',
-      justifyContent: 'center',
+      // justifyContent: 'center',
       width: width / 1.1,
-      alignContent: 'center',
+      // alignContent: 'center',
       alignSelf: 'center',
    },
    itemListItem: {
@@ -300,7 +314,7 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.23,
       shadowRadius: 2.62,
       flexDirection: 'column',
-      justifyContent: 'center',
+      // justifyContent: 'center',
       elevation: 4,
       marginBottom: 15,
    },
@@ -898,6 +912,25 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       alignSelf: 'center',
    },
+   headerIdentity: {
+      width: width / 1.1,
+      height: 40,
+      paddingLeft: 10,
+      backgroundColor: Color.red,
+      borderRadius: 10,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignSelf: 'center',
+      marginTop: 40
+   },
    textHeaderCalendar: {
       color: Color.white,
       fontSize: 15,
@@ -963,6 +996,14 @@ const styles = StyleSheet.create({
       elevation: 5,
       marginLeft: 30,
       marginRight: 30,
+   },
+   wrapIdentity: {
+      width: width / 1.1,
+      height: 100,
+      borderRadius: 10,
+      alignSelf: 'center',
+      marginBottom: 70,
+      marginTop: 20,
    }
 })
 

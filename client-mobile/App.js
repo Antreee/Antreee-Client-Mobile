@@ -16,10 +16,11 @@ import Splash from './src/screens/Splash'
 import Tabs from './src/components/Tabs'
 import QrScanScreen from './src/screens/tabs/QrScanScreen'
 import AuthScreen from './src/screens/AuthScreen'
+import BookingScreen from './src/screens/tabs/BookingScreen'
+import CartScreen from './src/screens/tabs/CartScreen'
 // import RestaurantScreen from './src/screens/RestaurantScreen';
 import { ApolloProvider } from '@apollo/client'
 import client from './config/apollo'
-
 export default function App() {
   return (
     <>
@@ -29,11 +30,11 @@ export default function App() {
           <ApplicationProvider {...eva} theme={eva.light}>
             <PaperProvider>
               <Navigator>
-                <Screen
+                {/* <Screen
                   name='Splash'
                   component={Splash}
                   options={{ headerShown: false }}
-                />
+                /> */}
                 <Screen
                   name='Tabs'
                   component={Tabs}
@@ -47,6 +48,16 @@ export default function App() {
                 <Screen
                   name='AuthScreen'
                   component={AuthScreen}
+                  options={{ headerShown: false }}
+                />
+                <Screen
+                  name='BookingScreen'
+                  component={BookingScreen}
+                  options={{ headerShown: false }}
+                />
+                <Screen
+                  name='CartScreen'
+                  component={CartScreen}
                   options={{ headerShown: false }}
                 />
               </Navigator>

@@ -2,7 +2,7 @@ import { View, Text, ScrollView, ActivityIndicator, ImageBackground, Dimensions,
 import styles from '../../../assets/styles/styles'
 import Color from '../../assets/Color'
 import Carousel from 'react-native-anchor-carousel';
-
+import { Button } from "react-native-paper"
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
@@ -47,6 +47,7 @@ function RestaurantScreen({ route, navigation }) {
   }
 
   const restaurant = data.restaurant
+  // console.log("🚀 ~ file: RestaurantScreen.js ~ line 50 ~ RestaurantScreen ~ restaurant", restaurant)
   const carouselImage = restaurant.mainImagesUrl.map(el => {
     return {
       uri: el,
@@ -54,7 +55,7 @@ function RestaurantScreen({ route, navigation }) {
   })
 
   const items = data.itemsByRestaurantId
-
+  // console.log("🚀 ~ file: RestaurantScreen.js ~ line 57 ~ RestaurantScreen ~ items", items)
   const myCuisine = restaurant.cuisine.join(', ')
   const able = () => {
     if (restaurant.available) {
@@ -124,16 +125,26 @@ function RestaurantScreen({ route, navigation }) {
               </View>
             </View>
             <View style={styles.doubleBtn}>
-              <TouchableOpacity style={styles.btnMap}>
-                <FontAwesome5 name='map-marked-alt' size={20} color={'white'} />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.btnLove}>
-                <MaterialCommunityIcons
-                  name='heart-outline'
-                  size={25}
-                  color={Color.red}
-                />
-              </TouchableOpacity>
+              {/* <View style={styles.btnBookNow}></View> */}
+              <Button
+                style={styles.btnBookNow}
+                mode="contained"
+                labelStyle={{ fontSize: 10 }}
+                onPress={() => navigation.navigate('BookingScreen', { id })}>
+                Book Now
+              </Button>
+              <View style={styles.loveAndMap}>
+                <TouchableOpacity style={styles.btnMap}>
+                  <FontAwesome5 name='map-marked-alt' size={20} color={'white'} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.btnLove}>
+                  <MaterialCommunityIcons
+                    name='heart-outline'
+                    size={25}
+                    color={Color.red}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
             <View style={styles.headTitleWrap}>
               <Text style={styles.headTitle}>{restaurant.name}</Text>

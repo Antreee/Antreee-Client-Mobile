@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native"
-
+import Color from "../../src/assets/Color";
 const fontStyles = StyleSheet.create({
 
    darkFontBold: {
       fontWeight: 'bold',
-      color: '#191919'
+      color: Color.dark
    },
    lightFontBold: {
       color: '#DDDDDD',
@@ -22,8 +22,11 @@ const fontStyles = StyleSheet.create({
       fontSize: 18,
       fontWeight: 'bold',
       marginTop: 5,
-      textAlign: 'left',
-      flexWrap: "wrap"
+      // textAlign: 'left',
+
+   },
+   cardRestoDistance: {
+      fontSize: 8,
    },
    cardRestoAddress: {
       fontSize: 12,
@@ -35,8 +38,17 @@ const fontStyles = StyleSheet.create({
       fontSize: 8,
       marginTop: 5,
       textAlign: 'left',
-      color: 'gray'
-   }
+      color: 'gray',
+   },
+   cardDistance: {
+      color: Color.white,
+      borderRadius: 10,
+      fontSize: 8,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: -30,
+      // top: -30,
+   },
 })
 
 export default fontStyles;
