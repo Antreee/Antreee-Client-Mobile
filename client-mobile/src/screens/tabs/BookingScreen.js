@@ -73,15 +73,15 @@ function BookingScreen({ navigation, route }) {
   const [selectedHours, setSelectedHours] = useState({
     hours: 9,
     minutes: 0,
-  })
-  const [selectedDate, setSelectedDate] = useState('')
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const carouselRef = useRef(null)
-  const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX)
-  const [portion, setPortion] = useState('')
-  const { id } = route.params ? route.params : { id: null }
+  });
+  const [selectedDate, setSelectedDate] = useState("");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const carouselRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
+  const [portion, setPortion] = useState("");
+  const { id } = route.params ? route.params : { id: null };
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { id, itemsByRestaurantIdId2: id },
   });
@@ -91,6 +91,7 @@ function BookingScreen({ navigation, route }) {
     { data: mutationData, loading: mutationLoading, error: mutationError },
   ] = useMutation(CREATE_ORDER);
   const [expoCalendarId, setExpoCalendarId] = useState("");
+  const [selectedTimestamp, setSelectedTimeStamp] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -173,42 +174,33 @@ function BookingScreen({ navigation, route }) {
       </>
     );
   }
-  const goBackHome = () => navigation.navigate('HomeScreen')
+  const goBackHome = () => navigation.navigate("HomeScreen");
   if (mutationData) {
-    console.log(mutationData)
+    console.log(mutationData);
 
     return (
       <>
-        <View
-          style={[
-            styles.container,
-            { alignItems: 'center', justifyContent: 'center' },
-          ]}
-        >
+        <View style={[styles.container, { alignItems: "center", justifyContent: "center" }]}>
           <View style={styles.emptyBook}>
             <View style={styles.calendar}>
               <Image
-                source={require('../../assets/imgTemplate/cart.png')}
+                source={require("../../assets/imgTemplate/cart.png")}
                 style={styles.calendarImg}
               />
             </View>
             <View style={styles.emptyBookText}>
-              <Text style={styles.textEmptyBooked}>
-                Your booking has been confirmed!
-              </Text>
-              <Text style={styles.textEmptyBookedSub}>
-                Thank you for using our services!
-              </Text>
+              <Text style={styles.textEmptyBooked}>Your booking has been confirmed!</Text>
+              <Text style={styles.textEmptyBookedSub}>Thank you for using our services!</Text>
             </View>
           </View>
         </View>
       </>
-    )
+    );
   }
 
   if (error || mutationError) {
-    console.log(error, 'error')
-    console.log(mutationError, 'mutationError')
+    console.log(error, "error");
+    console.log(mutationError, "mutationError");
     return (
       <View style={[styles.container, { alignItems: "center", justifyContent: "center" }]}>
         <View style={styles.emptyBook}>
@@ -239,9 +231,9 @@ function BookingScreen({ navigation, route }) {
     width: windowWidth / 1.1,
     alignSelf: "center",
     borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
+    justifyContent: "center",
+    alignItems: "center",
+  };
   if (visible) {
     return (
       <Provider>
@@ -256,9 +248,7 @@ function BookingScreen({ navigation, route }) {
                 alignItems: "center",
               }}
             >
-              <Text
-                style={{ color: Color.white, fontSize: 15, fontWeight: 'bold' }}
-              >
+              <Text style={{ color: Color.white, fontSize: 15, fontWeight: "bold" }}>
                 Input Your Details
               </Text>
             </View>
@@ -314,24 +304,9 @@ function BookingScreen({ navigation, route }) {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() => {
-                mutationCreateOrder({
-                  variables: {
-                    customerName: name,
-                    customerEmail: email,
-                    customerPhoneNumber: phoneNumber,
-                    bookingDate: `${selectedDate},${selectedHours.hours}:${selectedHours.minutes}`,
-                    numberOfPeople: +portion,
-                    restaurantId: id,
-                  },
-                  dateTime: {
-                    date: selectedDate,
-                    time: `${selectedHours.hours}:${selectedHours.minutes}`,
-                  },
-                  numberOfPerson: portion,
-                });
+              onPress={async () => {
                 try {
-                  await mutationCreateOrder({
+                  mutationCreateOrder({
                     variables: {
                       customerName: name,
                       customerEmail: email,
@@ -566,9 +541,7 @@ function BookingScreen({ navigation, route }) {
           </Button>
         ) : null} */}
         <TouchableOpacity style={styles.headerIdentity} onPress={showModal}>
-          <Text style={styles.textHeaderCalendar}>
-            Enter your details here!
-          </Text>
+          <Text style={styles.textHeaderCalendar}>Enter your details here!</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>
