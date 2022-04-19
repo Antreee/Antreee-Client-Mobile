@@ -13,13 +13,14 @@
     "@apollo/client": "^3.5.10",
     "@date-io/date-fns": "^2.13.1",
     "@eva-design/eva": "^2.1.1",
-    "@react-native-community/datetimepicker": "4.0.0",
+    "@react-native-community/datetimepicker": "^4.0.0",
     "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/native-stack": "^6.6.1",
     "@ui-kitten/components": "^5.1.2",
     "@ui-kitten/eva-icons": "^5.1.2",
     "expo": "~44.0.0",
     "expo-barcode-scanner": "~11.2.0",
+    "expo-calendar": "~10.1.0",
     "expo-font": "^10.0.5",
     "expo-linear-gradient": "~11.0.3",
     "expo-local-authentication": "^12.1.1",
@@ -44,8 +45,7 @@
     "react-native-svg": "12.1.1",
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1",
-    "react-native-webview": "^11.15.0",
-    "expo-calendar": "~10.1.0"
+    "react-native-webview": "^11.15.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

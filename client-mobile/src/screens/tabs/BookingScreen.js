@@ -10,13 +10,12 @@ import {
   StyleSheet,
   Dimensions,
   ImageBackground,
+  Platform,
 } from "react-native";
 import * as React from "react";
 import { useState, useRef, useEffect } from "react";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
-import { LocaleConfig } from "react-native-calendars";
 import Color from "../../assets/Color";
-import { TimePicker } from "react-native-simple-time-picker";
+
 import { TextInput } from "react-native-paper";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -25,40 +24,7 @@ import { Modal, Portal, Provider } from "react-native-paper";
 import { CREATE_ORDER } from "../../../config/queries";
 import * as ExpoCalendar from "expo-calendar";
 
-LocaleConfig.locales["en"] = {
-  monthNames: [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "Jun",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ],
-  monthNamesShort: [
-    "Jan",
-    "Feb",
-    "Marc",
-    "April",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ],
-  dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-  dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-  today: "Aujourd'hui",
-};
-LocaleConfig.defaultLocale = "en";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { Button } from "react-native-paper";
 import { useQuery, useMutation } from "@apollo/client";
@@ -69,7 +35,6 @@ const INITIAL_INDEX = 0;
 const { width: windowWidth } = Dimensions.get("window");
 
 function BookingScreen({ navigation, route }) {
-  const [text, setText] = useState("");
   const [selectedHours, setSelectedHours] = useState({
     hours: 9,
     minutes: 0,
@@ -92,6 +57,13 @@ function BookingScreen({ navigation, route }) {
   ] = useMutation(CREATE_ORDER);
   const [expoCalendarId, setExpoCalendarId] = useState("");
   const [selectedTimestamp, setSelectedTimeStamp] = useState("");
+
+  const [dateNow, setDateNow] = useState(new Date());
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+  const [textDate, setTextDate] = useState("empty");
+  const [textTime, setTextTime] = useState("empty");
+
 
   useEffect(() => {
     (async () => {
@@ -199,8 +171,6 @@ function BookingScreen({ navigation, route }) {
   }
 
   if (error || mutationError) {
-    console.log(error, "error");
-    console.log(mutationError, "mutationError");
     return (
       <View style={[styles.container, { alignItems: "center", justifyContent: "center" }]}>
         <View style={styles.emptyBook}>
@@ -311,15 +281,13 @@ function BookingScreen({ navigation, route }) {
                       customerName: name,
                       customerEmail: email,
                       customerPhoneNumber: phoneNumber,
-                      bookingDate: `${selectedDate} ${
-                        +selectedHours.hours < 10
-                          ? `0${selectedHours.hours}`
-                          : `${selectedHours.hours}`
-                      }:${
-                        +selectedHours.minutes < 10
+                      bookingDate: `${selectedDate} ${+selectedHours.hours < 10
+                        ? `0${selectedHours.hours}`
+                        : `${selectedHours.hours}`
+                        }:${+selectedHours.minutes < 10
                           ? `0${selectedHours.minutes}`
                           : `${selectedHours.minutes}`
-                      }`,
+                        }`,
                       numberOfPeople: +portion,
                       restaurantId: id,
                     },
@@ -338,6 +306,29 @@ function BookingScreen({ navigation, route }) {
       </Provider>
     );
   }
+
+  const onChangeDate = (event, selectedDate) => {
+    const currentDate = selectedDate || dateNow;
+    setShow(Platform.OS === 'ios');
+    setDateNow(currentDate);
+    let tempDate = new Date(currentDate)
+    let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
+    setTextDate(fDate);
+  };
+
+  const onChangeTime = (event, selectedDate) => {
+    const currentDate = selectedDate || dateNow;
+    setShow(Platform.OS === 'ios');
+    setDateNow(currentDate);
+    let tempDate = new Date(currentDate)
+    let fTime = tempDate.getHours() + ':' + tempDate.getMinutes();
+    setTextTime(fTime);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
 
   function portionBtn(item) {
     if (portion === item) {
@@ -402,7 +393,7 @@ function BookingScreen({ navigation, route }) {
     [todayDate]: { selected: true, selectedColor: Color.red },
   };
   return (
-    <View style={styles.container}>
+    <View style={styles.containerx}>
       <ScrollView>
         <View style={styles.carouselWrap}>
           <View style={styles.contentWrap}>
@@ -445,101 +436,90 @@ function BookingScreen({ navigation, route }) {
           </View>
           {able()}
         </View>
-        <View style={styles.headerCalendar}>
-          <Text style={styles.textHeaderCalendar}>Select Date</Text>
+
+        <View style={styles.dateTimeWrapper}>
+          <Text style={styles.textDetailBookingHeader}>BOOKING DETAILS</Text>
         </View>
-        <View style={styles.calendarWrapper}>
-          <View style={styles.calendarItems}>
-            <CalendarList
-              current={todayDate}
-              minDate={todayDate}
-              // Callback which gets executed when visible months change in scroll view. Default = undefined
-              // onVisibleMonthsChange={(months) => { console.log('now these months are visible', months); }}
-              // Max amount of months allowed to scroll to the past. Default = 50
-              pastScrollRange={40}
-              // Max amount of months allowed to scroll to the future. Default = 50
-              futureScrollRange={50}
-              // Enable or disable scrolling of calendar list
-              scrollEnabled={true}
-              firstDay={1}
+        <View style={styles.detailInSideWrapper}>
+          <Text style={styles.headTitleDetailOrder}>Order Date and Time :</Text>
+          <View style={styles.btnWrapperOrder}>
+            <TouchableOpacity
+              onPress={(_) => showMode('date')}
+              style={styles.btnOrderDateTime}>
+              {
+                textDate === 'empty' ? (
+                  <Text style={{ color: Color.white, fontWeight: 'bold' }}>SET DATE</Text>
+                ) :
+                  <Text style={{ color: Color.white, fontWeight: 'bold' }}>{textDate}</Text>
+              }
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={(_) => showMode('time')}
+              style={styles.btnOrderDateTime}>
+              {
+                textTime === 'empty' ? (
+                  <Text style={{ color: Color.white, fontWeight: 'bold' }}>SET TIME</Text>
+                ) :
+                  <Text style={{ color: Color.white, fontWeight: 'bold' }}>{textTime}</Text>
+              }
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.headTitleDetailOrder}>Number of Person :</Text>
+          <Text style={{ fontSize: 10, color: Color.red, top: -10 }}>*Slide the box</Text>
+          <View style={styles.portionWrapper}>
+            <FlatList
+              data={[
+                { key: "1" },
+                { key: "2" },
+                { key: "3" },
+                { key: "4" },
+                { key: "5" },
+                { key: "6" },
+                { key: "7" },
+                { key: "8" },
+                { key: "9" },
+                { key: "10" },
+                { key: "11" },
+                { key: "12" },
+                { key: "13" },
+                { key: "14" },
+                { key: "15" },
+                { key: "16" },
+                { key: "17" },
+                { key: "18" },
+                { key: "19" },
+                { key: "20" },
+              ]}
               horizontal={true}
-              hideArrows={false}
-              pagingEnabled={true}
-              hideExtraDays={true}
-              markedDates={{
-                [selectedDate]: { selected: true, selectedColor: Color.red },
-              }}
-              onDayPress={(day) => {
-                console.log(day);
-                setSelectedDate(day.dateString);
-                setSelectedTimeStamp(day.timestamp);
-              }}
-              // Enable or disable vertical scroll indicator. Default = false
-              showScrollIndicator={true}
-              calendarParams
+              renderItem={({ item }) => portionBtn(item.key)}
+              keyExtractor={(item) => item.id}
             />
           </View>
         </View>
-        <View style={styles.headerCalendar}>
-          <Text style={styles.textHeaderCalendar}>Select Time</Text>
-        </View>
-        <View style={styles.dateWrapper}>
-          {/* <View style={styles.dateItemsHead}>
-            <Text style={styles.textDateHead}>Select Time</Text>
-          </View> */}
-          <TimePicker
-            // selectedHours={selectedHours}
-            //initial Hourse value
-            // selectedMinutes={selectedMinutes}
-            minutesInterval={15}
-            itemStyle={styles.timePicker}
-            zeroPadding={true}
-            defaultValue={{ hours: 9, minutes: 0 }}
-            //initial Minutes value
-            onChange={(hours, minutes) => {
-              setSelectedHours(hours);
-              // setSelectedMinutes(minutes);
-            }}
-          />
-        </View>
-        <View style={styles.headerCalendar}>
-          <Text style={styles.textHeaderCalendar}>Number of Person</Text>
-        </View>
-        <View style={styles.portionWrapper}>
-          <FlatList
-            data={[
-              { key: "1" },
-              { key: "2" },
-              { key: "3" },
-              { key: "4" },
-              { key: "5" },
-              { key: "6" },
-              { key: "7" },
-              { key: "8" },
-              { key: "9" },
-              { key: "10" },
-              { key: "11" },
-              { key: "12" },
-              { key: "13" },
-              { key: "14" },
-              { key: "15" },
-              { key: "16" },
-              { key: "17" },
-              { key: "18" },
-              { key: "19" },
-              { key: "20" },
-            ]}
-            horizontal={true}
-            renderItem={({ item }) => portionBtn(item.key)}
-            keyExtractor={(item) => item.id}
-          />
-        </View>
-
-        {/* {facialRecognitionAvailable || fingerprintAvailable || irisAvailable ? (
-          <Button onPress={authenticate} title={'Authenticate'}>
-            Authenticate
-          </Button>
-        ) : null} */}
+        {
+          show && mode === 'date' && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode={mode}
+              is24Hour={true}
+              display="default"
+              onChange={onChangeDate}
+            />
+          )
+        }
+        {
+          show && mode === 'time' && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode={mode}
+              is24Hour={true}
+              display="default"
+              onChange={onChangeTime}
+            />
+          )
+        }
         <TouchableOpacity style={styles.headerIdentity} onPress={showModal}>
           <Text style={styles.textHeaderCalendar}>Enter your details here!</Text>
         </TouchableOpacity>

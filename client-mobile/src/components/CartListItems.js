@@ -8,6 +8,7 @@ import { CartContext } from "./Context";
 export default function CartListItems({ name, price, quantity, description, image, itemId }) {
   const [qty, setQty] = useState(quantity);
   const { cart, setCart } = useContext(CartContext);
+  console.log(name, price, quantity, description, image, itemId);
 
   function currencyFormat(num) {
     return "Rp." + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
