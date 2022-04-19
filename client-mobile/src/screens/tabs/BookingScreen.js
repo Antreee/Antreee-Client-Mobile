@@ -133,7 +133,7 @@ function BookingScreen({ navigation, route }) {
     return newCalendarID;
   }
 
-  async function addEvent(portion) {
+  async function addEvent() {
     try {
       const startDate = new Date(+selectedTimestamp);
       startDate.setHours(+selectedHours.hours);
