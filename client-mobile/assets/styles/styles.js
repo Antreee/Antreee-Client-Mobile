@@ -465,9 +465,9 @@ const styles = StyleSheet.create({
       // marginTop: -300,
    },
    welcomeHome: {
-      marginTop: -150,
-      color: Color.white,
+      color: Color.dark,
       fontSize: 30,
+      fontWeight: 'bold',
    },
    profilPic: {
       width: 150,
