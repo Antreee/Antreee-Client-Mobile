@@ -1,16 +1,29 @@
 import styles from '../../../assets/styles/styles'
-import { Text, Image, TouchableOpacity, View, ScrollView, FlatList, ActivityIndicator, StyleSheet, Dimensions, ImageBackground } from 'react-native'
+import {
+  Text,
+  Image,
+  TouchableOpacity,
+  View,
+  ScrollView,
+  FlatList,
+  ActivityIndicator,
+  StyleSheet,
+  Dimensions,
+  ImageBackground,
+} from 'react-native'
 import * as React from 'react'
-import { useState, useRef } from "react"
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
-import { LocaleConfig } from 'react-native-calendars';
+import { useState, useRef } from 'react'
+import { Calendar, CalendarList, Agenda } from 'react-native-calendars'
+import { LocaleConfig } from 'react-native-calendars'
 import Color from '../../assets/Color'
-import { TimePicker } from 'react-native-simple-time-picker';
+import { TimePicker } from 'react-native-simple-time-picker'
 import { TextInput } from 'react-native-paper'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
-import { Modal, Portal, Provider } from 'react-native-paper';
+import { Modal, Portal, Provider } from 'react-native-paper'
+import { CREATE_ORDER } from '../../../config/queries'
+
 LocaleConfig.locales['en'] = {
   monthNames: [
     'January',
@@ -24,53 +37,81 @@ LocaleConfig.locales['en'] = {
     'September',
     'October',
     'November',
-    'December'
+    'December',
   ],
-  monthNamesShort: ['Jan', 'Feb', 'Marc', 'April', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-  dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+  monthNamesShort: [
+    'Jan',
+    'Feb',
+    'Marc',
+    'April',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ],
+  dayNames: [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ],
   dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-  today: "Aujourd'hui"
-};
-LocaleConfig.defaultLocale = 'en';
+  today: "Aujourd'hui",
+}
+LocaleConfig.defaultLocale = 'en'
 
-import { Button } from 'react-native-paper';
-import { useQuery } from '@apollo/client';
-import { GET_RESTAURANT_BY_ID } from '../../../config/queries';
-import MyPagination from '../../components/MyPagination';
-import Carousel from 'react-native-anchor-carousel';
-const INITIAL_INDEX = 0;
-const { width: windowWidth } = Dimensions.get('window');
+import { Button } from 'react-native-paper'
+import { useQuery, useMutation } from '@apollo/client'
+import { GET_RESTAURANT_BY_ID } from '../../../config/queries'
+import MyPagination from '../../components/MyPagination'
+import Carousel from 'react-native-anchor-carousel'
+const INITIAL_INDEX = 0
+const { width: windowWidth } = Dimensions.get('window')
 
 function BookingScreen({ navigation, route }) {
-  const [text, setText] = useState("");
+  const [text, setText] = useState('')
   const [selectedHours, setSelectedHours] = useState({
     hours: 0,
     minutes: 0,
-    seconds: 0
-  });
-  const [selectedDate, setSelectedDate] = useState('');
+    seconds: 0,
+  })
+  const [selectedDate, setSelectedDate] = useState('')
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
-  const carouselRef = useRef(null);
-  const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
+  const carouselRef = useRef(null)
+  const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX)
   const [portion, setPortion] = useState('')
   const { id } = route.params ? route.params : { id: null }
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { id, itemsByRestaurantIdId2: id },
   })
-  const [visible, setVisible] = useState(false);
-
+  const [visible, setVisible] = useState(false)
+  const [
+    mutationCreateOrder,
+    { data: mutationData, loading: mutationLoading, error: mutationError },
+  ] = useMutation(CREATE_ORDER)
   if (loading) {
     return (
       <>
-        <View style={{
-          flex: 1,
-          justifyContent: "center", alignItems: 'center', flexDirection: "row",
-          justifyContent: "space-around",
-          padding: 10
-        }}>
-          <ActivityIndicator size="small" color={Color.red} />
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            padding: 10,
+          }}
+        >
+          <ActivityIndicator size='small' color={Color.red} />
         </View>
       </>
     )
@@ -78,7 +119,12 @@ function BookingScreen({ navigation, route }) {
   const goBackHome = () => navigation.navigate('HomeScreen')
   if (error) {
     return (
-      <View style={[styles.container, { alignItems: 'center', justifyContent: 'center' }]}>
+      <View
+        style={[
+          styles.container,
+          { alignItems: 'center', justifyContent: 'center' },
+        ]}
+      >
         <View style={styles.emptyBook}>
           <View style={styles.calendar}>
             <Image
@@ -88,7 +134,9 @@ function BookingScreen({ navigation, route }) {
           </View>
           <View style={styles.emptyBookText}>
             <Text style={styles.textEmptyBooked}>No Apointment Booked</Text>
-            <Text style={styles.textEmptyBookedSub}>You have not booked any apointment yet.</Text>
+            <Text style={styles.textEmptyBookedSub}>
+              You have not booked any apointment yet.
+            </Text>
           </View>
           <TouchableOpacity onPress={goBackHome} style={styles.btnBackHome}>
             <Text style={styles.btnBackHomeText}>Book Now</Text>
@@ -98,8 +146,8 @@ function BookingScreen({ navigation, route }) {
     )
   }
 
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
+  const showModal = () => setVisible(true)
+  const hideModal = () => setVisible(false)
   const containerStyle = {
     backgroundColor: Color.white,
     padding: 20,
@@ -107,25 +155,34 @@ function BookingScreen({ navigation, route }) {
     width: windowWidth / 1.1,
     alignSelf: 'center',
     borderRadius: 10,
-    justifyContent: "center",
+    justifyContent: 'center',
     alignItems: 'center',
-  };
-
+  }
+  if (mutationLoading) return <Text>'Submitting...'</Text>
+  if (mutationError) return <Text>`Submission error! ${error.message}`</Text>
   if (visible) {
     return (
       <Provider>
         <Portal>
-          <Modal visible={visible}
+          <Modal
+            visible={visible}
             onDismiss={hideModal}
-            contentContainerStyle={containerStyle}>
-            <View style={{
-              width: windowWidth / 1.1,
-              height: 50,
-              backgroundColor: Color.red,
-              justifyContent: "center",
-              alignItems: 'center',
-            }}>
-              <Text style={{ color: Color.white, fontSize: 15, fontWeight: 'bold' }}>Input Your Identity</Text>
+            contentContainerStyle={containerStyle}
+          >
+            <View
+              style={{
+                width: windowWidth / 1.1,
+                height: 50,
+                backgroundColor: Color.red,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Text
+                style={{ color: Color.white, fontSize: 15, fontWeight: 'bold' }}
+              >
+                Input Your Identity
+              </Text>
             </View>
             <View style={styles.wrapIdentity}>
               <TextInput
@@ -177,9 +234,9 @@ function BookingScreen({ navigation, route }) {
                 height: 50,
                 borderRadius: 10,
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
               }}
-              onPress={() => {
+              onPress={async () => {
                 console.log({
                   identity: {
                     name,
@@ -188,19 +245,35 @@ function BookingScreen({ navigation, route }) {
                   },
                   dateTime: {
                     date: selectedDate,
-                    time: `${selectedHours.hours}:${selectedHours.minutes}:${selectedHours.seconds}`
+                    time: `${selectedHours.hours}:${selectedHours.minutes}`,
                   },
                   numberOfPerson: portion,
                 })
+                try {
+                  await mutationCreateOrder({
+                    variables: {
+                      customerName: name,
+                      customerEmail: email,
+                      customerPhoneNumber: phoneNumber,
+                      bookingDate: `${selectedDate},${selectedHours.hours}:${selectedHours.minutes}`,
+                      numberOfPeople: +portion,
+                      restaurantId: id,
+                    },
+                  })
+                } catch (error) {
+                  console.log(error)
+                }
                 navigation.navigate('RestaurantScreen')
               }}
             >
-              <Text style={{ color: Color.white, fontWeight: 'bold' }}>Pay Now!</Text>
+              <Text style={{ color: Color.white, fontWeight: 'bold' }}>
+                Book Now!
+              </Text>
             </TouchableOpacity>
           </Modal>
         </Portal>
       </Provider>
-    );
+    )
   }
 
   function portionBtn(item) {
@@ -208,16 +281,22 @@ function BookingScreen({ navigation, route }) {
       return (
         <TouchableOpacity
           style={[styles.btnPortion, { backgroundColor: Color.red }]}
-          mode="contained"
-          onPress={() => setPortion(item)}>
-          <Text style={{ fontWeight: 'bold', fontSize: 20, color: Color.white }}>{item}</Text>
+          mode='contained'
+          onPress={() => setPortion(item)}
+        >
+          <Text
+            style={{ fontWeight: 'bold', fontSize: 20, color: Color.white }}
+          >
+            {item}
+          </Text>
         </TouchableOpacity>
       )
     } else {
       return (
         <TouchableOpacity
           style={styles.btnPortion}
-          onPress={() => setPortion(item)}>
+          onPress={() => setPortion(item)}
+        >
           <Text style={{ fontSize: 20, color: Color.red }}>{item}</Text>
         </TouchableOpacity>
       )
@@ -237,40 +316,39 @@ function BookingScreen({ navigation, route }) {
     }
   }
 
+  const date = new Date()
+  date.setDate(date.getDate() + 1)
+  let todayDate = date.toISOString().slice(0, 10)
 
-  const date = new Date();
-  date.setDate(date.getDate() + 1);
-  let todayDate = date.toISOString().slice(0, 10);
-
-
-
-  const carouselImage = restaurant.mainImagesUrl.map(el => {
+  const carouselImage = restaurant.mainImagesUrl.map((el) => {
     return {
       uri: el,
     }
   })
   function handleCarouselScrollEnd(item, index) {
-    setCurrentIndex(index);
+    setCurrentIndex(index)
   }
   function renderItem({ item, index }) {
-    const { uri } = item;
+    const { uri } = item
     return (
       <TouchableOpacity
         activeOpacity={1}
         style={stylex.item}
         onPress={() => {
-          carouselRef.current.scrollToIndex(index);
-        }}>
-        <ImageBackground source={{ uri: uri }} style={stylex.imageBackground}>
-        </ImageBackground>
+          carouselRef.current.scrollToIndex(index)
+        }}
+      >
+        <ImageBackground
+          source={{ uri: uri }}
+          style={stylex.imageBackground}
+        ></ImageBackground>
       </TouchableOpacity>
-    );
+    )
   }
 
   const theDate = {
-    [todayDate]: { selected: true, selectedColor: Color.red }
+    [todayDate]: { selected: true, selectedColor: Color.red },
   }
-  console.log(theDate)
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -286,7 +364,10 @@ function BookingScreen({ navigation, route }) {
               onScrollEnd={handleCarouselScrollEnd}
               ref={carouselRef}
             />
-            <MyPagination currentIndex={currentIndex} length={carouselImage.length} />
+            <MyPagination
+              currentIndex={currentIndex}
+              length={carouselImage.length}
+            />
           </View>
         </View>
         <View style={styles.doubleBtn}>
@@ -311,9 +392,7 @@ function BookingScreen({ navigation, route }) {
           <View style={styles.restaurantAddressIcon}>
             <Entypo name='shop' size={20} color={Color.red} />
           </View>
-          <Text style={styles.restaurantAddressText}>
-            {restaurant.address}
-          </Text>
+          <Text style={styles.restaurantAddressText}>{restaurant.address}</Text>
         </View>
         <View style={styles.restaurantAvailable}>
           <View style={styles.restaurantAddressIcon}>
@@ -334,7 +413,7 @@ function BookingScreen({ navigation, route }) {
               current={todayDate}
               minDate={todayDate}
               // Callback which gets executed when visible months change in scroll view. Default = undefined
-              onVisibleMonthsChange={(months) => { console.log('now these months are visible', months); }}
+              // onVisibleMonthsChange={(months) => { console.log('now these months are visible', months); }}
               // Max amount of months allowed to scroll to the past. Default = 50
               pastScrollRange={40}
               // Max amount of months allowed to scroll to the future. Default = 50
@@ -346,9 +425,11 @@ function BookingScreen({ navigation, route }) {
               hideArrows={false}
               pagingEnabled={true}
               hideExtraDays={true}
-              markedDates={{ [selectedDate]: { selected: true, selectedColor: Color.red } }}
-              onDayPress={day => {
-                setSelectedDate(day.dateString);
+              markedDates={{
+                [selectedDate]: { selected: true, selectedColor: Color.red },
+              }}
+              onDayPress={(day) => {
+                setSelectedDate(day.dateString)
               }}
               // Enable or disable vertical scroll indicator. Default = false
               showScrollIndicator={true}
@@ -360,9 +441,9 @@ function BookingScreen({ navigation, route }) {
           <Text style={styles.textHeaderCalendar}>Select Time</Text>
         </View>
         <View style={styles.dateWrapper}>
-          <View style={styles.dateItemsHead}>
+          {/* <View style={styles.dateItemsHead}>
             <Text style={styles.textDateHead}>Select Time</Text>
-          </View>
+          </View> */}
           <TimePicker
             // selectedHours={selectedHours}
             //initial Hourse value
@@ -373,7 +454,7 @@ function BookingScreen({ navigation, route }) {
             defaultValue={{ hours: 9, minutes: 0 }}
             //initial Minutes value
             onChange={(hours, minutes) => {
-              setSelectedHours(hours);
+              setSelectedHours(hours)
               // setSelectedMinutes(minutes);
             }}
           />
@@ -416,13 +497,11 @@ function BookingScreen({ navigation, route }) {
             Authenticate
           </Button>
         ) : null} */}
-        <TouchableOpacity style={styles.headerIdentity}
-          onPress={showModal}>
-          <Text style={styles.textHeaderCalendar}>Checkout Now!</Text>
+        <TouchableOpacity style={styles.headerIdentity} onPress={showModal}>
+          <Text style={styles.textHeaderCalendar}>Enter your identity here!</Text>
         </TouchableOpacity>
-
-      </ScrollView >
-    </View >
+      </ScrollView>
+    </View>
   )
 }
 
@@ -452,4 +531,4 @@ const stylex = StyleSheet.create({
     borderWidth: 5,
     borderColor: 'white',
   },
-});
+})
