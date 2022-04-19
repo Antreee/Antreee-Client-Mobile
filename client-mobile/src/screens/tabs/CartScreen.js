@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
 import * as LocalAuthentication from 'expo-local-authentication'
-
+const width = Dimensions.get("window").width;
 import {
   View,
   Text,
   Image,
   TouchableOpacity,
   Dimensions,
-  FlatList,
   ActivityIndicator,
+  ScrollView,
+  StyleSheet,
 } from 'react-native'
 import styles from '../../../assets/styles/styles'
 import { useMutation, useQuery } from '@apollo/client'
@@ -48,9 +49,24 @@ function CartScreen({ navigation, route }) {
   })
   const { width: windowWidth, height: windowHeight } = Dimensions.get('window')
   const [visible, setVisible] = React.useState(false)
+  const [visibleDetail, setVisibleDetail] = React.useState(false)
 
   const showModal = () => setVisible(true)
   const hideModal = () => setVisible(false)
+
+  const showModalDetail = () => setVisibleDetail(true)
+  const hideModalDetail = () => setVisibleDetail(false)
+  const containerStyle2 = {
+    backgroundColor: Color.white,
+    padding: 20,
+    height: 400,
+    width: windowWidth / 1.1,
+    alignSelf: "center",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  };
+
   const containerStyle = {
     alignSelf: 'center',
     borderRadius: 10,
@@ -91,10 +107,10 @@ function CartScreen({ navigation, route }) {
     }
     try {
       const results = await LocalAuthentication.authenticateAsync()
-
       if (results.success) {
         createOrder()
         setResult('success')
+        // hideModalDetail()
       } else if (results.error === 'unknown') {
         setResult('disabled')
       } else if (
@@ -107,7 +123,6 @@ function CartScreen({ navigation, route }) {
     } catch (error) {
       setResult('error')
     }
-
     setAuthLoading(false)
   }
 
@@ -195,6 +210,86 @@ function CartScreen({ navigation, route }) {
     )
   }
 
+  if (visibleDetail) {
+    return (
+      <Provider>
+        <Portal>
+          <Modal visible={visibleDetail} onDismiss={hideModalDetail} contentContainerStyle={containerStyle2}>
+            <View
+              style={{
+                width: windowWidth / 1.1,
+                height: 50,
+                backgroundColor: Color.red,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ color: Color.white, fontSize: 15, fontWeight: "bold" }}>
+                Input Your Details
+              </Text>
+            </View>
+            <View style={styles.wrapIdentity}>
+              <TextInput
+                label="Name"
+                value={name}
+                mode={"outlined"}
+                style={{
+                  backgroundColor: Color.white,
+                  height: 40,
+                  fontSize: 13,
+                  marginBottom: 3,
+                }}
+                theme={{ colors: { text: Color.dark, primary: Color.red } }}
+                onChangeText={(name) => setName(name)}
+              />
+              <TextInput
+                label="PhoneNumber"
+                value={phoneNumber}
+                mode={"outlined"}
+                style={{
+                  backgroundColor: Color.white,
+                  height: 40,
+                  fontSize: 13,
+                  marginBottom: 3,
+                }}
+                theme={{ colors: { text: Color.dark, primary: Color.red } }}
+                onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+              />
+              <TextInput
+                label="Email"
+                value={email}
+                mode={"outlined"}
+                style={{
+                  backgroundColor: Color.white,
+                  height: 40,
+                  fontSize: 13,
+                  marginTop: 3,
+                }}
+                theme={{ colors: { text: Color.dark, primary: Color.red } }}
+                onChangeText={(email) => {
+                  setEmail(email);
+                }}
+              />
+            </View>
+            <TouchableOpacity
+              style={{
+                backgroundColor: Color.red,
+                width: 150,
+                height: 50,
+                borderRadius: 10,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={checkInput}
+            >
+              <Text style={{ color: Color.white, fontWeight: "bold" }}>Book Now!</Text>
+            </TouchableOpacity>
+          </Modal>
+        </Portal>
+      </Provider>
+    );
+  }
+
   let itemDetail = []
   let myPrice = 0
   Object.keys(cart).forEach((key) => {
@@ -213,6 +308,7 @@ function CartScreen({ navigation, route }) {
       }
     })
   })
+  // console.log(itemDetail)
   itemDetail.sort((a, b) => a - b)
 
   function checkInput() {
@@ -287,7 +383,25 @@ function CartScreen({ navigation, route }) {
       </Provider>
     )
   }
-  if (mutationLoading) return <Text>'Submitting...'</Text>
+  if (mutationLoading) {
+    return (
+      <>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "center",
+            padding: 10,
+          }}
+        >
+          <ActivityIndicator size="small" color={Color.red} />
+          <Text style={{ marginLeft: 10 }}>Submiting...</Text>
+        </View>
+      </>
+    );
+  }
   if (mutationError) return <Text>`Submission error! ${error.message}`</Text>
 
   function currencyFormat(num) {
@@ -334,97 +448,103 @@ function CartScreen({ navigation, route }) {
 
   return (
     <>
-      <View style={styles.container}>
-        <View style={styles.cartTitle}>
-          <Text style={styles.cartTitleText}>My Cart</Text>
-        </View>
-        <View style={styles.checkOut}>
-          <View style={styles.formInputCart}>
-            <TextInput
-              label='Name'
-              value={name}
-              mode={'outlined'}
-              style={{
-                backgroundColor: Color.white,
-                height: 30,
-                fontSize: 13,
-                marginBottom: 3,
-              }}
-              theme={{ colors: { text: Color.dark, primary: Color.red } }}
-              onChangeText={(name) => setName(name)}
-            />
-            <TextInput
-              label='PhoneNumber'
-              value={phoneNumber}
-              mode={'outlined'}
-              style={{
-                backgroundColor: Color.white,
-                height: 30,
-                fontSize: 13,
-                marginBottom: 3,
-              }}
-              theme={{ colors: { text: Color.dark, primary: Color.red } }}
-              onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
-            />
-            <TextInput
-              label='Email'
-              value={email}
-              mode={'outlined'}
-              style={{
-                backgroundColor: Color.white,
-                height: 30,
-                fontSize: 13,
-                marginTop: 3,
-              }}
-              theme={{ colors: { text: Color.dark, primary: Color.red } }}
-              onChangeText={(email) => {
-                setEmail(email)
-                validate(email)
-              }}
-            />
+      <View style={styles.containerx}>
+        <ScrollView>
+          <View style={styles.cartTitle}>
+            <Text style={styles.cartTitleText}>My Cart</Text>
           </View>
-        </View>
-        <View>
-          <View style={{ height: windowHeight * 0.55, marginBottom: 15 }}>
-            <FlatList
-              data={itemDetail}
-              renderItem={({ item }) => (
-                <CartListItems
-                  name={item.name}
-                  price={item.price}
-                  quantity={item.quantity}
-                  description={item.description}
-                  image={item.image}
-                  itemId={item.id}
+          <View>
+            {
+              itemDetail.map(item => {
+                return (
+                  < CartListItems
+                    name={item.name}
+                    price={item.price}
+                    quantity={item.quantity}
+                    description={item.description}
+                    image={item.image}
+                    itemId={item.id}
+                  />
+                )
+              })
+            }
+          </View>
+          <View style={styles.headCheckout}>
+            <Text style={styles.headCheckoutText}>Total Price</Text>
+            <Text style={styles.headPriceText}>{currencyFormat(myPrice)},-</Text>
+          </View>
+          <View>
+            <Snackbar
+              visible={message.visible}
+              onDismiss={() => setMessage({ visible: false })}
+              action={{
+                label: 'X',
+              }}
+            >
+              Name/Email is required.
+            </Snackbar>
+          </View>
+          <View style={stylesSignIn.container}>
+            <View style={stylesSignIn.wrapperInput}>
+              <View style={stylesSignIn.formInputCart}>
+                <TextInput
+                  label="Email"
+                  value={name}
+                  mode={'outlined'}
+                  style={{ backgroundColor: Color.white, height: 30, fontSize: 13, marginTop: 3 }}
+                  theme={{ colors: { text: Color.dark, primary: Color.red } }}
+                  onChangeText={name => setName(name)}
                 />
-              )}
-              keyExtractor={(item) => item.id}
-            />
+                <TextInput
+                  label="Email"
+                  secureTextEntry={true}
+                  value={email}
+                  mode={'outlined'}
+                  style={{ backgroundColor: Color.white, height: 30, fontSize: 13, marginBottom: 3 }}
+                  theme={{ colors: { text: Color.dark, primary: Color.red } }}
+                  onChangeText={pwd => setEmail(pwd)}
+                />
+              </View>
+            </View>
           </View>
-        </View>
-        <View style={styles.headCheckout}>
-          <Text style={styles.headCheckoutText}>Total Price</Text>
-          <Text style={styles.headPriceText}>{currencyFormat(myPrice)},-</Text>
-        </View>
-        <View>
-          <Snackbar
-            visible={message.visible}
-            onDismiss={() => setMessage({ visible: false })}
-            action={{
-              label: 'X',
-            }}
-          >
-            Name/Email is required.
-          </Snackbar>
-        </View>
-        {Object.keys(cart).length > 0 && (
-          <TouchableOpacity style={styles.btnCheckOut} onPress={checkInput}>
-            <Text style={styles.btnCheckOutText}>Checkout</Text>
-          </TouchableOpacity>
-        )}
+          {Object.keys(cart).length > 0 && (
+            <TouchableOpacity style={styles.btnCheckOut} onPress={checkInput}>
+              <Text style={styles.btnCheckOutText}>Checkout</Text>
+            </TouchableOpacity>
+          )}
+        </ScrollView>
       </View>
     </>
   )
 }
 
 export default CartScreen
+
+const stylesSignIn = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  formInputCart: {
+    width: width / 1.5,
+    marginBottom: 10,
+  },
+  wrapperInput: {
+    backgroundColor: Color.white,
+    width: width / 1.3,
+    height: 150,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.41,
+    shadowRadius: 9.11,
+    borderColor: Color.gray,
+    elevation: 14,
+  },
+})

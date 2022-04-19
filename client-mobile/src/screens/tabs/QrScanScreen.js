@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Text, View, StyleSheet, Image, Button } from 'react-native'
+import { Text, View, StyleSheet, Image, Button, ActivityIndicator } from 'react-native'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import { RestaurantContext } from '../../components/Context'
+import Color from '../../assets/Color'
 
 function QrScanScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null)
@@ -10,10 +11,10 @@ function QrScanScreen({ navigation }) {
 
   useEffect(() => {
     setScanned(false)
-    ;(async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync()
-      setHasPermission(status === 'granted')
-    })()
+      ; (async () => {
+        const { status } = await BarCodeScanner.requestPermissionsAsync()
+        setHasPermission(status === 'granted')
+      })()
   }, [])
 
   const handleBarCodeScanned = ({ type, data }) => {
@@ -28,7 +29,23 @@ function QrScanScreen({ navigation }) {
   }
 
   if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>
+    return (
+      <>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "space-around",
+            padding: 10,
+          }}
+        >
+          <ActivityIndicator size="small" color={Color.red} />
+          <Text>Requesting for camera permission</Text>
+        </View>
+      </>
+    );
   }
   if (hasPermission === false) {
     return <Text>No access to camera</Text>

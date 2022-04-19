@@ -241,7 +241,7 @@ function RestaurantScreen({ route, navigation }) {
                       fontWeight: "bold",
                       fontSize: 18,
                       paddingHorizontal: 10,
-                      backgroundColor: "black",
+                      backgroundColor: Color.dark,
                       borderRadius: 10,
                     }}
                   >
@@ -257,7 +257,7 @@ function RestaurantScreen({ route, navigation }) {
                 <Text style={styles.textAddChart}> View Cart</Text>
                 <Text
                   style={{
-                    color: "#F5F5F5",
+                    color: Color.white,
                     fontWeight: "bold",
                     fontSize: 15,
                     marginLeft: windowWidth * 0.1,
