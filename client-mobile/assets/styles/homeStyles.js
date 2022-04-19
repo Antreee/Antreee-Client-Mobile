@@ -34,9 +34,7 @@ const homeStyles = StyleSheet.create({
    },
    cardDsc: {
       flexDirection: 'column',
-      // flexWrap: 'wrap'
       width: windowWidth / 1.7,
-      // borderWidth: 1,
    },
 })
 

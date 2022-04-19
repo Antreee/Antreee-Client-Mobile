@@ -32,76 +32,80 @@ export default function CardListMenu({ myMenus, navigation, id, tableNumber }) {
     }
   }
 
-  return (
-    <>
-      {myMenus.map((menu, index) => {
-        return (
-          <View key={index} style={{}}>
-            <View style={styles.menuListItem}>
-              <Text style={styles.menuCategoryName}>{Object.keys(menu)}</Text>
-            </View>
-            <View style={styles.listWrapper}>
-              {menu[Object.keys(menu)].map((item, index) => {
-                return (
-                  <View key={index} style={restaurantState.restaurantId === id ? styles.itemListItemLong : styles.itemListItem}>
-                    <View style={{ alignItems: 'center' }}>
-                      <Image
-                        source={{ uri: item.imageUrl }}
-                        style={styles.imgCardMenu}
-                      />
-                      <View style={styles.itemListItemLeft}>
-                        <Text style={styles.itemListItemName}>{item.name}</Text>
-                        <Text style={styles.itemListItemPrice}>
-                          {currencyFormat(item.price)}
-                        </Text>
+  if (myMenus.length > 0) {
+    return (myMenus &&
+      <>
+        {myMenus.map((menu, index) => {
+          return (
+            <View key={index} style={{}}>
+              <View style={styles.menuListItem}>
+                <Text style={styles.menuCategoryName}>{Object.keys(menu)}</Text>
+              </View>
+              <View style={styles.listWrapper}>
+                {menu && menu[Object.keys(menu)].map((item, index) => {
+                  return (
+                    <View key={index} style={restaurantState.restaurantId === id ? styles.itemListItemLong : styles.itemListItem}>
+                      <View style={{ alignItems: 'center' }}>
+                        <Image
+                          source={{ uri: item.imageUrl }}
+                          style={styles.imgCardMenu}
+                        />
+                        <View style={styles.itemListItemLeft}>
+                          <Text style={styles.itemListItemName}>{item.name}</Text>
+                          <Text style={styles.itemListItemPrice}>
+                            {currencyFormat(item.price)}
+                          </Text>
+                        </View>
+                        <View style={styles.itemListItemRight}>
+                          <Text style={styles.itemListItemDesc}>
+                            {item.description}
+                          </Text>
+                        </View>
                       </View>
-                      <View style={styles.itemListItemRight}>
-                        <Text style={styles.itemListItemDesc}>
-                          {item.description}
-                        </Text>
-                      </View>
-                    </View>
-                    <View style={styles.orderList}>
-                      {restaurantState.restaurantId === id && (
-                        <>
-                          <TouchableOpacity
-                            style={styles.button}
-                            onPress={() => decrement(item._id)}
-                          >
-                            <Entypo
-                              name='squared-minus'
-                              size={30}
-                              color={Color.red}
-                            />
-                          </TouchableOpacity>
+                      <View style={styles.orderList}>
+                        {restaurantState.restaurantId === id && (
+                          <>
+                            <TouchableOpacity
+                              style={styles.button}
+                              onPress={() => decrement(item._id)}
+                            >
+                              <Entypo
+                                name='squared-minus'
+                                size={30}
+                                color={Color.red}
+                              />
+                            </TouchableOpacity>
 
-                          <View style={styles.btnGoToCart}>
-                            <Text style={styles.itemCounter}>
-                              {cart[item._id] ? cart[item._id] : 0}
-                            </Text>
-                          </View>
-                          <TouchableOpacity
-                            style={styles.button}
-                            onPress={() => {
-                              increment(item._id)
-                            }}
-                          >
-                            <Entypo
-                              name='squared-plus'
-                              size={30}
-                              color={Color.red}
-                            />
-                          </TouchableOpacity>
-                        </>
-                      )}
+                            <View style={styles.btnGoToCart}>
+                              <Text style={styles.itemCounter}>
+                                {cart[item._id] ? cart[item._id] : 0}
+                              </Text>
+                            </View>
+                            <TouchableOpacity
+                              style={styles.button}
+                              onPress={() => {
+                                increment(item._id)
+                              }}
+                            >
+                              <Entypo
+                                name='squared-plus'
+                                size={30}
+                                color={Color.red}
+                              />
+                            </TouchableOpacity>
+                          </>
+                        )}
+                      </View>
                     </View>
-                  </View>
-                )
-              })}
+                  )
+                })}
+              </View>
             </View>
-          </View>
-        )
-      })}
-    </>
-  )
+          )
+        })}
+      </>
+    )
+  }
+
+
 }

@@ -25,7 +25,7 @@ import { CREATE_ORDER } from "../../../config/queries";
 import * as ExpoCalendar from "expo-calendar";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
-
+import Fontisto from "react-native-vector-icons/Fontisto"
 import { Button } from "react-native-paper";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_RESTAURANT_BY_ID } from "../../../config/queries";
@@ -226,7 +226,7 @@ function BookingScreen({ navigation, route }) {
                 mode={"outlined"}
                 style={{
                   backgroundColor: Color.white,
-                  height: 40,
+                  height: 45,
                   fontSize: 13,
                   marginBottom: 3,
                 }}
@@ -239,7 +239,7 @@ function BookingScreen({ navigation, route }) {
                 mode={"outlined"}
                 style={{
                   backgroundColor: Color.white,
-                  height: 40,
+                  height: 45,
                   fontSize: 13,
                   marginBottom: 3,
                 }}
@@ -252,7 +252,7 @@ function BookingScreen({ navigation, route }) {
                 mode={"outlined"}
                 style={{
                   backgroundColor: Color.white,
-                  height: 40,
+                  height: 45,
                   fontSize: 13,
                   marginTop: 3,
                 }}
@@ -434,7 +434,6 @@ function BookingScreen({ navigation, route }) {
           </View>
           {able()}
         </View>
-
         <View style={styles.dateTimeWrapper}>
           <Text style={styles.textDetailBookingHeader}>BOOKING DETAILS</Text>
         </View>
@@ -457,34 +456,113 @@ function BookingScreen({ navigation, route }) {
             </TouchableOpacity>
           </View>
           <Text style={styles.headTitleDetailOrder}>Number of Person :</Text>
-          <Text style={{ fontSize: 10, color: Color.red, top: -10 }}>*Slide the box</Text>
           <View style={styles.portionWrapper}>
             <FlatList
               data={[
-                { key: "1" },
-                { key: "2" },
-                { key: "3" },
-                { key: "4" },
-                { key: "5" },
-                { key: "6" },
-                { key: "7" },
-                { key: "8" },
-                { key: "9" },
-                { key: "10" },
-                { key: "11" },
-                { key: "12" },
-                { key: "13" },
-                { key: "14" },
-                { key: "15" },
-                { key: "16" },
-                { key: "17" },
-                { key: "18" },
-                { key: "19" },
-                { key: "20" },
+                {
+                  key: "1",
+                  id: 1
+                },
+                {
+                  key: "2",
+                  id: 2
+                },
+                {
+                  key: "3",
+                  id: 3
+                },
+                {
+                  key: "4",
+                  id: 4
+                },
+                {
+                  key: "5",
+                  id: 5
+                },
+                {
+                  key: "6",
+                  id: 6
+                },
+                {
+                  key: "7",
+                  id: 7
+                },
+                {
+                  key: "8",
+                  id: 8
+                },
+                {
+                  key: "9",
+                  id: 9
+                },
+                {
+                  key: "10",
+                  id: 10
+                },
+                {
+                  key: "11",
+                  id: 11
+                },
+                {
+                  key: "12",
+                  id: 12
+                },
+                {
+                  key: "13",
+                  id: 13
+                },
+                {
+                  key: "14",
+                  id: 14
+                },
+                {
+                  key: "15",
+                  id: 15
+                },
+                {
+                  key: "16",
+                  id: 16
+                },
+                {
+                  key: "17",
+                  id: 17
+                },
+                {
+                  key: "18",
+                  id: 18
+                },
+                {
+                  key: "19",
+                  id: 19
+                },
+                {
+                  key: "20",
+                  id: 20
+                },
               ]}
               horizontal={true}
               renderItem={({ item }) => portionBtn(item.key)}
               keyExtractor={(item) => item.id}
+            />
+          </View>
+          <View style={{
+            width: windowWidth / 1.1,
+            height: 25,
+            flexDirection: "row",
+            alignSelf: 'center',
+            marginTop: -15,
+            marginBottom: -15,
+            justifyContent: 'space-between',
+          }}>
+            <Fontisto
+              name="arrow-left-l"
+              size={30}
+              color={Color.red}
+            />
+            <Fontisto
+              name="arrow-right-l"
+              size={30}
+              color={Color.red}
             />
           </View>
         </View>
