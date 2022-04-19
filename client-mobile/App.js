@@ -42,11 +42,6 @@ export default function App() {
                 <ApplicationProvider {...eva} theme={eva.light}>
                   <PaperProvider>
                     <Navigator>
-                      {/* <Screen
-                  name='Splash'
-                  component={Splash}
-                  options={{ headerShown: false }}
-                /> */}
                       <Screen
                         name='Tabs'
                         component={Tabs}
@@ -55,11 +50,6 @@ export default function App() {
                       <Screen
                         name='QrScanScreen'
                         component={QrScanScreen}
-                        options={{ headerShown: false }}
-                      />
-                      <Screen
-                        name='AuthScreen'
-                        component={AuthScreen}
                         options={{ headerShown: false }}
                       />
                       <Screen

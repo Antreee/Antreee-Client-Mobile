@@ -6,6 +6,7 @@ export default function RestaurantCard({ resto, navigation }) {
   function doDetail(id) {
     navigation.navigate('RestaurantScreen', { id })
   }
+  console.log(resto.name)
 
   return (
     <>
@@ -17,9 +18,9 @@ export default function RestaurantCard({ resto, navigation }) {
           <Image style={homeStyles.imgStyle} source={{ uri: resto.logoUrl }} />
         </View>
         <View style={homeStyles.cardDsc}>
-          <Text style={fontStyles.cardRestoTitle}>{resto.name}
-          </Text>
-          <Badge style={fontStyles.cardDistance}>
+          <Text style={fontStyles.cardRestoTitle}>{resto.name}</Text>
+          <Badge style={resto.name === 'J.CO Donuts & Coffee Ringroad City Walk' ?
+            fontStyles.cardDistance2 : fontStyles.cardDistance}>
             {(resto.restaurantDistance / 1000).toFixed(1) + ' km'}
           </Badge>
           <Text style={fontStyles.cardRestoAddress}>{resto.address}</Text>

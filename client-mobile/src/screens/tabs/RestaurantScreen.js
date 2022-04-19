@@ -29,6 +29,8 @@ import { CartContext } from "../../components/Context";
 
 function RestaurantScreen({ route, navigation }) {
   const { id, tableNumber } = route.params ? route.params : { id: null, tableNumber: null };
+  console.log("🚀 ~ file: RestaurantScreen.js ~ line 32 ~ RestaurantScreen ~ id, tableNumber", id, tableNumber)
+
   const carouselRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
   const { cart, setCart } = useContext(CartContext);
@@ -83,28 +85,28 @@ function RestaurantScreen({ route, navigation }) {
   }
 
   const restaurant = data.restaurant;
-  const carouselImage = restaurant.mainImagesUrl.map((el) => {
+  const carouselImage = data.restaurant?.mainImagesUrl.map((el) => {
     return {
       uri: el,
     };
   });
 
   const items = data.itemsByRestaurantId;
-  const myCuisine = restaurant.cuisine.join(", ");
+  const myCuisine = data.restaurant?.cuisine.join(", ");
   const able = () => {
-    if (restaurant.available) {
+    if (restaurant?.available) {
       return (
         <Text style={styles.available}>
           {" "}
-          <Text style={styles.availableOpen}>OPEN</Text> {restaurant.openingHours}
+          <Text style={styles.availableOpen}>OPEN</Text> {restaurant?.openingHours}
         </Text>
       );
     }
   };
 
-  const foods = items.filter((item) => item.categoryItem === "food");
-  const drinks = items.filter((item) => item.categoryItem === "drink");
-  const snacks = items.filter((item) => item.categoryItem === "snack");
+  const foods = data.itemsByRestaurantId?.filter((item) => item.categoryItem === "food");
+  const drinks = data.itemsByRestaurantId?.filter((item) => item.categoryItem === "drink");
+  const snacks = data.itemsByRestaurantId?.filter((item) => item.categoryItem === "snack");
   const myMenus = [
     {
       Foods: foods,
@@ -141,8 +143,7 @@ function RestaurantScreen({ route, navigation }) {
   let itemDetail = [];
   let myPrice = 0;
   Object.keys(cart).forEach((key) => {
-    let menuItem = data.itemsByRestaurantId;
-    menuItem.forEach((elx) => {
+    data.itemsByRestaurantId?.forEach((elx) => {
       if (elx._id === key) {
         myPrice += elx.price * cart[key];
         itemDetail.push({
@@ -177,7 +178,7 @@ function RestaurantScreen({ route, navigation }) {
                   onScrollEnd={handleCarouselScrollEnd}
                   ref={carouselRef}
                 />
-                <MyPagination currentIndex={currentIndex} length={carouselImage.length} />
+                <MyPagination currentIndex={currentIndex} length={carouselImage?.length} />
               </View>
             </View>
             <View style={styles.doubleBtn}>
@@ -190,23 +191,15 @@ function RestaurantScreen({ route, navigation }) {
                 </TouchableOpacity>
               </View>
             </View>
-            <Button
-              style={styles.btnBookNow}
-              mode="contained"
-              labelStyle={{ fontSize: 10 }}
-              onPress={() => navigation.navigate("BookingScreen", { id })}
-            >
-              Book Now
-            </Button>
             <View style={styles.headTitleWrap}>
-              <Text style={styles.headTitle}>{restaurant.name}</Text>
+              <Text style={styles.headTitle}>{restaurant?.name}</Text>
               <Text style={styles.cuisine}>{myCuisine}</Text>
             </View>
             <View style={styles.restaurantAddress}>
               <View style={styles.restaurantAddressIcon}>
                 <Entypo name="shop" size={20} color={Color.red} />
               </View>
-              <Text style={styles.restaurantAddressText}>{restaurant.address}</Text>
+              <Text style={styles.restaurantAddressText}>{restaurant?.address}</Text>
             </View>
             <View style={styles.restaurantAvailable}>
               <View style={styles.restaurantAddressIcon}>
@@ -219,14 +212,26 @@ function RestaurantScreen({ route, navigation }) {
                 </View>
               )}
             </View>
+            <TouchableOpacity style={styles.restaurantAvailable2}
+              onPress={() => navigation.navigate("BookingScreen", { id })}
+            >
+              <View style={styles.restaurantAddressIcon}>
+                <MaterialCommunityIcons name="text-box-plus-outline" size={20} color={Color.white} />
+              </View>
+              <Text
+                style={styles.btnBookNow}
+              >
+                BOOK NOW
+              </Text>
+            </TouchableOpacity>
             <View style={styles.menuListWrap}>
               <View style={styles.lestOfWrap}>
                 <CardListMenu
-                  key={restaurant._id}
+                  key={restaurant?._id}
                   myMenus={myMenus}
                   navigation={navigation}
                   tableNumber={tableNumber}
-                  id={restaurant._id}
+                  id={restaurant?._id}
                 />
               </View>
             </View>

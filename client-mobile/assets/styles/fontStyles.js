@@ -15,22 +15,31 @@ const fontStyles = StyleSheet.create({
       color: '#191919',
    },
    smallLightFont: {
-      color: '#797A7E',
+      color: 'white',
       fontSize: 13,
    },
    cardRestoTitle: {
-      fontSize: 18,
+      fontSize: 15,
       fontWeight: 'bold',
       marginTop: 5,
+      marginBottom: -15,
+      color: Color.dark
       // textAlign: 'left',
-
+   },
+   cardRestoTitle2: {
+      fontSize: 15,
+      fontWeight: 'bold',
+      marginTop: 5,
+      marginBottom: -15,
+      color: Color.dark
+      // textAlign: 'left',
    },
    cardRestoDistance: {
       fontSize: 8,
    },
    cardRestoAddress: {
       fontSize: 12,
-      marginTop: 10,
+      marginTop: 5,
       textAlign: 'left',
       flexWrap: 'wrap',
       color: Color.dark
@@ -47,8 +56,15 @@ const fontStyles = StyleSheet.create({
       fontSize: 8,
       alignItems: 'center',
       justifyContent: 'center',
-      marginTop: -30,
-      // top: -30,
+      top: -30,
+   },
+   cardDistance2: {
+      color: Color.white,
+      borderRadius: 10,
+      fontSize: 8,
+      alignItems: 'center',
+      justifyContent: 'center',
+      top: -45,
    },
 })
 

@@ -29,6 +29,7 @@ import CartListItems from '../../components/CartListItems'
 import { RestaurantContext, CartContext } from '../../components/Context'
 
 function CartScreen({ navigation, route }) {
+  const { id: restoId, tableNumber } = route.params ? route.params : { id: null, tableNumber: null }
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
@@ -449,21 +450,24 @@ function CartScreen({ navigation, route }) {
   return (
     <>
       <View style={styles.containerx}>
+        <View style={styles.cartTitle}>
+          <Text style={styles.cartTitleText}>{data.restaurant.name}</Text>
+        </View>
         <ScrollView>
-          <View style={styles.cartTitle}>
-            <Text style={styles.cartTitleText}>My Cart</Text>
-          </View>
           <View>
             {
               itemDetail.map(item => {
                 return (
                   < CartListItems
+                    key={item.id}
                     name={item.name}
                     price={item.price}
                     quantity={item.quantity}
                     description={item.description}
                     image={item.image}
                     itemId={item.id}
+                    navigation={navigation}
+                    table={tableNumber}
                   />
                 )
               })
@@ -488,10 +492,10 @@ function CartScreen({ navigation, route }) {
             <View style={stylesSignIn.wrapperInput}>
               <View style={stylesSignIn.formInputCart}>
                 <TextInput
-                  label="Email"
+                  label="Name"
                   value={name}
                   mode={'outlined'}
-                  style={{ backgroundColor: Color.white, height: 30, fontSize: 13, marginTop: 3 }}
+                  style={{ backgroundColor: Color.white, height: 45, fontSize: 13, marginBottom: 3 }}
                   theme={{ colors: { text: Color.dark, primary: Color.red } }}
                   onChangeText={name => setName(name)}
                 />
@@ -500,19 +504,21 @@ function CartScreen({ navigation, route }) {
                   secureTextEntry={true}
                   value={email}
                   mode={'outlined'}
-                  style={{ backgroundColor: Color.white, height: 30, fontSize: 13, marginBottom: 3 }}
+                  style={{ backgroundColor: Color.white, height: 45, fontSize: 13, marginTop: 3 }}
                   theme={{ colors: { text: Color.dark, primary: Color.red } }}
                   onChangeText={pwd => setEmail(pwd)}
                 />
               </View>
             </View>
           </View>
-          {Object.keys(cart).length > 0 && (
-            <TouchableOpacity style={styles.btnCheckOut} onPress={checkInput}>
-              <Text style={styles.btnCheckOutText}>Checkout</Text>
-            </TouchableOpacity>
-          )}
         </ScrollView>
+        {Object.keys(cart).length > 0 && (
+          <TouchableOpacity style={styles.fabRestaurant2} onPress={checkInput}>
+            <View style={styles.btnAddChart}>
+              <Text style={styles.textAddChart}>Checkout</Text>
+            </View>
+          </TouchableOpacity>
+        )}
       </View>
     </>
   )
@@ -524,7 +530,8 @@ const stylesSignIn = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    marginBottom: 70,
   },
   formInputCart: {
     width: width / 1.5,
