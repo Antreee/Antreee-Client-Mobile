@@ -43,7 +43,7 @@ export default function CardListMenu({ myMenus, navigation, id, tableNumber }) {
             <View style={styles.listWrapper}>
               {menu[Object.keys(menu)].map((item, index) => {
                 return (
-                  <View key={index} style={styles.itemListItem}>
+                  <View key={index} style={restaurantState.restaurantId === id ? styles.itemListItemLong : styles.itemListItem}>
                     <View style={{ alignItems: 'center' }}>
                       <Image
                         source={{ uri: item.imageUrl }}

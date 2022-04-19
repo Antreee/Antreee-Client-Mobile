@@ -1,25 +1,40 @@
-import { View, Text, ScrollView, ActivityIndicator, ImageBackground, Dimensions, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import {
+  View,
+  Text,
+  ScrollView,
+  ActivityIndicator,
+  ImageBackground,
+  Dimensions,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+} from 'react-native'
 import styles from '../../../assets/styles/styles'
 import Color from '../../assets/Color'
-import Carousel from 'react-native-anchor-carousel';
-import { Button, Modal } from "react-native-paper"
+import Carousel from 'react-native-anchor-carousel'
+import { Button, Modal } from 'react-native-paper'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
-import { useRef, useState } from 'react'
+import { useRef, useState, useContext } from 'react'
 
 import CardListMenu from '../../components/CardListMenu'
 import { useQuery } from '@apollo/client'
 import { GET_RESTAURANT_BY_ID } from '../../../config/queries'
 
 import MyPagination from '../../components/MyPagination'
-const INITIAL_INDEX = 0;
-const { width: windowWidth } = Dimensions.get('window');
+const INITIAL_INDEX = 0
+const { width: windowWidth } = Dimensions.get('window')
+import { CartContext } from '../../components/Context'
 
 function RestaurantScreen({ route, navigation }) {
-  const { id, tableNumber } = route.params ? route.params : { id: null, tableNumber: null }
-  const carouselRef = useRef(null);
-  const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
+  const { id, tableNumber } = route.params
+    ? route.params
+    : { id: null, tableNumber: null }
+  const carouselRef = useRef(null)
+  const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX)
+  const { cart, setCart } = useContext(CartContext)
+
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { id, itemsByRestaurantIdId2: id },
   })
@@ -27,13 +42,17 @@ function RestaurantScreen({ route, navigation }) {
   if (loading) {
     return (
       <>
-        <View style={{
-          flex: 1,
-          justifyContent: "center", alignItems: 'center', flexDirection: "row",
-          justifyContent: "space-around",
-          padding: 10
-        }}>
-          <ActivityIndicator size="small" color={Color.red} />
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            padding: 10,
+          }}
+        >
+          <ActivityIndicator size='small' color={Color.red} />
         </View>
       </>
     )
@@ -42,7 +61,12 @@ function RestaurantScreen({ route, navigation }) {
   if (error) {
     return (
       <>
-        <View style={[styles.container, { alignItems: 'center', justifyContent: 'center' }]}>
+        <View
+          style={[
+            styles.container,
+            { alignItems: 'center', justifyContent: 'center' },
+          ]}
+        >
           <View style={styles.emptyBook}>
             <View style={styles.calendar}>
               <Image
@@ -52,7 +76,9 @@ function RestaurantScreen({ route, navigation }) {
             </View>
             <View style={styles.emptyBookText}>
               <Text style={styles.textEmptyBooked}>Oops! Something wrong</Text>
-              <Text style={styles.textEmptyBookedSub}>Please reload your app or go back to home screen.</Text>
+              <Text style={styles.textEmptyBookedSub}>
+                Please reload your app or go back to home screen.
+              </Text>
             </View>
             <TouchableOpacity onPress={goBackHome} style={styles.btnBackHome}>
               <Text style={styles.btnBackHomeText}>Back Home</Text>
@@ -64,7 +90,7 @@ function RestaurantScreen({ route, navigation }) {
   }
 
   const restaurant = data.restaurant
-  const carouselImage = restaurant.mainImagesUrl.map(el => {
+  const carouselImage = restaurant.mainImagesUrl.map((el) => {
     return {
       uri: el,
     }
@@ -103,23 +129,47 @@ function RestaurantScreen({ route, navigation }) {
     navigation.navigate('CartScreen', { id, tableNumber })
   }
   function handleCarouselScrollEnd(item, index) {
-    setCurrentIndex(index);
+    setCurrentIndex(index)
   }
   function renderItem({ item, index }) {
-    const { uri } = item;
+    const { uri } = item
     return (
       <TouchableOpacity
         activeOpacity={1}
         style={stylex.item}
         onPress={() => {
-          carouselRef.current.scrollToIndex(index);
-        }}>
-        <ImageBackground source={{ uri: uri }} style={stylex.imageBackground}>
-        </ImageBackground>
+          carouselRef.current.scrollToIndex(index)
+        }}
+      >
+        <ImageBackground
+          source={{ uri: uri }}
+          style={stylex.imageBackground}
+        ></ImageBackground>
       </TouchableOpacity>
-    );
+    )
   }
 
+  let itemDetail = []
+  let myPrice = 0
+  Object.keys(cart).forEach((key) => {
+    let menuItem = data.itemsByRestaurantId
+    menuItem.forEach((elx) => {
+      if (elx._id === key) {
+        myPrice += elx.price * cart[key]
+        itemDetail.push({
+          id: key,
+          name: elx.name,
+          price: elx.price,
+          quantity: cart[key],
+          description: elx.description,
+          image: elx.imageUrl,
+        })
+      }
+    })
+  })
+  function currencyFormat(num) {
+    return 'Rp.' + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  }
 
   return (
     <>
@@ -138,13 +188,20 @@ function RestaurantScreen({ route, navigation }) {
                   onScrollEnd={handleCarouselScrollEnd}
                   ref={carouselRef}
                 />
-                <MyPagination currentIndex={currentIndex} length={carouselImage.length} />
+                <MyPagination
+                  currentIndex={currentIndex}
+                  length={carouselImage.length}
+                />
               </View>
             </View>
             <View style={styles.doubleBtn}>
               <View style={styles.loveAndMap}>
                 <TouchableOpacity style={styles.btnMap}>
-                  <FontAwesome5 name='map-marked-alt' size={20} color={'white'} />
+                  <FontAwesome5
+                    name='map-marked-alt'
+                    size={20}
+                    color={'white'}
+                  />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.btnLove}>
                   <MaterialCommunityIcons
@@ -157,9 +214,10 @@ function RestaurantScreen({ route, navigation }) {
             </View>
             <Button
               style={styles.btnBookNow}
-              mode="contained"
+              mode='contained'
               labelStyle={{ fontSize: 10 }}
-              onPress={() => navigation.navigate('BookingScreen', { id })}>
+              onPress={() => navigation.navigate('BookingScreen', { id })}
+            >
               Book Now
             </Button>
             <View style={styles.headTitleWrap}>
@@ -191,35 +249,57 @@ function RestaurantScreen({ route, navigation }) {
             </View>
             <View style={styles.menuListWrap}>
               <View style={styles.lestOfWrap}>
-                <CardListMenu key={restaurant._id} myMenus={myMenus} navigation={navigation} tableNumber={tableNumber} id={restaurant._id} />
+                <CardListMenu
+                  key={restaurant._id}
+                  myMenus={myMenus}
+                  navigation={navigation}
+                  tableNumber={tableNumber}
+                  id={restaurant._id}
+                />
               </View>
             </View>
           </ScrollView>
-          {
-            tableNumber && (
-              <View style={styles.fabRestaurant}>
-                <TouchableOpacity
-                  style={styles.btnAddChart}
-                  onPress={() => goToCartScreen(id)}
+          {tableNumber && Object.keys(cart).length > 0 && (
+            <View style={styles.fabRestaurant}>
+              <TouchableOpacity
+                style={styles.btnAddChart}
+                onPress={() => goToCartScreen(id)}
+              >
+                <View style={styles.textAddChart}>
+                  <Text
+                    style={{
+                      color: Color.white,
+                      fontWeight: 'bold',
+                      fontSize: 18,
+                      paddingHorizontal: 10,
+                      backgroundColor: 'black',
+                      borderRadius: 10,
+                    }}
+                  >
+                    {Object.keys(cart).length}
+                  </Text>
+                </View>
+                <Entypo name='shopping-cart' size={18} color={Color.white} />
+                <Text style={styles.textAddChart}> View Cart</Text>
+                <Text
+                  style={{
+                    color: '#F5F5F5',
+                    fontWeight: 'bold',
+                    fontSize: 18,
+                  }}
                 >
-                  <Entypo
-                    name='shopping-cart'
-                    size={15}
-                    color={Color.white}
-                  />
-                  <Text style={styles.textAddChart}>Add</Text>
-                </TouchableOpacity>
-              </View>
-            )
-          }
+                  {currencyFormat(myPrice)}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       )}
     </>
   )
 }
 
-
-export default RestaurantScreen;
+export default RestaurantScreen
 
 const stylex = StyleSheet.create({
   container: {
@@ -245,4 +325,4 @@ const stylex = StyleSheet.create({
     borderWidth: 5,
     borderColor: 'white',
   },
-});
+})
