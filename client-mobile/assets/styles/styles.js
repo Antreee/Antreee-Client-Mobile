@@ -27,10 +27,10 @@ const styles = StyleSheet.create({
       borderBottomRightRadius: 30,
    },
    fabRestaurant: {
-      width: 200,
-      height: 40,
+      width: width * 0.92,
+      height: 50,
       position: 'absolute',
-      bottom: 100,
+      bottom: 80,
       alignSelf: 'center',
       borderRadius: 10,
       justifyContent: 'center',
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
    },
    btnBookNow: {
       borderWidth: 1,
-      width: 100,
+      width: 150,
       backgroundColor: Color.red,
       alignSelf: 'center',
       top: 15
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
       // borderWidth: 1,
       alignSelf: 'center',
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-start',
    },
    restaurantAddressIcon: {},
    restaurantAddressText: {
@@ -191,7 +191,9 @@ const styles = StyleSheet.create({
       marginTop: 5,
       // justifyContent: 'space-between',
    },
-   restaurantAddressIcon: {},
+   restaurantAddressIcon: {
+      marginRight: 10
+   },
    btnLove: {
       backgroundColor: Color.white,
       height: 35,
@@ -207,7 +209,7 @@ const styles = StyleSheet.create({
       shadowRadius: 9.11,
       elevation: 14,
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
    },
    headTitleWrap: {
       width: width / 1.1,
@@ -243,7 +245,8 @@ const styles = StyleSheet.create({
       marginBottom: 25,
    },
    available: {
-      color: Color.dark
+      color: Color.dark,
+      marginLeft: -5
    },
    availableOpen: {
       color: Color.red,
@@ -326,6 +329,26 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       // marginBottom: 230,
    },
+   itemListItemLong: {
+      width: width / 2.3,
+      padding: 10,
+      alignItems: 'center',
+      backgroundColor: Color.white,
+      borderRadius: 5,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.23,
+      shadowRadius: 2.62,
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      elevation: 4,
+      marginTop: 10,
+      marginBottom: 10,
+      height: 320,
+   },
    itemListItem: {
       width: width / 2.3,
       padding: 10,
@@ -347,8 +370,9 @@ const styles = StyleSheet.create({
       height: 300,
    },
    imgCardMenu: {
-      width: 100,
+      width: 150,
       height: 100,
+      resizeMode: 'contain'
       // marginBottom: 10,
    },
    itemListItemLeft: {
@@ -407,12 +431,13 @@ const styles = StyleSheet.create({
    btnAddChart: {
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      justifyContent: 'space-around',
 
    },
    textAddChart: {
       color: Color.white,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      fontSize: 18
    },
 
    //? == Style Profil User == //
@@ -717,6 +742,7 @@ const styles = StyleSheet.create({
       elevation: 5,
       backgroundColor: Color.white,
       flexDirection: 'row',
+      paddingVertical: 10
    },
    cartEmpty: {
       width: width / 1.1,
@@ -752,16 +778,22 @@ const styles = StyleSheet.create({
    headCheckout: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      width: "100%",
+      borderBottomWidth: 2,
+      borderBottomColor: Color.red,
+      margin: 20,
+      marginTop: 0
    },
    headCheckoutText: {
       color: Color.dark,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      fontSize: 18,
+
    },
    headPriceText: {
       color: Color.dark,
       fontWeight: 'bold',
       fontSize: 18,
+      marginBottom: 10
    },
    formInputCart: {
       width: width / 1.5,
@@ -811,10 +843,13 @@ const styles = StyleSheet.create({
       color: Color.dark,
       fontWeight: 'bold',
       fontSize: 13,
+      marginBottom: 5
    },
    cartMenuNameSub: {
       color: Color.darkGray,
       fontSize: 11,
+      marginBottom: 5
+
    },
    cartMenuNamePrice: {
       fontWeight: 'bold',
