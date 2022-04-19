@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -19,11 +19,30 @@ import RestaurantCard from "../../components/RestaurantCard";
 import { useQuery } from "@apollo/client";
 import { GET_RESTAURANTS } from "../../../config/queries";
 import { animatedStyles, scrollInterpolator } from "../../components/animations";
+import * as Location from "expo-location";
 
 export default HomeScreen = ({ navigation }) => {
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      console.log(location);
+      setLocation(location);
+    })();
+  }, []);
   const { loading, error, data, refetch } = useQuery(GET_RESTAURANTS, {
     variables: {
-      stringCoordinates: "98.628043,3.573613",
+      stringCoordinates: location
+        ? `${location.coords.longitude},${location.coords.latitude}`
+        : "106.82710988104893,-6.1752963962989424",
       search: "",
     },
   });
@@ -121,7 +140,9 @@ export default HomeScreen = ({ navigation }) => {
               placeholder="Search Restaurant"
               onChangeText={(value) =>
                 refetch({
-                  stringCoordinates: "98.628043,3.573613",
+                  stringCoordinates: location
+                    ? `${location.coords.longitude},${location.coords.latitude}`
+                    : "106.82710988104893,-6.1752963962989424",
                   search: value,
                 })
               }
