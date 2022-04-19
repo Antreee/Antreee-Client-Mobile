@@ -10,7 +10,6 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native'
-import { CartContext } from '../../components/Context'
 import styles from '../../../assets/styles/styles'
 import { useMutation, useQuery } from '@apollo/client'
 import { GET_RESTAURANT_BY_ID } from '../../../config/queries'
@@ -26,7 +25,7 @@ import {
   Provider,
 } from 'react-native-paper'
 import CartListItems from '../../components/CartListItems'
-import { RestaurantContext } from '../../components/Context'
+import { RestaurantContext, CartContext } from '../../components/Context'
 
 function CartScreen({ navigation, route }) {
   const [email, setEmail] = useState('')
@@ -214,6 +213,7 @@ function CartScreen({ navigation, route }) {
       }
     })
   })
+  itemDetail.sort((a, b) => a - b)
 
   function checkInput() {
     if (name === '' || email === '') {
@@ -383,15 +383,9 @@ function CartScreen({ navigation, route }) {
               }}
             />
           </View>
-          <View style={styles.headCheckout}>
-            <Text style={styles.headCheckoutText}>Total Price</Text>
-            <Text style={styles.headPriceText}>
-              {currencyFormat(myPrice)},-
-            </Text>
-          </View>
         </View>
         <View>
-          <View style={{ height: 380, marginBottom: 15 }}>
+          <View style={{ height: windowHeight * 0.55, marginBottom: 15 }}>
             <FlatList
               data={itemDetail}
               renderItem={({ item }) => (
@@ -408,6 +402,10 @@ function CartScreen({ navigation, route }) {
             />
           </View>
         </View>
+        <View style={styles.headCheckout}>
+          <Text style={styles.headCheckoutText}>Total Price</Text>
+          <Text style={styles.headPriceText}>{currencyFormat(myPrice)},-</Text>
+        </View>
         <View>
           <Snackbar
             visible={message.visible}
@@ -419,9 +417,11 @@ function CartScreen({ navigation, route }) {
             Name/Email is required.
           </Snackbar>
         </View>
-        <TouchableOpacity style={styles.btnCheckOut} onPress={checkInput}>
-          <Text style={styles.btnCheckOutText}>Checkout</Text>
-        </TouchableOpacity>
+        {Object.keys(cart).length > 0 && (
+          <TouchableOpacity style={styles.btnCheckOut} onPress={checkInput}>
+            <Text style={styles.btnCheckOutText}>Checkout</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </>
   )

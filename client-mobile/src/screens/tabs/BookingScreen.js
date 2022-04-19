@@ -78,9 +78,8 @@ const { width: windowWidth } = Dimensions.get('window')
 function BookingScreen({ navigation, route }) {
   const [text, setText] = useState('')
   const [selectedHours, setSelectedHours] = useState({
-    hours: 0,
+    hours: 9,
     minutes: 0,
-    seconds: 0,
   })
   const [selectedDate, setSelectedDate] = useState('')
   const [email, setEmail] = useState('')
@@ -98,7 +97,7 @@ function BookingScreen({ navigation, route }) {
     mutationCreateOrder,
     { data: mutationData, loading: mutationLoading, error: mutationError },
   ] = useMutation(CREATE_ORDER)
-  if (loading) {
+  if (loading || mutationLoading) {
     return (
       <>
         <View
@@ -117,7 +116,41 @@ function BookingScreen({ navigation, route }) {
     )
   }
   const goBackHome = () => navigation.navigate('HomeScreen')
-  if (error) {
+  if (mutationData) {
+    console.log(mutationData)
+
+    return (
+      <>
+        <View
+          style={[
+            styles.container,
+            { alignItems: 'center', justifyContent: 'center' },
+          ]}
+        >
+          <View style={styles.emptyBook}>
+            <View style={styles.calendar}>
+              <Image
+                source={require('../../assets/imgTemplate/cart.png')}
+                style={styles.calendarImg}
+              />
+            </View>
+            <View style={styles.emptyBookText}>
+              <Text style={styles.textEmptyBooked}>
+                Your booking has been confirmed!
+              </Text>
+              <Text style={styles.textEmptyBookedSub}>
+                Thank you for using our services!
+              </Text>
+            </View>
+          </View>
+        </View>
+      </>
+    )
+  }
+
+  if (error || mutationError) {
+    console.log(error, 'error')
+    console.log(mutationError, 'mutationError')
     return (
       <View
         style={[
@@ -158,8 +191,6 @@ function BookingScreen({ navigation, route }) {
     justifyContent: 'center',
     alignItems: 'center',
   }
-  if (mutationLoading) return <Text>'Submitting...'</Text>
-  if (mutationError) return <Text>`Submission error! ${error.message}`</Text>
   if (visible) {
     return (
       <Provider>
@@ -181,7 +212,7 @@ function BookingScreen({ navigation, route }) {
               <Text
                 style={{ color: Color.white, fontSize: 15, fontWeight: 'bold' }}
               >
-                Input Your Identity
+                Input Your Details
               </Text>
             </View>
             <View style={styles.wrapIdentity}>
@@ -236,33 +267,17 @@ function BookingScreen({ navigation, route }) {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-              onPress={async () => {
-                console.log({
-                  identity: {
-                    name,
-                    email,
-                    phoneNumber,
+              onPress={() => {
+                mutationCreateOrder({
+                  variables: {
+                    customerName: name,
+                    customerEmail: email,
+                    customerPhoneNumber: phoneNumber,
+                    bookingDate: `${selectedDate},${selectedHours.hours}:${selectedHours.minutes}`,
+                    numberOfPeople: +portion,
+                    restaurantId: id,
                   },
-                  dateTime: {
-                    date: selectedDate,
-                    time: `${selectedHours.hours}:${selectedHours.minutes}`,
-                  },
-                  numberOfPerson: portion,
                 })
-                try {
-                  await mutationCreateOrder({
-                    variables: {
-                      customerName: name,
-                      customerEmail: email,
-                      customerPhoneNumber: phoneNumber,
-                      bookingDate: `${selectedDate},${selectedHours.hours}:${selectedHours.minutes}`,
-                      numberOfPeople: +portion,
-                      restaurantId: id,
-                    },
-                  })
-                } catch (error) {
-                  console.log(error)
-                }
                 navigation.navigate('RestaurantScreen')
               }}
             >
@@ -498,7 +513,9 @@ function BookingScreen({ navigation, route }) {
           </Button>
         ) : null} */}
         <TouchableOpacity style={styles.headerIdentity} onPress={showModal}>
-          <Text style={styles.textHeaderCalendar}>Enter your identity here!</Text>
+          <Text style={styles.textHeaderCalendar}>
+            Enter your details here!
+          </Text>
         </TouchableOpacity>
       </ScrollView>
     </View>

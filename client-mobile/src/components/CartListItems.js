@@ -41,7 +41,7 @@ export default function CartListItems({ name, price, quantity, description, imag
           <Text style={styles.cartMenuNamePrice}>{currencyFormat(price)}</Text>
         </View>
         <View style={styles.detailCartPrice}>
-          <Text style={styles.cartMenuQty}>{quantity}</Text>
+          <Text style={styles.cartMenuQty}>Qty: {quantity}</Text>
           <View style={styles.priceUpDown}>
             <TouchableOpacity style={styles.priceMinus} onPress={() => decrement(itemId)}>
               <Entypo name="minus" size={20} color={Color.white} />

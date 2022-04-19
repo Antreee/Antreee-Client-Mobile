@@ -111,7 +111,7 @@ export default HomeScreen = ({ navigation }) => {
               style={styles.background}
             />
             <Icon name="smiling-face-outline" style={styles.appImg} fill="#FF8080" />
-            <Text style={fontStyles.lightFontBold}>ANTRE NGAB</Text>
+            <Text style={fontStyles.lightFontBold}>NuerPay</Text>
           </View>
           {/* ======= */}
 
