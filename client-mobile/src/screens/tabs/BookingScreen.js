@@ -35,10 +35,6 @@ const INITIAL_INDEX = 0;
 const { width: windowWidth } = Dimensions.get("window");
 
 function BookingScreen({ navigation, route }) {
-  const [selectedHours, setSelectedHours] = useState({
-    hours: 9,
-    minutes: 0,
-  });
   const [selectedDate, setSelectedDate] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -56,14 +52,15 @@ function BookingScreen({ navigation, route }) {
     { data: mutationData, loading: mutationLoading, error: mutationError },
   ] = useMutation(CREATE_ORDER);
   const [expoCalendarId, setExpoCalendarId] = useState("");
-  const [selectedTimestamp, setSelectedTimeStamp] = useState("");
 
   const [dateNow, setDateNow] = useState(new Date());
-  const [mode, setMode] = useState('date');
+  const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
   const [textDate, setTextDate] = useState("empty");
   const [textTime, setTextTime] = useState("empty");
-
+  const [selectedTimestamp, setSelectedTimeStamp] = useState("");
+  const [selectedHours, setSelectedHours] = useState("");
+  const [selectedMinutes, setSelectedMinutes] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -108,11 +105,11 @@ function BookingScreen({ navigation, route }) {
   async function addEvent() {
     try {
       const startDate = new Date(+selectedTimestamp);
-      startDate.setHours(+selectedHours.hours);
-      startDate.setMinutes(+selectedHours.minutes);
+      startDate.setHours(+selectedHours);
+      startDate.setMinutes(+selectedMinutes);
       const endDate = new Date(+selectedTimestamp);
-      endDate.setHours(+selectedHours.hours + 1);
-      endDate.setMinutes(+selectedHours.minutes);
+      endDate.setHours(+selectedHours + 1);
+      endDate.setMinutes(+selectedMinutes);
       const eventId = await ExpoCalendar.createEventAsync(expoCalendarId, {
         title: "NuerPay Dine-in Appointment",
         notes: `Booked using NuerPay for ${portion} people`,
@@ -281,13 +278,7 @@ function BookingScreen({ navigation, route }) {
                       customerName: name,
                       customerEmail: email,
                       customerPhoneNumber: phoneNumber,
-                      bookingDate: `${selectedDate} ${+selectedHours.hours < 10
-                        ? `0${selectedHours.hours}`
-                        : `${selectedHours.hours}`
-                        }:${+selectedHours.minutes < 10
-                          ? `0${selectedHours.minutes}`
-                          : `${selectedHours.minutes}`
-                        }`,
+                      bookingDate: `${textDate} ${textTime}`,
                       numberOfPeople: +portion,
                       restaurantId: id,
                     },
@@ -309,19 +300,26 @@ function BookingScreen({ navigation, route }) {
 
   const onChangeDate = (event, selectedDate) => {
     const currentDate = selectedDate || dateNow;
-    setShow(Platform.OS === 'ios');
+    setShow(Platform.OS === "ios");
     setDateNow(currentDate);
-    let tempDate = new Date(currentDate)
-    let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
+    let tempDate = new Date(currentDate);
+    let fDate = tempDate.getDate() + "/" + (tempDate.getMonth() + 1) + "/" + tempDate.getFullYear();
+    console.log(fDate);
+    setSelectedTimeStamp(tempDate.getTime());
     setTextDate(fDate);
   };
 
   const onChangeTime = (event, selectedDate) => {
     const currentDate = selectedDate || dateNow;
-    setShow(Platform.OS === 'ios');
+    setShow(Platform.OS === "ios");
     setDateNow(currentDate);
-    let tempDate = new Date(currentDate)
-    let fTime = tempDate.getHours() + ':' + tempDate.getMinutes();
+    let tempDate = new Date(currentDate);
+    let hours = tempDate.getHours() < 10 ? `0${tempDate.getHours()}` : tempDate.getHours();
+    let minutes = tempDate.getMinutes() < 10 ? `0${tempDate.getMinutes()}` : tempDate.getMinutes();
+    let fTime = hours + ":" + minutes;
+    console.log(fTime);
+    setSelectedHours(tempDate.getHours());
+    setSelectedMinutes(tempDate.getMinutes());
     setTextTime(fTime);
   };
 
@@ -443,25 +441,19 @@ function BookingScreen({ navigation, route }) {
         <View style={styles.detailInSideWrapper}>
           <Text style={styles.headTitleDetailOrder}>Order Date and Time :</Text>
           <View style={styles.btnWrapperOrder}>
-            <TouchableOpacity
-              onPress={(_) => showMode('date')}
-              style={styles.btnOrderDateTime}>
-              {
-                textDate === 'empty' ? (
-                  <Text style={{ color: Color.white, fontWeight: 'bold' }}>SET DATE</Text>
-                ) :
-                  <Text style={{ color: Color.white, fontWeight: 'bold' }}>{textDate}</Text>
-              }
+            <TouchableOpacity onPress={(_) => showMode("date")} style={styles.btnOrderDateTime}>
+              {textDate === "empty" ? (
+                <Text style={{ color: Color.white, fontWeight: "bold" }}>SET DATE</Text>
+              ) : (
+                <Text style={{ color: Color.white, fontWeight: "bold" }}>{textDate}</Text>
+              )}
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={(_) => showMode('time')}
-              style={styles.btnOrderDateTime}>
-              {
-                textTime === 'empty' ? (
-                  <Text style={{ color: Color.white, fontWeight: 'bold' }}>SET TIME</Text>
-                ) :
-                  <Text style={{ color: Color.white, fontWeight: 'bold' }}>{textTime}</Text>
-              }
+            <TouchableOpacity onPress={(_) => showMode("time")} style={styles.btnOrderDateTime}>
+              {textTime === "empty" ? (
+                <Text style={{ color: Color.white, fontWeight: "bold" }}>SET TIME</Text>
+              ) : (
+                <Text style={{ color: Color.white, fontWeight: "bold" }}>{textTime}</Text>
+              )}
             </TouchableOpacity>
           </View>
           <Text style={styles.headTitleDetailOrder}>Number of Person :</Text>
@@ -496,30 +488,26 @@ function BookingScreen({ navigation, route }) {
             />
           </View>
         </View>
-        {
-          show && mode === 'date' && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode={mode}
-              is24Hour={true}
-              display="default"
-              onChange={onChangeDate}
-            />
-          )
-        }
-        {
-          show && mode === 'time' && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode={mode}
-              is24Hour={true}
-              display="default"
-              onChange={onChangeTime}
-            />
-          )
-        }
+        {show && mode === "date" && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            display="default"
+            onChange={onChangeDate}
+          />
+        )}
+        {show && mode === "time" && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            display="default"
+            onChange={onChangeTime}
+          />
+        )}
         <TouchableOpacity style={styles.headerIdentity} onPress={showModal}>
           <Text style={styles.textHeaderCalendar}>Enter your details here!</Text>
         </TouchableOpacity>
