@@ -108,9 +108,9 @@ const Tabs = ({ navigation }) => {
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name='person' color={color} size={size} />
+            <Ionicons name='ios-information-circle' color={color} size={32} />
           ),
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'About Us',
         }}
       />
     </Tab.Navigator>
