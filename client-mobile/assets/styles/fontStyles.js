@@ -15,7 +15,7 @@ const fontStyles = StyleSheet.create({
       color: '#191919',
    },
    smallLightFont: {
-      color: 'white',
+      color: Color.dark,
       fontSize: 13,
    },
    cardRestoTitle: {
@@ -23,8 +23,16 @@ const fontStyles = StyleSheet.create({
       fontWeight: 'bold',
       marginTop: 5,
       marginBottom: -15,
-      color: Color.dark
-      // textAlign: 'left',
+      color: Color.dark,
+      borderWidth: 1,
+   },
+   cardRestoTitle: {
+      fontSize: 15,
+      fontWeight: 'bold',
+      marginTop: 5,
+      marginBottom: -15,
+      color: Color.dark,
+      width: 150
    },
    cardRestoTitle2: {
       fontSize: 15,
@@ -52,19 +60,37 @@ const fontStyles = StyleSheet.create({
    },
    cardDistance: {
       color: Color.white,
+      backgroundColor: Color.red,
+      borderRadius: 10,
+      fontSize: 8,
+      alignItems: 'center',
+      justifyContent: 'center',
+      top: -15,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.23,
+      shadowRadius: 2.62,
+      elevation: 4,
+   },
+   cardDistance2: {
+      color: Color.white,
+      backgroundColor: Color.red,
       borderRadius: 10,
       fontSize: 8,
       alignItems: 'center',
       justifyContent: 'center',
       top: -30,
-   },
-   cardDistance2: {
-      color: Color.white,
-      borderRadius: 10,
-      fontSize: 8,
-      alignItems: 'center',
-      justifyContent: 'center',
-      top: -45,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.23,
+      shadowRadius: 2.62,
+      elevation: 4,
    },
 })
 

@@ -276,7 +276,6 @@ function CartScreen({ navigation, route }) {
       }
     });
   });
-  // console.log(itemDetail)
   for (var i = 0; i < itemDetail.length; i++) {
     for (var j = 0; j < itemDetail.length - i - 1; j++) {
       if (itemDetail[j].id > itemDetail[j + 1].id) {
@@ -413,18 +412,20 @@ function CartScreen({ navigation, route }) {
     setCart({});
   }
 
- return (
+  return (
     <>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={stylesz.container}
-      >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.containerx}>
-            <View style={styles.cartTitle}>
-              <Text style={styles.cartTitleText}>{data.restaurant.name}</Text>
-            </View>
+      <View style={styles.containerx}>
+        <View style={styles.cartTitle}>
+          <Text style={styles.cartTitleText}>{data.restaurant.name}</Text>
+        </View>
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={-180}
+          behavior={Platform.OS === "ios" ? "padding" : "padding"}
+          style={stylesz.container}
+        >
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <ScrollView>
+
               <View>
                 {itemDetail.map((item) => {
                   return (
@@ -442,6 +443,9 @@ function CartScreen({ navigation, route }) {
                   )
                 })}
               </View>
+              <TouchableOpacity onPress={() => navigation.goBack()} style={styles.priceUpDown2}>
+                <Text style={{ color: Color.white, fontSize: 13 }}>Add More</Text>
+              </TouchableOpacity>
               <View style={styles.headCheckout}>
                 <Text style={styles.headCheckoutText}>Total Price</Text>
                 <Text style={styles.headPriceText}>
@@ -505,16 +509,17 @@ function CartScreen({ navigation, route }) {
                 </View>
               </View>
             </ScrollView>
-            {Object.keys(cart).length > 0 && (
-              <TouchableOpacity style={styles.fabRestaurant2} onPress={checkInput}>
-                <View style={styles.btnAddChart}>
-                  <Text style={styles.textAddChart}>Checkout</Text>
-                </View>
-              </TouchableOpacity>
-            )}
-          </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+        {Object.keys(cart).length > 0 && (
+          <TouchableOpacity style={styles.fabRestaurant2} onPress={checkInput}>
+            <View style={styles.btnAddChart}>
+              <Text style={styles.textAddChart}>Checkout</Text>
+            </View>
+          </TouchableOpacity>
+        )}
+      </View>
+
     </>
   )
 }
@@ -553,7 +558,7 @@ const stylesSignIn = StyleSheet.create({
 
 const stylesz = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   inner: {
     padding: 24,

@@ -28,7 +28,6 @@ export default function CartListItems({
     } else {
       setCart({ ...cart, [itemId]: (cart[itemId] += 1) });
     }
-    console.log(cart, "increment");
   }
 
   function decrement(itemId) {
@@ -59,9 +58,6 @@ export default function CartListItems({
               <Entypo name="plus" size={20} color={Color.white} />
             </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.priceUpDown2}>
-            <Text style={{ color: Color.white, fontSize: 11 }}>Add More</Text>
-          </TouchableOpacity>
         </View>
       </View>
     );
