@@ -1169,7 +1169,42 @@ const styles = StyleSheet.create({
       elevation: 4,
       justifyContent: 'center',
       alignItems: 'center'
-   }
+   },
+
+   //ABOUT US ===================
+   headwrapper: {
+      height: 80,
+      width: width,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 10,
+      backgroundColor: Color.red,
+      padding: 10,
+   },
+   logo: {
+      height: 60,
+      width: 180,
+   },
+   logoWrapper: {
+      width: 200,
+      height: 60,
+      justifyContent: 'center',
+      alignItems: 'center',
+   },
+   barAndLove: {
+      width: 70,
+      height: 50,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center'
+   },
+   barIcon: {
+      width: 30,
+      height: 30,
+      alignItems: 'center',
+      justifyContent: 'center',
+   },
+
 });
 
 export default styles;

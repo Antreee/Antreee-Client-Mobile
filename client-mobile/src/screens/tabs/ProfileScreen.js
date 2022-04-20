@@ -1,11 +1,68 @@
-import { View, Text, FlatList, Image, ScrollView, Dimensions } from "react-native";
+import { View, Text, FlatList, Image, ScrollView, Dimensions, TouchableOpacity } from "react-native";
 import styles from "../../../assets/styles/styles";
 import Color from "../../assets/Color";
 import users from "../../../data/users"
 import Fontisto from "react-native-vector-icons/Fontisto"
 const width = Dimensions.get("window").width;
 import Svg, { Path } from "react-native-svg"
+import Ionicons from "react-native-vector-icons/Ionicons"
+import { Modal, Portal, Button, Provider } from 'react-native-paper';
+import { useState } from "react";
+
 function ProfileScreen(props, { navigation }) {
+   const [visible, setVisible] = useState(false);
+
+   const showModal = () => setVisible(true);
+   const hideModal = () => setVisible(false);
+   const containerStyle = {
+      backgroundColor: 'white',
+      padding: 20,
+      height: 300,
+      width: width - 40,
+      alignSelf: 'center',
+      borderRadius: 10,
+   };
+
+   if (visible) {
+      return (
+         <Provider>
+            <Portal>
+               <Modal
+                  visible={visible}
+                  onDismiss={hideModal}
+                  contentContainerStyle={containerStyle}>
+                  <View style={{
+                     height: 210,
+                     width: 210,
+                     alignSelf: 'center',
+                     alignItems: 'center',
+                     justifyContent: 'center',
+                     backgroundColor: Color.white,
+                     borderRadius: 10,
+                     shadowColor: "#000",
+                     shadowOffset: {
+                        width: 0,
+                        height: 2,
+                     },
+                     shadowOpacity: 0.23,
+                     shadowRadius: 2.62,
+                     elevation: 4,
+                  }}>
+                     <Image
+                        source={require("../../assets/qr.png")}
+                        style={{
+                           height: 200,
+                           width: 200,
+                           alignSelf: 'center',
+                        }}
+                     />
+                  </View>
+               </Modal>
+            </Portal>
+         </Provider>
+      );
+   }
+
    // console.log(users)
    function portionBtn(item) {
       console.log(item.image)
@@ -37,13 +94,30 @@ function ProfileScreen(props, { navigation }) {
    return (
       <View style={styles.container}>
          <ScrollView>
-            <View style={{
-               height: 80,
-               width: width,
-               borderWidth: 1,
-               flexDirection: 'row',
-               marginBottom: 10,
-            }}>
+            <View style={styles.headwrapper}>
+               <View style={styles.logoWrapper}>
+                  <Image
+                     source={require("../../assets/logo.png")}
+                     style={styles.logo}
+                  />
+               </View>
+               <View style={styles.barAndLove}>
+                  <TouchableOpacity style={styles.barIcon}
+                     onPress={showModal}>
+                     <Ionicons
+                        name="qr-code-sharp"
+                        size={30}
+                        color={Color.white}
+                     />
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.barIcon}>
+                     <Ionicons
+                        name="heart"
+                        size={30}
+                        color={Color.white}
+                     />
+                  </TouchableOpacity>
+               </View>
             </View>
             <View style={{
                height: 50,
@@ -71,6 +145,7 @@ function ProfileScreen(props, { navigation }) {
             }}>
                <Text style={{
                   color: Color.darkGray,
+                  textAlign: 'justify',
                }}>Introducing NuerPay (read NewerPay) , a smart and sophisticated mobile app that elevates your dining experience. There is no need for waiting in line anymore, you could just book your favourite restaurant directly from our app. We will remind you when your booked time is coming. After you get there, you will be greeted by our custom QR Code on your table that you can scan, order, and pay directly from our app! Gone is the day where you wait for waiters to get the menus, take your orders and the best of all, no more getting wrong orders!</Text>
             </View>
 
@@ -112,7 +187,7 @@ function ProfileScreen(props, { navigation }) {
                      },
                      {
                         key: 3,
-                        name: 'Andrizal Chaidar',
+                        name: 'Rasyid Arifin',
                         role: 'Back End',
                         image: require('../../assets/image/acid.jpg'),
                      },
@@ -134,7 +209,6 @@ function ProfileScreen(props, { navigation }) {
                   keyExtractor={(item) => item.key}
                />
             </View>
-
          </ScrollView>
       </View>
    );

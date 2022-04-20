@@ -52,7 +52,7 @@ export default function CartListItems({ navigation, table, name, price, quantity
             </TouchableOpacity>
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('RestaurantScreen', { id: itemId, tableNumber: table })}
+            onPress={() => navigation.goBack()}
             style={styles.priceUpDown2}>
             <Text style={{ color: Color.white, fontSize: 11, }}>Add More</Text>
           </TouchableOpacity>

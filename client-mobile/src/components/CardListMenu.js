@@ -28,7 +28,10 @@ export default function CardListMenu({ myMenus, navigation, id, tableNumber }) {
       setCart({ ...cart, [itemId]: (cart[itemId] -= 1) })
     }
     if (cart[itemId] == 0) {
+      console.log(cart, "sebelum")
       delete cart[itemId]
+      setCart({ ...cart })
+      console.log(cart, "sesudah")
     }
   }
 

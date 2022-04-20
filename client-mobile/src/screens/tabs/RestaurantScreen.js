@@ -29,7 +29,7 @@ import { CartContext } from "../../components/Context";
 
 function RestaurantScreen({ route, navigation }) {
   const { id, tableNumber } = route.params ? route.params : { id: null, tableNumber: null };
-  console.log("🚀 ~ file: RestaurantScreen.js ~ line 32 ~ RestaurantScreen ~ id, tableNumber", id, tableNumber)
+  // console.log("🚀 ~ file: RestaurantScreen.js ~ line 32 ~ RestaurantScreen ~ id, tableNumber", id, tableNumber)
 
   const carouselRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
