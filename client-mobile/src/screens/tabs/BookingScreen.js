@@ -145,8 +145,6 @@ function BookingScreen({ navigation, route }) {
   }
   const goBackHome = () => navigation.navigate("HomeScreen");
   if (mutationData) {
-    console.log(mutationData);
-
     return (
       <>
         <View style={[styles.container, { alignItems: "center", justifyContent: "center" }]}>
@@ -304,7 +302,6 @@ function BookingScreen({ navigation, route }) {
     setDateNow(currentDate);
     let tempDate = new Date(currentDate);
     let fDate = tempDate.getDate() + "/" + (tempDate.getMonth() + 1) + "/" + tempDate.getFullYear();
-    console.log(fDate);
     setSelectedTimeStamp(tempDate.getTime());
     setTextDate(fDate);
   };
@@ -317,7 +314,6 @@ function BookingScreen({ navigation, route }) {
     let hours = tempDate.getHours() < 10 ? `0${tempDate.getHours()}` : tempDate.getHours();
     let minutes = tempDate.getMinutes() < 10 ? `0${tempDate.getMinutes()}` : tempDate.getMinutes();
     let fTime = hours + ":" + minutes;
-    console.log(fTime);
     setSelectedHours(tempDate.getHours());
     setSelectedMinutes(tempDate.getMinutes());
     setTextTime(fTime);
