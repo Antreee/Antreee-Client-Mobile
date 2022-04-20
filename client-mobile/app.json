@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Antreee",
-    "slug": "Antreee-mobile-app",
+    "name": "NuerPay",
+    "slug": "NuerPay-Mobile-App",
     "version": "1.0.0",
     "orientation": "portrait",
     "splash": {
@@ -11,7 +11,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
@@ -21,7 +23,8 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.NuerPay"
     },
     "web": {
       "favicon": "./assets/icons/pngwing.com (1).png"
