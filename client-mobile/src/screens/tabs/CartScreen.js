@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
   ScrollView,
   StyleSheet,
+  KeyboardAvoidingView,
 } from 'react-native'
 import styles from '../../../assets/styles/styles'
 import { useMutation, useQuery } from '@apollo/client'
@@ -356,7 +357,7 @@ function CartScreen({ navigation, route }) {
     //   }
     // }, 1000)
 
-   
+
     setTimeout(() => {
       hideModal()
     }, 15000)
@@ -522,6 +523,9 @@ function CartScreen({ navigation, route }) {
               Name & Email is required.
             </Snackbar>
           </View>
+          {/* <KeyboardAvoidingView
+            behavior="padding"
+          > */}
           <View style={stylesSignIn.container}>
             <View style={stylesSignIn.wrapperInput}>
               <View style={stylesSignIn.formInputCart}>
@@ -567,6 +571,7 @@ function CartScreen({ navigation, route }) {
               </View>
             </View>
           </View>
+          {/* </KeyboardAvoidingView> */}
         </ScrollView>
         {Object.keys(cart).length > 0 && (
           <TouchableOpacity style={styles.fabRestaurant2} onPress={checkInput}>
@@ -596,7 +601,7 @@ const stylesSignIn = StyleSheet.create({
   wrapperInput: {
     backgroundColor: Color.white,
     width: width / 1.3,
-    height: 150,
+    height: 190,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,

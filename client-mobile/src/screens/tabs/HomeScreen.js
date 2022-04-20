@@ -13,17 +13,15 @@ import styles from "../../../assets/styles/styles";
 import { Icon } from "@ui-kitten/components";
 import { Searchbar } from "react-native-paper";
 import fontStyles from "../../../assets/styles/fontStyles";
-import { LinearGradient } from "expo-linear-gradient";
 import Carousel from "react-native-snap-carousel";
 import Color from "../../assets/Color";
 import RestaurantCard from "../../components/RestaurantCard";
 import { useQuery } from "@apollo/client";
 import { GET_RESTAURANTS } from "../../../config/queries";
 import { animatedStyles, scrollInterpolator } from "../../components/animations";
-import Svg, { Path, G, Defs } from "react-native-svg";
 import * as Location from "expo-location";
 
-export default HomeScreen = ({ navigation }, props) => {
+export default HomeScreen = ({ navigation }) => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -165,7 +163,7 @@ export default HomeScreen = ({ navigation }, props) => {
                 ref={carouselRef}
                 data={state.carouselItems}
                 sliderWidth={width}
-                itemWidth={Math.round(width * 0.7)}
+                itemWidth={width - 90}
                 useScrollView={true}
                 scrollInterpolator={scrollInterpolator}
                 slideInterpolatedStyle={animatedStyles}
