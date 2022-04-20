@@ -13,17 +13,15 @@ import styles from "../../../assets/styles/styles";
 import { Icon } from "@ui-kitten/components";
 import { Searchbar } from "react-native-paper";
 import fontStyles from "../../../assets/styles/fontStyles";
-import { LinearGradient } from "expo-linear-gradient";
 import Carousel from "react-native-snap-carousel";
 import Color from "../../assets/Color";
 import RestaurantCard from "../../components/RestaurantCard";
 import { useQuery } from "@apollo/client";
 import { GET_RESTAURANTS } from "../../../config/queries";
 import { animatedStyles, scrollInterpolator } from "../../components/animations";
-import Svg, { Path, G, Defs } from "react-native-svg";
 import * as Location from "expo-location";
 
-export default HomeScreen = ({ navigation }, props) => {
+export default HomeScreen = ({ navigation }) => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -53,29 +51,36 @@ export default HomeScreen = ({ navigation }, props) => {
     activeIndex: 2,
     carouselItems: [
       {
-        title: "Ayam Bakar",
-        text: "D'Raja",
-        image: require("../../assets/imgTemplate/img01.jpg"),
+        title: "Chicken Wings",
+        image: require("../../assets/imgTemplate/img01.png"),
       },
       {
-        title: "Sate Kambing",
-        text: "D'Raja",
-        image: require("../../assets/imgTemplate/img02.jpg"),
+        title: "Chicken & Corn Soup",
+        image: require("../../assets/imgTemplate/img02.png"),
       },
       {
-        title: "Sop Kambing",
-        text: "D'Raja",
-        image: require("../../assets/imgTemplate/img03.jpg"),
+        title: "Taro, Peach, Lychee Tea",
+        image: require("../../assets/imgTemplate/img03.png"),
       },
       {
-        title: "Coto Makassar",
-        text: "D'Raja",
-        image: require("../../assets/imgTemplate/img04.jpg"),
+        title: "Choco Lava",
+        image: require("../../assets/imgTemplate/img04.png"),
       },
       {
-        title: "Ikan Palumara",
-        text: "D'Raja",
-        image: require("../../assets/imgTemplate/img05.jpg"),
+        title: "Hamburg Steak with Egg",
+        image: require("../../assets/imgTemplate/img05.png"),
+      },
+      {
+        title: "Curry Beef Pepper Rice with Cheese",
+        image: require("../../assets/imgTemplate/img06.png"),
+      },
+      {
+        title: "Tira Miss U",
+        image: require("../../assets/imgTemplate/img07.png"),
+      },
+      {
+        title: "Donuts Selection",
+        image: require("../../assets/imgTemplate/img08.png"),
       },
     ],
   });
@@ -165,7 +170,7 @@ export default HomeScreen = ({ navigation }, props) => {
                 ref={carouselRef}
                 data={state.carouselItems}
                 sliderWidth={width}
-                itemWidth={Math.round(width * 0.7)}
+                itemWidth={width - 90}
                 useScrollView={true}
                 scrollInterpolator={scrollInterpolator}
                 slideInterpolatedStyle={animatedStyles}

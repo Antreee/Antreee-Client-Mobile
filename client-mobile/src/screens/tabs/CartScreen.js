@@ -10,16 +10,24 @@ import {
   ActivityIndicator,
   ScrollView,
   StyleSheet,
-} from "react-native";
-import styles from "../../../assets/styles/styles";
-import { useMutation, useQuery } from "@apollo/client";
-import { GET_RESTAURANT_BY_ID, GET_ORDER_BY_ID } from "../../../config/queries";
-import { CREATE_ORDER } from "../../../config/queries";
-import { WebView } from "react-native-webview";
-import Color from "../../assets/Color";
-import { TextInput, Snackbar, Button, Modal, Portal, Provider } from "react-native-paper";
-import CartListItems from "../../components/CartListItems";
-import { RestaurantContext, CartContext } from "../../components/Context";
+  KeyboardAvoidingView,
+} from 'react-native'
+import styles from '../../../assets/styles/styles'
+import { useMutation, useQuery } from '@apollo/client'
+import { GET_RESTAURANT_BY_ID } from '../../../config/queries'
+import { CREATE_ORDER } from '../../../config/queries'
+import { WebView } from 'react-native-webview'
+import Color from '../../assets/Color'
+import {
+  TextInput,
+  Snackbar,
+  Button,
+  Modal,
+  Portal,
+  Provider,
+} from 'react-native-paper'
+import CartListItems from '../../components/CartListItems'
+import { RestaurantContext, CartContext } from '../../components/Context'
 
 function CartScreen({ navigation, route }) {
   const { id: restoId, tableNumber } = route.params
@@ -441,6 +449,9 @@ function CartScreen({ navigation, route }) {
               Name & Email is required.
             </Snackbar>
           </View>
+          {/* <KeyboardAvoidingView
+            behavior="padding"
+          > */}
           <View style={stylesSignIn.container}>
             <View style={stylesSignIn.wrapperInput}>
               <View style={stylesSignIn.formInputCart}>
@@ -486,6 +497,7 @@ function CartScreen({ navigation, route }) {
               </View>
             </View>
           </View>
+          {/* </KeyboardAvoidingView> */}
         </ScrollView>
         {Object.keys(cart).length > 0 && (
           <TouchableOpacity style={styles.fabRestaurant2} onPress={checkInput}>
@@ -515,9 +527,9 @@ const stylesSignIn = StyleSheet.create({
   wrapperInput: {
     backgroundColor: Color.white,
     width: width / 1.3,
-    height: 150,
-    justifyContent: "center",
-    alignItems: "center",
+    height: 190,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 15,
     shadowColor: "#000",
     shadowOffset: {

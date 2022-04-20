@@ -1145,7 +1145,14 @@ const styles = StyleSheet.create({
       padding: 20,
    },
    headTitleDetailOrder: {
-      color: Color.dark, fontSize: 15, paddingBottom: 10
+      color: Color.dark,
+      fontSize: 15,
+      paddingBottom: 10
+   },
+   headTitleDetailOrder2: {
+      color: Color.red,
+      fontSize: 13,
+      paddingBottom: 10
    },
    btnWrapperOrder: {
       width: width / 1.1,

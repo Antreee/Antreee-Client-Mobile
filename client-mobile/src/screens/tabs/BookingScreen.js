@@ -15,25 +15,24 @@ import {
 import * as React from "react";
 import { useState, useRef, useEffect } from "react";
 import Color from "../../assets/Color";
+import { TextInput } from 'react-native-paper'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Entypo from 'react-native-vector-icons/Entypo'
+import { Modal, Portal, Paragraph, Dialog, Button, Provider, Snackbar, } from 'react-native-paper'
+import { CREATE_ORDER } from '../../../config/queries'
+import * as ExpoCalendar from 'expo-calendar'
+import DateTimePicker from '@react-native-community/datetimepicker'
+import Fontisto from 'react-native-vector-icons/Fontisto'
+import { useQuery, useMutation } from '@apollo/client'
+import { GET_RESTAURANT_BY_ID } from '../../../config/queries'
+import MyPagination from '../../components/MyPagination'
+import Carousel from 'react-native-anchor-carousel'
+import * as Notifications from 'expo-notifications'
+import Constants from 'expo-constants'
+const INITIAL_INDEX = 0
+const { width: windowWidth } = Dimensions.get('window')
 
-import { TextInput } from "react-native-paper";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import Entypo from "react-native-vector-icons/Entypo";
-import { Modal, Portal, Provider } from "react-native-paper";
-import { CREATE_ORDER } from "../../../config/queries";
-import * as ExpoCalendar from "expo-calendar";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import Fontisto from "react-native-vector-icons/Fontisto";
-import { Button } from "react-native-paper";
-import { useQuery, useMutation } from "@apollo/client";
-import { GET_RESTAURANT_BY_ID } from "../../../config/queries";
-import MyPagination from "../../components/MyPagination";
-import Carousel from "react-native-anchor-carousel";
-import * as Notifications from "expo-notifications";
-import Constants from "expo-constants";
-const INITIAL_INDEX = 0;
-const { width: windowWidth } = Dimensions.get("window");
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -43,41 +42,47 @@ Notifications.setNotificationHandler({
 });
 
 function BookingScreen({ navigation, route }) {
-  const [selectedDate, setSelectedDate] = useState("");
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const carouselRef = useRef(null);
-  const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
-  const [portion, setPortion] = useState("");
-  const { id } = route.params ? route.params : { id: null };
+  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const carouselRef = useRef(null)
+  const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX)
+  const [portion, setPortion] = useState('')
+  const { id } = route.params ? route.params : { id: null }
   const { loading, error, data } = useQuery(GET_RESTAURANT_BY_ID, {
     variables: { id, itemsByRestaurantIdId2: id },
-  });
-  const [visible, setVisible] = useState(false);
+  })
+  const [visible, setVisible] = useState(false)
+  const [visibleAlert, setVisibleAlert] = useState(false)
   const [
     mutationCreateOrder,
     { data: mutationData, loading: mutationLoading, error: mutationError },
   ] = useMutation(CREATE_ORDER);
   const [expoCalendarId, setExpoCalendarId] = useState("");
+  const [dateNow, setDateNow] = useState(new Date())
+  const [mode, setMode] = useState('date')
+  const [show, setShow] = useState(false)
+  const [textDate, setTextDate] = useState('empty')
+  const [textTime, setTextTime] = useState('empty')
 
-  const [dateNow, setDateNow] = useState(new Date());
-  const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
-  const [textDate, setTextDate] = useState("empty");
-  const [textTime, setTextTime] = useState("empty");
-  const [selectedTimestamp, setSelectedTimeStamp] = useState("");
-  const [selectedHours, setSelectedHours] = useState("");
-  const [selectedMinutes, setSelectedMinutes] = useState("");
+  const [selectedTimestamp, setSelectedTimeStamp] = useState('')
+  const [selectedHours, setSelectedHours] = useState('')
+  const [selectedMinutes, setSelectedMinutes] = useState('')
+  const [messageAlert, setMessageAlert] = useState(false)
+  const [selectedTime, setSelectedTime] = useState('')
 
   useEffect(() => {
-    (async () => {
-      await registerForPushNotificationsAsync();
-      const { status } = await ExpoCalendar.requestCalendarPermissionsAsync();
-      if (status === "granted") {
-        const calendars = await ExpoCalendar.getCalendarsAsync(ExpoCalendar.EntityTypes.EVENT);
-        let calendarId;
-        const nuerpayCalendar = calendars.find((cal) => cal.source.name === "NuerPay");
+    ; (async () => {
+      await registerForPushNotificationsAsync()
+      const { status } = await ExpoCalendar.requestCalendarPermissionsAsync()
+      if (status === 'granted') {
+        const calendars = await ExpoCalendar.getCalendarsAsync(
+          ExpoCalendar.EntityTypes.EVENT
+        )
+        let calendarId
+        const nuerpayCalendar = calendars.find(
+          (cal) => cal.source.name === 'NuerPay'
+        )
         if (!nuerpayCalendar) {
           const localCalendar = calendars.find((cal) => cal.accessLevel === "owner");
           if (!localCalendar) {
@@ -89,8 +94,7 @@ function BookingScreen({ navigation, route }) {
         } else {
           calendarId = nuerpayCalendar.id;
         }
-        console.log(`Here is your Available calendar id: ${calendarId}`);
-        setExpoCalendarId(calendarId);
+        setExpoCalendarId(calendarId)
       }
     })();
   }, []);
@@ -202,8 +206,13 @@ function BookingScreen({ navigation, route }) {
               />
             </View>
             <View style={styles.emptyBookText}>
-              <Text style={styles.textEmptyBooked}>Your booking has been confirmed!</Text>
-              <Text style={styles.textEmptyBookedSub}>Thank you for using our services!</Text>
+              <Text style={styles.textEmptyBooked}>
+                Your booking has been confirmed!
+              </Text>
+              <Text style={styles.textEmptyBookedSub}>
+                We have added the booking info to your calendar!
+                Thank you for using our services!
+              </Text>
             </View>
             <TouchableOpacity onPress={goBackHome} style={styles.btnBackHome}>
               <Text style={styles.btnBackHomeText}>Back Home</Text>
@@ -249,6 +258,29 @@ function BookingScreen({ navigation, route }) {
     alignItems: "center",
   };
   if (visible) {
+    let fDate =
+      new Date().getDate() +
+      '/' +
+      (new Date().getMonth() + 1) +
+      '/' +
+      new Date().getFullYear()
+
+    let hours =
+      new Date().getHours() < 10
+        ? `0${new Date().getHours()}`
+        : new Date().getHours()
+
+    if (fDate === textDate) {
+      if (hours > textTime.split(':')[0]) {
+        console.log('Alert hereeeeeeeeeeee')
+        setMessageAlert(true)
+        setTimeout(() => {
+        setMessageAlert(false)
+      }, 2500)
+      return 
+      }
+    }
+
     return (
       <Provider>
         <Portal>
@@ -346,33 +378,46 @@ function BookingScreen({ navigation, route }) {
   }
 
   const onChangeDate = (event, selectedDate) => {
-    const currentDate = selectedDate || dateNow;
-    setShow(Platform.OS === "ios");
-    setDateNow(currentDate);
-    let tempDate = new Date(currentDate);
-    let fDate = tempDate.getDate() + "/" + (tempDate.getMonth() + 1) + "/" + tempDate.getFullYear();
-    setSelectedTimeStamp(tempDate.getTime());
-    setTextDate(fDate);
-  };
+    const currentDate = selectedDate
+    setShow(Platform.OS === 'ios')
+    setDateNow(currentDate)
+    let tempDate = new Date(currentDate)
+    setSelectedTime(tempDate)
+    let fDate =
+      tempDate.getDate() +
+      '/' +
+      (tempDate.getMonth() + 1) +
+      '/' +
+      tempDate.getFullYear()
+    console.log(
+      '🚀 ~ file: BookingScreen.js ~ line 392 ~ onChangeDate ~ tempDate.getDate()',
+      tempDate.getDate()
+    )
+    setSelectedTimeStamp(tempDate.getTime())
+    setTextDate(fDate)
+  }
+  const showDialog = () => setVisibleAlert(true);
+  const hideDialog = () => setVisibleAlert(false);
 
   const onChangeTime = (event, selectedDate) => {
-    const currentDate = selectedDate || dateNow;
-    setShow(Platform.OS === "ios");
-    setDateNow(currentDate);
-    let tempDate = new Date(currentDate);
-    let hours = tempDate.getHours() < 10 ? `0${tempDate.getHours()}` : tempDate.getHours();
-    let minutes = tempDate.getMinutes() < 10 ? `0${tempDate.getMinutes()}` : tempDate.getMinutes();
-
-    if (new Date().getTime() > selectedTimestamp) {
-      console.log("Mau time traveling bang?");
+    const currentDate = selectedDate
+    setShow(Platform.OS === 'ios')
+    setDateNow(currentDate)
+    let tempDate = new Date(currentDate)
+    let hours =
+      tempDate.getHours() < 10 ? `0${tempDate.getHours()}` : tempDate.getHours()
+    let minutes =
+      tempDate.getMinutes() < 10
+        ? `0${tempDate.getMinutes()}`
+        : tempDate.getMinutes()
+    if (new Date() > tempDate) {
+      console.log('Mau time traveling bang?')
     }
-
-    let fTime = hours + ":" + minutes;
-    setSelectedHours(tempDate.getHours());
-    setSelectedMinutes(tempDate.getMinutes());
-    setTextTime(fTime);
-  };
-
+    let fTime = hours + ':' + minutes
+    setSelectedHours(tempDate.getHours())
+    setSelectedMinutes(tempDate.getMinutes())
+    setTextTime(fTime)
+  }
   const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode);
@@ -437,14 +482,10 @@ function BookingScreen({ navigation, route }) {
     );
   }
 
-  const theDate = {
-    [todayDate]: { selected: true, selectedColor: Color.red },
-  };
-
-  var minTime = new Date();
-  minTime.setHours(10);
-  minTime.setMinutes(0);
-  minTime.setMilliseconds(0);
+  var minTime = new Date()
+  minTime.setHours(10)
+  minTime.setMinutes(0)
+  minTime.setMilliseconds(0)
 
   var maxTime = new Date();
   maxTime.setHours(22);
@@ -499,7 +540,12 @@ function BookingScreen({ navigation, route }) {
           <Text style={styles.textDetailBookingHeader}>BOOKING DETAILS</Text>
         </View>
         <View style={styles.detailInSideWrapper}>
-          <Text style={styles.headTitleDetailOrder}>Order Date and Time :</Text>
+          {
+            messageAlert && (
+              <Text style={styles.headTitleDetailOrder2}>*Invalid booking time</Text>
+            )
+          }
+          <Text style={styles.headTitleDetailOrder}>Booking Date and Time :</Text>
           <View style={styles.btnWrapperOrder}>
             <TouchableOpacity onPress={(_) => showMode("date")} style={styles.btnOrderDateTime}>
               {textDate === "empty" ? (
