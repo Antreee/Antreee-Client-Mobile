@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import * as LocalAuthentication from 'expo-local-authentication'
-const width = Dimensions.get("window").width;
+const width = Dimensions.get('window').width
 import {
   View,
   Text,
@@ -29,7 +29,9 @@ import CartListItems from '../../components/CartListItems'
 import { RestaurantContext, CartContext } from '../../components/Context'
 
 function CartScreen({ navigation, route }) {
-  const { id: restoId, tableNumber } = route.params ? route.params : { id: null, tableNumber: null }
+  const { id: restoId, tableNumber } = route.params
+    ? route.params
+    : { id: null, tableNumber: null }
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
@@ -62,11 +64,11 @@ function CartScreen({ navigation, route }) {
     padding: 20,
     height: 400,
     width: windowWidth / 1.1,
-    alignSelf: "center",
+    alignSelf: 'center',
     borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  };
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 
   const containerStyle = {
     alignSelf: 'center',
@@ -215,25 +217,31 @@ function CartScreen({ navigation, route }) {
     return (
       <Provider>
         <Portal>
-          <Modal visible={visibleDetail} onDismiss={hideModalDetail} contentContainerStyle={containerStyle2}>
+          <Modal
+            visible={visibleDetail}
+            onDismiss={hideModalDetail}
+            contentContainerStyle={containerStyle2}
+          >
             <View
               style={{
                 width: windowWidth / 1.1,
                 height: 50,
                 backgroundColor: Color.red,
-                justifyContent: "center",
-                alignItems: "center",
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
-              <Text style={{ color: Color.white, fontSize: 15, fontWeight: "bold" }}>
+              <Text
+                style={{ color: Color.white, fontSize: 15, fontWeight: 'bold' }}
+              >
                 Input Your Details
               </Text>
             </View>
             <View style={styles.wrapIdentity}>
               <TextInput
-                label="Name"
+                label='Name'
                 value={name}
-                mode={"outlined"}
+                mode={'outlined'}
                 style={{
                   backgroundColor: Color.white,
                   height: 40,
@@ -244,9 +252,9 @@ function CartScreen({ navigation, route }) {
                 onChangeText={(name) => setName(name)}
               />
               <TextInput
-                label="PhoneNumber"
+                label='PhoneNumber'
                 value={phoneNumber}
-                mode={"outlined"}
+                mode={'outlined'}
                 style={{
                   backgroundColor: Color.white,
                   height: 40,
@@ -257,9 +265,9 @@ function CartScreen({ navigation, route }) {
                 onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
               />
               <TextInput
-                label="Email"
+                label='Email'
                 value={email}
-                mode={"outlined"}
+                mode={'outlined'}
                 style={{
                   backgroundColor: Color.white,
                   height: 40,
@@ -268,7 +276,7 @@ function CartScreen({ navigation, route }) {
                 }}
                 theme={{ colors: { text: Color.dark, primary: Color.red } }}
                 onChangeText={(email) => {
-                  setEmail(email);
+                  setEmail(email)
                 }}
               />
             </View>
@@ -278,17 +286,19 @@ function CartScreen({ navigation, route }) {
                 width: 150,
                 height: 50,
                 borderRadius: 10,
-                justifyContent: "center",
-                alignItems: "center",
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
               onPress={checkInput}
             >
-              <Text style={{ color: Color.white, fontWeight: "bold" }}>Book Now!</Text>
+              <Text style={{ color: Color.white, fontWeight: 'bold' }}>
+                Book Now!
+              </Text>
             </TouchableOpacity>
           </Modal>
         </Portal>
       </Provider>
-    );
+    )
   }
 
   let itemDetail = []
@@ -310,7 +320,15 @@ function CartScreen({ navigation, route }) {
     })
   })
   // console.log(itemDetail)
-  itemDetail.sort((a, b) => a - b)
+  for (var i = 0; i < itemDetail.length; i++) {
+    for (var j = 0; j < itemDetail.length - i - 1; j++) {
+      if (itemDetail[j].id > itemDetail[j + 1].id) {
+        var temp = itemDetail[j]
+        itemDetail[j] = itemDetail[j + 1]
+        itemDetail[j + 1] = temp
+      }
+    }
+  }
 
   function checkInput() {
     if (name === '' || email === '') {
@@ -326,6 +344,22 @@ function CartScreen({ navigation, route }) {
   const goToHome = () => navigation.navigate('HomeScreen')
   const width = Dimensions.get('window').width
   if (mutationData) {
+    // const fetchOrderByIdInterval = setInterval(() => {
+    //   const { loading, error, data:orderById } = useQuery(GET_ORDER_BY_ID, {
+    //     variables: {
+    //       id: mutationData.createOrder.message.orderId,
+    //     },
+    //   })
+
+    //   if (orderById.status === 'PAID') {
+    //     clearInterval(fetchOrderByIdInterval)
+    //   }
+    // }, 1000)
+
+   
+    setTimeout(() => {
+      hideModal()
+    }, 15000)
     return (
       <Provider>
         <Portal>
@@ -390,18 +424,18 @@ function CartScreen({ navigation, route }) {
         <View
           style={{
             flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "row",
-            justifyContent: "center",
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'center',
             padding: 10,
           }}
         >
-          <ActivityIndicator size="small" color={Color.red} />
+          <ActivityIndicator size='small' color={Color.red} />
           <Text style={{ marginLeft: 10 }}>Submiting...</Text>
         </View>
       </>
-    );
+    )
   }
   if (mutationError) return <Text>`Submission error! ${error.message}`</Text>
 
@@ -455,27 +489,27 @@ function CartScreen({ navigation, route }) {
         </View>
         <ScrollView>
           <View>
-            {
-              itemDetail.map(item => {
-                return (
-                  < CartListItems
-                    key={item.id}
-                    name={item.name}
-                    price={item.price}
-                    quantity={item.quantity}
-                    description={item.description}
-                    image={item.image}
-                    itemId={item.id}
-                    navigation={navigation}
-                    table={tableNumber}
-                  />
-                )
-              })
-            }
+            {itemDetail.map((item) => {
+              return (
+                <CartListItems
+                  key={item.id}
+                  name={item.name}
+                  price={item.price}
+                  quantity={item.quantity}
+                  description={item.description}
+                  image={item.image}
+                  itemId={item.id}
+                  navigation={navigation}
+                  table={tableNumber}
+                />
+              )
+            })}
           </View>
           <View style={styles.headCheckout}>
             <Text style={styles.headCheckoutText}>Total Price</Text>
-            <Text style={styles.headPriceText}>{currencyFormat(myPrice)},-</Text>
+            <Text style={styles.headPriceText}>
+              {currencyFormat(myPrice)},-
+            </Text>
           </View>
           <View>
             <Snackbar
@@ -485,28 +519,50 @@ function CartScreen({ navigation, route }) {
                 label: 'X',
               }}
             >
-              Name/Email is required.
+              Name & Email is required.
             </Snackbar>
           </View>
           <View style={stylesSignIn.container}>
             <View style={stylesSignIn.wrapperInput}>
               <View style={stylesSignIn.formInputCart}>
                 <TextInput
-                  label="Name"
+                  label='Name'
                   value={name}
                   mode={'outlined'}
-                  style={{ backgroundColor: Color.white, height: 45, fontSize: 13, marginBottom: 3 }}
+                  style={{
+                    backgroundColor: Color.white,
+                    height: 45,
+                    fontSize: 13,
+                    marginBottom: 3,
+                  }}
                   theme={{ colors: { text: Color.dark, primary: Color.red } }}
-                  onChangeText={name => setName(name)}
+                  onChangeText={(name) => setName(name)}
                 />
                 <TextInput
-                  label="Email"
-                  secureTextEntry={true}
+                  label='Phone Number'
+                  value={phoneNumber}
+                  mode={'outlined'}
+                  style={{
+                    backgroundColor: Color.white,
+                    height: 45,
+                    fontSize: 13,
+                    marginBottom: 3,
+                  }}
+                  theme={{ colors: { text: Color.dark, primary: Color.red } }}
+                  onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+                />
+                <TextInput
+                  label='Email'
                   value={email}
                   mode={'outlined'}
-                  style={{ backgroundColor: Color.white, height: 45, fontSize: 13, marginTop: 3 }}
+                  style={{
+                    backgroundColor: Color.white,
+                    height: 45,
+                    fontSize: 13,
+                    marginTop: 3,
+                  }}
                   theme={{ colors: { text: Color.dark, primary: Color.red } }}
-                  onChangeText={pwd => setEmail(pwd)}
+                  onChangeText={(email) => setEmail(email)}
                 />
               </View>
             </View>
@@ -529,8 +585,8 @@ export default CartScreen
 const stylesSignIn = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 70,
   },
   formInputCart: {
@@ -544,7 +600,7 @@ const stylesSignIn = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 7,

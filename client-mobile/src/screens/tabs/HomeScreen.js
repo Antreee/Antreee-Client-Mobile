@@ -20,7 +20,7 @@ import RestaurantCard from "../../components/RestaurantCard";
 import { useQuery } from "@apollo/client";
 import { GET_RESTAURANTS } from "../../../config/queries";
 import { animatedStyles, scrollInterpolator } from "../../components/animations";
-import Svg, { Path, G, Defs } from "react-native-svg"
+import Svg, { Path, G, Defs } from "react-native-svg";
 import * as Location from "expo-location";
 
 export default HomeScreen = ({ navigation }, props) => {
@@ -36,7 +36,6 @@ export default HomeScreen = ({ navigation }, props) => {
       }
 
       let location = await Location.getCurrentPositionAsync({});
-      console.log(location);
       setLocation(location);
     })();
   }, []);
@@ -129,9 +128,7 @@ export default HomeScreen = ({ navigation }, props) => {
         <ScrollView>
           <View style={styles.headerApp}>
             <View style={styles.headerApp2}>
-              <Image
-                source={require("../../assets/logo.png")}
-              />
+              <Image source={require("../../assets/logo.png")} />
             </View>
             {/* SEARCH */}
             <View style={styles.searchWrap}>
@@ -153,7 +150,6 @@ export default HomeScreen = ({ navigation }, props) => {
           </View>
 
           {/* ======= */}
-
 
           {/* Carosel */}
           <View style={styles.contentWrap}>

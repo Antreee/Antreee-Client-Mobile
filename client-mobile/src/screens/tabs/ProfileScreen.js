@@ -1,8 +1,8 @@
 import { View, Text, FlatList, Image, ScrollView, Dimensions, TouchableOpacity } from "react-native";
 import styles from "../../../assets/styles/styles";
 import Color from "../../assets/Color";
-import users from "../../../data/users"
-import Fontisto from "react-native-vector-icons/Fontisto"
+import users from "../../../data/users";
+import Fontisto from "react-native-vector-icons/Fontisto";
 const width = Dimensions.get("window").width;
 import Svg, { Path } from "react-native-svg"
 import Ionicons from "react-native-vector-icons/Ionicons"
@@ -63,33 +63,28 @@ function ProfileScreen(props, { navigation }) {
       );
    }
 
-   // console.log(users)
    function portionBtn(item) {
       console.log(item.image)
       return (
          <View
-            style={{
-               backgroundColor: Color.white,
-               alignItems: "center",
-               width: 210,
-               borderRadius: 10,
-               height: 300,
-               justifyContent: "center",
-               marginLeft: 10,
-               marginRight: 10,
-               padding: 10,
-            }}
-         >
-            <Image
-               source={item.image}
-               style={{ width: 200, height: 245, borderRadius: 10 }}
-            />
-            <Text style={{ fontWeight: 'bold', color: Color.dark }}>{item.name}</Text>
-            <Text style={{ color: Color.darkGray }}>{item.role}</Text>
-         </View>
-      );
-   }
-
+        style={{
+          backgroundColor: Color.white,
+          alignItems: "center",
+          width: 210,
+          borderRadius: 10,
+          height: 300,
+          justifyContent: "center",
+          marginLeft: 10,
+          marginRight: 10,
+          padding: 10,
+        }}
+      >
+        <Image source={item.image} style={{ width: 200, height: 245, borderRadius: 10 }} />
+        <Text style={{ fontWeight: "bold", color: Color.dark }}>{item.name}</Text>
+        <Text style={{ color: Color.darkGray }}>{item.role}</Text>
+      </View>
+    );
+  }
 
    return (
       <View style={styles.container}>
@@ -214,4 +209,4 @@ function ProfileScreen(props, { navigation }) {
    );
 }
 
-export default ProfileScreen
+export default ProfileScreen;

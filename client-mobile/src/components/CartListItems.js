@@ -5,10 +5,18 @@ import Entypo from "react-native-vector-icons/Entypo";
 import { useContext, useState } from "react";
 import { CartContext } from "./Context";
 
-export default function CartListItems({ navigation, table, name, price, quantity, description, image, itemId }) {
+export default function CartListItems({
+  navigation,
+  table,
+  name,
+  price,
+  quantity,
+  description,
+  image,
+  itemId,
+}) {
   const [qty, setQty] = useState(quantity);
   const { cart, setCart } = useContext(CartContext);
-  console.log(name, price, quantity, description, image, itemId);
 
   function currencyFormat(num) {
     return "Rp." + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -51,10 +59,8 @@ export default function CartListItems({ navigation, table, name, price, quantity
               <Entypo name="plus" size={20} color={Color.white} />
             </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={styles.priceUpDown2}>
-            <Text style={{ color: Color.white, fontSize: 11, }}>Add More</Text>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.priceUpDown2}>
+            <Text style={{ color: Color.white, fontSize: 11 }}>Add More</Text>
           </TouchableOpacity>
         </View>
       </View>
