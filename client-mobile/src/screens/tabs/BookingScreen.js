@@ -20,12 +20,11 @@ import { TextInput } from 'react-native-paper'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
-import { Modal, Portal, Provider } from 'react-native-paper'
+import { Modal, Portal, Paragraph, Dialog, Button, Provider, Snackbar, } from 'react-native-paper'
 import { CREATE_ORDER } from '../../../config/queries'
 import * as ExpoCalendar from 'expo-calendar'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import Fontisto from 'react-native-vector-icons/Fontisto'
-import { Button } from 'react-native-paper'
 import { useQuery, useMutation } from '@apollo/client'
 import { GET_RESTAURANT_BY_ID } from '../../../config/queries'
 import MyPagination from '../../components/MyPagination'
@@ -43,7 +42,6 @@ Notifications.setNotificationHandler({
 })
 
 function BookingScreen({ navigation, route }) {
-  const [selectedDate, setSelectedDate] = useState('')
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
@@ -55,6 +53,7 @@ function BookingScreen({ navigation, route }) {
     variables: { id, itemsByRestaurantIdId2: id },
   })
   const [visible, setVisible] = useState(false)
+  const [visibleAlert, setVisibleAlert] = useState(false)
   const [
     mutationCreateOrder,
     { data: mutationData, loading: mutationLoading, error: mutationError },
@@ -70,9 +69,11 @@ function BookingScreen({ navigation, route }) {
   const [selectedTimestamp, setSelectedTimeStamp] = useState('')
   const [selectedHours, setSelectedHours] = useState('')
   const [selectedMinutes, setSelectedMinutes] = useState('')
+  const [messageAlert, setMessageAlert] = useState(false)
+  const [selectedTime, setSelectedTime] = useState('')
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       await registerForPushNotificationsAsync()
       const { status } = await ExpoCalendar.requestCalendarPermissionsAsync()
       if (status === 'granted') {
@@ -218,8 +219,8 @@ function BookingScreen({ navigation, route }) {
                 Your booking has been confirmed!
               </Text>
               <Text style={styles.textEmptyBookedSub}>
-                We have added the booking info to your calendar! Thank you for
-                using our services!
+                We have added the booking info to your calendar!
+                Thank you for using our services!
               </Text>
             </View>
             <TouchableOpacity onPress={goBackHome} style={styles.btnBackHome}>
@@ -288,7 +289,11 @@ function BookingScreen({ navigation, route }) {
     if (fDate === textDate) {
       if (hours > textTime.split(':')[0]) {
         console.log('Alert hereeeeeeeeeeee')
-        return <></>
+        setMessageAlert(true)
+        setTimeout(() => {
+        setMessageAlert(false)
+      }, 2500)
+      return 
       }
     }
 
@@ -401,6 +406,7 @@ function BookingScreen({ navigation, route }) {
     setShow(Platform.OS === 'ios')
     setDateNow(currentDate)
     let tempDate = new Date(currentDate)
+    setSelectedTime(tempDate)
     let fDate =
       tempDate.getDate() +
       '/' +
@@ -414,12 +420,10 @@ function BookingScreen({ navigation, route }) {
     setSelectedTimeStamp(tempDate.getTime())
     setTextDate(fDate)
   }
+  const showDialog = () => setVisibleAlert(true);
+  const hideDialog = () => setVisibleAlert(false);
 
   const onChangeTime = (event, selectedDate) => {
-    console.log(
-      '🚀 ~ file: BookingScreen.js ~ line 397 ~ onChangeTime ~ selectedDate',
-      selectedDate
-    )
     const currentDate = selectedDate
     setShow(Platform.OS === 'ios')
     setDateNow(currentDate)
@@ -430,11 +434,9 @@ function BookingScreen({ navigation, route }) {
       tempDate.getMinutes() < 10
         ? `0${tempDate.getMinutes()}`
         : tempDate.getMinutes()
-
     if (new Date() > tempDate) {
       console.log('Mau time traveling bang?')
     }
-
     let fTime = hours + ':' + minutes
     setSelectedHours(tempDate.getHours())
     setSelectedMinutes(tempDate.getMinutes())
@@ -516,10 +518,6 @@ function BookingScreen({ navigation, route }) {
     )
   }
 
-  const theDate = {
-    [todayDate]: { selected: true, selectedColor: Color.red },
-  }
-
   var minTime = new Date()
   minTime.setHours(10)
   minTime.setMinutes(0)
@@ -589,7 +587,12 @@ function BookingScreen({ navigation, route }) {
           <Text style={styles.textDetailBookingHeader}>BOOKING DETAILS</Text>
         </View>
         <View style={styles.detailInSideWrapper}>
-          <Text style={styles.headTitleDetailOrder}>Order Date and Time :</Text>
+          {
+            messageAlert && (
+              <Text style={styles.headTitleDetailOrder2}>*Invalid booking time</Text>
+            )
+          }
+          <Text style={styles.headTitleDetailOrder}>Booking Date and Time :</Text>
           <View style={styles.btnWrapperOrder}>
             <TouchableOpacity
               onPress={(_) => showMode('date')}
