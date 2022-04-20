@@ -66,6 +66,7 @@ function BookingScreen({ navigation, route }) {
   const [show, setShow] = useState(false)
   const [textDate, setTextDate] = useState('empty')
   const [textTime, setTextTime] = useState('empty')
+
   const [selectedTimestamp, setSelectedTimeStamp] = useState('')
   const [selectedHours, setSelectedHours] = useState('')
   const [selectedMinutes, setSelectedMinutes] = useState('')
@@ -95,7 +96,6 @@ function BookingScreen({ navigation, route }) {
         } else {
           calendarId = nuerpayCalendar.id
         }
-        console.log(`Here is your Available calendar id: ${calendarId}`)
         setExpoCalendarId(calendarId)
       }
     })()
@@ -218,7 +218,8 @@ function BookingScreen({ navigation, route }) {
                 Your booking has been confirmed!
               </Text>
               <Text style={styles.textEmptyBookedSub}>
-                Thank you for using our services!
+                We have added the booking info to your calendar! Thank you for
+                using our services!
               </Text>
             </View>
             <TouchableOpacity onPress={goBackHome} style={styles.btnBackHome}>
@@ -272,6 +273,25 @@ function BookingScreen({ navigation, route }) {
     alignItems: 'center',
   }
   if (visible) {
+    let fDate =
+      new Date().getDate() +
+      '/' +
+      (new Date().getMonth() + 1) +
+      '/' +
+      new Date().getFullYear()
+
+    let hours =
+      new Date().getHours() < 10
+        ? `0${new Date().getHours()}`
+        : new Date().getHours()
+
+    if (fDate === textDate) {
+      if (hours > textTime.split(':')[0]) {
+        console.log('Alert hereeeeeeeeeeee')
+        return <></>
+      }
+    }
+
     return (
       <Provider>
         <Portal>
@@ -377,7 +397,7 @@ function BookingScreen({ navigation, route }) {
   }
 
   const onChangeDate = (event, selectedDate) => {
-    const currentDate = selectedDate || dateNow
+    const currentDate = selectedDate
     setShow(Platform.OS === 'ios')
     setDateNow(currentDate)
     let tempDate = new Date(currentDate)
@@ -387,12 +407,20 @@ function BookingScreen({ navigation, route }) {
       (tempDate.getMonth() + 1) +
       '/' +
       tempDate.getFullYear()
+    console.log(
+      '🚀 ~ file: BookingScreen.js ~ line 392 ~ onChangeDate ~ tempDate.getDate()',
+      tempDate.getDate()
+    )
     setSelectedTimeStamp(tempDate.getTime())
     setTextDate(fDate)
   }
 
   const onChangeTime = (event, selectedDate) => {
-    const currentDate = selectedDate || dateNow
+    console.log(
+      '🚀 ~ file: BookingScreen.js ~ line 397 ~ onChangeTime ~ selectedDate',
+      selectedDate
+    )
+    const currentDate = selectedDate
     setShow(Platform.OS === 'ios')
     setDateNow(currentDate)
     let tempDate = new Date(currentDate)
@@ -403,7 +431,7 @@ function BookingScreen({ navigation, route }) {
         ? `0${tempDate.getMinutes()}`
         : tempDate.getMinutes()
 
-    if (new Date().getTime() > selectedTimestamp) {
+    if (new Date() > tempDate) {
       console.log('Mau time traveling bang?')
     }
 
