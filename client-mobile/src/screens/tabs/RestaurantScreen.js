@@ -32,6 +32,7 @@ function RestaurantScreen({ route, navigation }) {
     ? route.params
     : { id: null, tableNumber: null }
 
+
   const carouselRef = useRef(null)
   const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX)
   const { cart, setCart } = useContext(CartContext)
@@ -259,6 +260,7 @@ function RestaurantScreen({ route, navigation }) {
               <View style={styles.restaurantAddressIcon}>
                 <MaterialCommunityIcons
                   name='text-box-plus-outline'
+
                   size={20}
                   color={Color.white}
                 />
