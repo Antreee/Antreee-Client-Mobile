@@ -76,7 +76,25 @@ export const CREATE_ORDER = gql`
       restaurantId: $restaurantId
       orderDetails: $orderDetails
     ) {
-      message
+      url
+      orderId
+    }
+  }
+`;
+
+export const GET_ORDER_BY_ID = gql`
+  query OrderById($id: ID!) {
+    orderById(_id: $id) {
+      _id
+      customerName
+      customerPhoneNumber
+      customerEmail
+      tableNumber
+      totalPrice
+      bookingDate
+      numberOfPeople
+      restaurantId
+      status
     }
   }
 `;
