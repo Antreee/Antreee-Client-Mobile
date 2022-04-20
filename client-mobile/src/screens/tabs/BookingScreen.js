@@ -279,12 +279,10 @@ function BookingScreen({ navigation, route }) {
       new Date().getHours() < 10
         ? `0${new Date().getHours()}`
         : new Date().getHours()
-    // console.log(hours, "...", textTime.split(':')[0])
 
     if (fDate === textDate) {
       if (hours > textTime.split(':')[0]) {
         hideModal()
-        console.log('Alert hereeeeeeeeeeee')
         setMessageAlert(true)
         setTimeout(() => {
           setMessageAlert(false)
@@ -376,7 +374,6 @@ function BookingScreen({ navigation, route }) {
                   let checkPhone = phoneNumber.match(
                     /^(^\+62|62|^08)(\d{3,4}-?){2}\d{3,4}$/g
                   )
-                  console.log(checkMail === null || checkPhone === null)
                   if (checkMail === null || checkPhone === null) {
                     setInValidEmailPhone(true)
                     setTimeout(() => {

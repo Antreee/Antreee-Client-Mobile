@@ -64,27 +64,26 @@ function ProfileScreen(props, { navigation }) {
    }
 
    function portionBtn(item) {
-      console.log(item.image)
       return (
          <View
-        style={{
-          backgroundColor: Color.white,
-          alignItems: "center",
-          width: 210,
-          borderRadius: 10,
-          height: 300,
-          justifyContent: "center",
-          marginLeft: 10,
-          marginRight: 10,
-          padding: 10,
-        }}
-      >
-        <Image source={item.image} style={{ width: 200, height: 245, borderRadius: 10 }} />
-        <Text style={{ fontWeight: "bold", color: Color.dark }}>{item.name}</Text>
-        <Text style={{ color: Color.darkGray }}>{item.role}</Text>
-      </View>
-    );
-  }
+            style={{
+               backgroundColor: Color.white,
+               alignItems: "center",
+               width: 210,
+               borderRadius: 10,
+               height: 300,
+               justifyContent: "center",
+               marginLeft: 10,
+               marginRight: 10,
+               padding: 10,
+            }}
+         >
+            <Image source={item.image} style={{ width: 200, height: 245, borderRadius: 10 }} />
+            <Text style={{ fontWeight: "bold", color: Color.dark }}>{item.name}</Text>
+            <Text style={{ color: Color.darkGray }}>{item.role}</Text>
+         </View>
+      );
+   }
 
    return (
       <View style={styles.container}>

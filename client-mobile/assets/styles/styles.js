@@ -943,13 +943,14 @@ const styles = StyleSheet.create({
    priceUpDown2: {
       flexDirection: "row",
       alignItems: "center",
-      width: 60,
-      height: 30,
+      width: 100,
+      height: 40,
       alignSelf: "center",
       borderRadius: 10,
       backgroundColor: Color.red,
-      alignItems: 'center',
       justifyContent: 'center',
+      alignSelf: 'flex-end',
+      right: 15,
    },
    priceMinus: {
       width: 30,

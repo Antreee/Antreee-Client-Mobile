@@ -89,31 +89,20 @@ export default HomeScreen = ({ navigation }) => {
     return (
       <View
         style={{
-          // backgroundColor: "floralwhite",
           borderRadius: 20,
           height: 190,
           justifyContent: "space-between",
-          // alignItems: "center",
-          // top: -30,
           flexDirection: 'column',
           width: Dimensions.get("window").width - 55,
-          // marginBottom: 10,
         }}
       >
         <Image
           source={item.image}
           style={{
             flex: 1,
-            // resizeMode: "stretch",
             width: '100%',
-            // width: Dimensions.get("window").width - 120,
-            // height: '100%',
-            // borderTopLeftRadius: 20,
-            // top: 0,
             borderRadius: 20,
             bottom: -31,
-            // justifyContent: "flex-end",
-
           }}
           imageStyle={{ borderRadius: 20 }}
         >
@@ -127,7 +116,6 @@ export default HomeScreen = ({ navigation }) => {
             borderBottomRightRadius: 20,
             borderBottomLeftRadius: 20,
             paddingBottom: 5,
-            // top: -20,
           }}
         >
           <Text style={item.image === 15 ? styles.caroSubBottom2 : styles.caroSubBottom}>{item.title}</Text>
@@ -146,7 +134,9 @@ export default HomeScreen = ({ navigation }) => {
         <ScrollView>
           <View style={styles.headerApp}>
             <View style={styles.headerApp2}>
-              <Image source={require("../../assets/logo.png")} />
+              <Image source={require("../../../assets/newLogo.png")}
+                style={{ height: 55, width: 200 }}
+              />
             </View>
             {/* SEARCH */}
             <View style={styles.searchWrap}>
