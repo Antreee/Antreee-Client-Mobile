@@ -134,7 +134,9 @@ export default HomeScreen = ({ navigation }) => {
         <ScrollView>
           <View style={styles.headerApp}>
             <View style={styles.headerApp2}>
-              <Image source={require("../../assets/logo.png")} />
+              <Image source={require("../../../assets/newLogo.png")}
+                style={{ height: 55, width: 200 }}
+              />
             </View>
             {/* SEARCH */}
             <View style={styles.searchWrap}>
