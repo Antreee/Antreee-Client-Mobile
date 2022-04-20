@@ -23,16 +23,24 @@ import Entypo from "react-native-vector-icons/Entypo";
 import { Modal, Portal, Provider } from "react-native-paper";
 import { CREATE_ORDER } from "../../../config/queries";
 import * as ExpoCalendar from "expo-calendar";
-
 import DateTimePicker from "@react-native-community/datetimepicker";
-import Fontisto from "react-native-vector-icons/Fontisto"
+import Fontisto from "react-native-vector-icons/Fontisto";
 import { Button } from "react-native-paper";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_RESTAURANT_BY_ID } from "../../../config/queries";
 import MyPagination from "../../components/MyPagination";
 import Carousel from "react-native-anchor-carousel";
+import * as Notifications from "expo-notifications";
+import Constants from "expo-constants";
 const INITIAL_INDEX = 0;
 const { width: windowWidth } = Dimensions.get("window");
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 function BookingScreen({ navigation, route }) {
   const [selectedDate, setSelectedDate] = useState("");
@@ -64,6 +72,7 @@ function BookingScreen({ navigation, route }) {
 
   useEffect(() => {
     (async () => {
+      await registerForPushNotificationsAsync();
       const { status } = await ExpoCalendar.requestCalendarPermissionsAsync();
       if (status === "granted") {
         const calendars = await ExpoCalendar.getCalendarsAsync(ExpoCalendar.EntityTypes.EVENT);
@@ -85,6 +94,43 @@ function BookingScreen({ navigation, route }) {
       }
     })();
   }, []);
+
+  async function schedulePushNotification() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: `Booking at ${data.restaurant.name} has been confirmed!`,
+        body: "Event is added to your calendar",
+      },
+      trigger: {
+        seconds: 2,
+      },
+    });
+  }
+
+  async function registerForPushNotificationsAsync() {
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification!");
+        return;
+      }
+    } else {
+      alert("Must use physical device for Push Notifications");
+    }
+    if (Platform.OS === "android") {
+      Notifications.setNotificationChannelAsync("default", {
+        name: "default",
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: "#FF231F7C",
+      });
+    }
+  }
 
   async function createCalendar() {
     const defaultCalendarSource = { isLocalAccount: true, name: "NuerPay" };
@@ -145,8 +191,6 @@ function BookingScreen({ navigation, route }) {
   }
   const goBackHome = () => navigation.navigate("HomeScreen");
   if (mutationData) {
-    console.log(mutationData);
-
     return (
       <>
         <View style={[styles.container, { alignItems: "center", justifyContent: "center" }]}>
@@ -161,6 +205,9 @@ function BookingScreen({ navigation, route }) {
               <Text style={styles.textEmptyBooked}>Your booking has been confirmed!</Text>
               <Text style={styles.textEmptyBookedSub}>Thank you for using our services!</Text>
             </View>
+            <TouchableOpacity onPress={goBackHome} style={styles.btnBackHome}>
+              <Text style={styles.btnBackHomeText}>Back Home</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </>
@@ -284,10 +331,10 @@ function BookingScreen({ navigation, route }) {
                     },
                   });
                   await addEvent();
+                  await schedulePushNotification();
                 } catch (error) {
                   console.log(error);
                 }
-                navigation.navigate("RestaurantScreen");
               }}
             >
               <Text style={{ color: Color.white, fontWeight: "bold" }}>Book Now!</Text>
@@ -304,7 +351,6 @@ function BookingScreen({ navigation, route }) {
     setDateNow(currentDate);
     let tempDate = new Date(currentDate);
     let fDate = tempDate.getDate() + "/" + (tempDate.getMonth() + 1) + "/" + tempDate.getFullYear();
-    console.log(fDate);
     setSelectedTimeStamp(tempDate.getTime());
     setTextDate(fDate);
   };
@@ -317,7 +363,6 @@ function BookingScreen({ navigation, route }) {
     let hours = tempDate.getHours() < 10 ? `0${tempDate.getHours()}` : tempDate.getHours();
     let minutes = tempDate.getMinutes() < 10 ? `0${tempDate.getMinutes()}` : tempDate.getMinutes();
     let fTime = hours + ":" + minutes;
-    console.log(fTime);
     setSelectedHours(tempDate.getHours());
     setSelectedMinutes(tempDate.getMinutes());
     setTextTime(fTime);
@@ -461,83 +506,83 @@ function BookingScreen({ navigation, route }) {
               data={[
                 {
                   key: "1",
-                  id: 1
+                  id: 1,
                 },
                 {
                   key: "2",
-                  id: 2
+                  id: 2,
                 },
                 {
                   key: "3",
-                  id: 3
+                  id: 3,
                 },
                 {
                   key: "4",
-                  id: 4
+                  id: 4,
                 },
                 {
                   key: "5",
-                  id: 5
+                  id: 5,
                 },
                 {
                   key: "6",
-                  id: 6
+                  id: 6,
                 },
                 {
                   key: "7",
-                  id: 7
+                  id: 7,
                 },
                 {
                   key: "8",
-                  id: 8
+                  id: 8,
                 },
                 {
                   key: "9",
-                  id: 9
+                  id: 9,
                 },
                 {
                   key: "10",
-                  id: 10
+                  id: 10,
                 },
                 {
                   key: "11",
-                  id: 11
+                  id: 11,
                 },
                 {
                   key: "12",
-                  id: 12
+                  id: 12,
                 },
                 {
                   key: "13",
-                  id: 13
+                  id: 13,
                 },
                 {
                   key: "14",
-                  id: 14
+                  id: 14,
                 },
                 {
                   key: "15",
-                  id: 15
+                  id: 15,
                 },
                 {
                   key: "16",
-                  id: 16
+                  id: 16,
                 },
                 {
                   key: "17",
-                  id: 17
+                  id: 17,
                 },
                 {
                   key: "18",
-                  id: 18
+                  id: 18,
                 },
                 {
                   key: "19",
-                  id: 19
+                  id: 19,
                 },
                 {
                   key: "20",
-                  id: 20
+                  id: 20,
                 },
               ]}
               horizontal={true}
@@ -545,25 +590,19 @@ function BookingScreen({ navigation, route }) {
               keyExtractor={(item) => item.id}
             />
           </View>
-          <View style={{
-            width: windowWidth / 1.1,
-            height: 25,
-            flexDirection: "row",
-            alignSelf: 'center',
-            marginTop: -15,
-            marginBottom: -15,
-            justifyContent: 'space-between',
-          }}>
-            <Fontisto
-              name="arrow-left-l"
-              size={30}
-              color={Color.red}
-            />
-            <Fontisto
-              name="arrow-right-l"
-              size={30}
-              color={Color.red}
-            />
+          <View
+            style={{
+              width: windowWidth / 1.1,
+              height: 25,
+              flexDirection: "row",
+              alignSelf: "center",
+              marginTop: -15,
+              marginBottom: -15,
+              justifyContent: "space-between",
+            }}
+          >
+            <Fontisto name="arrow-left-l" size={30} color={Color.red} />
+            <Fontisto name="arrow-right-l" size={30} color={Color.red} />
           </View>
         </View>
         {show && mode === "date" && (

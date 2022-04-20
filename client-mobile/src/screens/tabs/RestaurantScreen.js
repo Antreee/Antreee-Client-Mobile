@@ -29,7 +29,6 @@ import { CartContext } from "../../components/Context";
 
 function RestaurantScreen({ route, navigation }) {
   const { id, tableNumber } = route.params ? route.params : { id: null, tableNumber: null };
-  console.log("🚀 ~ file: RestaurantScreen.js ~ line 32 ~ RestaurantScreen ~ id, tableNumber", id, tableNumber)
 
   const carouselRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
@@ -212,17 +211,18 @@ function RestaurantScreen({ route, navigation }) {
                 </View>
               )}
             </View>
-            <TouchableOpacity style={styles.restaurantAvailable2}
+            <TouchableOpacity
+              style={styles.restaurantAvailable2}
               onPress={() => navigation.navigate("BookingScreen", { id })}
             >
               <View style={styles.restaurantAddressIcon}>
-                <MaterialCommunityIcons name="text-box-plus-outline" size={20} color={Color.white} />
+                <MaterialCommunityIcons
+                  name="text-box-plus-outline"
+                  size={20}
+                  color={Color.white}
+                />
               </View>
-              <Text
-                style={styles.btnBookNow}
-              >
-                BOOK NOW
-              </Text>
+              <Text style={styles.btnBookNow}>BOOK NOW</Text>
             </TouchableOpacity>
             <View style={styles.menuListWrap}>
               <View style={styles.lestOfWrap}>
