@@ -121,17 +121,33 @@ const styles = StyleSheet.create({
    contentWrap: {
       flex: 1,
       width: width,
-      height: 260,
+      height: 240,
       alignItems: "center",
-      top: 25,
+      marginTop: 10,
+   },
+   contentWrap2: {
+      flex: 1,
+      width: width,
+      height: 240,
+      alignItems: "center",
+      // marginTop: 10,
    },
    contentMenuWrap: {
       width: width,
       alignItems: "center",
+      marginTop: -40,
       marginBottom: 20,
    },
+   caroSubBottom: {
+      fontSize: 20,
+      color: Color.light
+   },
+   caroSubBottom2: {
+      fontSize: 14,
+      color: Color.light
+   },
    titleWrap: {
-      height: 50,
+      height: 40,
       width: "90%",
       alignItems: "center",
       flexDirection: "row",
@@ -151,11 +167,26 @@ const styles = StyleSheet.create({
    },
    carouselWrap: {
       //<=====
-      height: 200,
+      height: 190,
+      marginTop: -30,
       width: width,
       alignItems: "center",
       flexDirection: "row",
       justifyContent: "center",
+      // flexWrap: "wrap",
+      // marginBottom: 35,
+      // borderWidth: 1
+   },
+   carouselWrap2: {
+      //<=====
+      height: 180,
+      marginTop: 0,
+      width: width,
+      alignSelf: 'center',
+      alignItems: "center",
+      flexDirection: "row",
+      justifyContent: "center",
+      flexWrap: "wrap",
       // marginBottom: 35,
       // borderWidth: 1
    },
@@ -173,7 +204,7 @@ const styles = StyleSheet.create({
       alignSelf: "flex-end",
       flexDirection: "row",
       justifyContent: "space-between",
-      marginTop: 10,
+      marginTop: 18,
       // marginRight: 30,
    },
    btnBookNow: {

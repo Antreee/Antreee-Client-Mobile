@@ -69,7 +69,9 @@ function BookingScreen({ navigation, route }) {
   const [selectedHours, setSelectedHours] = useState('')
   const [selectedMinutes, setSelectedMinutes] = useState('')
   const [messageAlert, setMessageAlert] = useState(false)
+  const [messageAlertBooking, setMessageAlertBooking] = useState(false)
   const [selectedTime, setSelectedTime] = useState('')
+  const [inValidEmailPhone, setInValidEmailPhone] = useState(false)
 
   useEffect(() => {
     ; (async () => {
@@ -250,7 +252,7 @@ function BookingScreen({ navigation, route }) {
   const containerStyle = {
     backgroundColor: Color.white,
     padding: 20,
-    height: 400,
+    height: 450,
     width: windowWidth / 1.1,
     alignSelf: "center",
     borderRadius: 10,
@@ -258,6 +260,14 @@ function BookingScreen({ navigation, route }) {
     alignItems: "center",
   };
   if (visible) {
+    if (textDate === 'empty' || textDate === 'empty' || portion === '') {
+      setMessageAlertBooking(true)
+      setTimeout(() => {
+        setMessageAlertBooking(false)
+      }, 2500)
+      hideModal()
+    }
+
     let fDate =
       new Date().getDate() +
       '/' +
@@ -269,15 +279,17 @@ function BookingScreen({ navigation, route }) {
       new Date().getHours() < 10
         ? `0${new Date().getHours()}`
         : new Date().getHours()
+    // console.log(hours, "...", textTime.split(':')[0])
 
     if (fDate === textDate) {
       if (hours > textTime.split(':')[0]) {
+        hideModal()
         console.log('Alert hereeeeeeeeeeee')
         setMessageAlert(true)
         setTimeout(() => {
-        setMessageAlert(false)
-      }, 2500)
-      return 
+          setMessageAlert(false)
+        }, 2500)
+        return
       }
     }
 
@@ -299,6 +311,11 @@ function BookingScreen({ navigation, route }) {
               </Text>
             </View>
             <View style={styles.wrapIdentity}>
+              {
+                inValidEmailPhone && (
+                  <Text style={{ color: Color.red }}>*Invalid email/phone number</Text>
+                )
+              }
               <TextInput
                 label="Name"
                 value={name}
@@ -352,6 +369,21 @@ function BookingScreen({ navigation, route }) {
               }}
               onPress={async () => {
                 try {
+                  let checkMail = email.toLowerCase()
+                    .match(
+                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                    )
+                  let checkPhone = phoneNumber.match(
+                    /^(^\+62|62|^08)(\d{3,4}-?){2}\d{3,4}$/g
+                  )
+                  console.log(checkMail === null || checkPhone === null)
+                  if (checkMail === null || checkPhone === null) {
+                    setInValidEmailPhone(true)
+                    setTimeout(() => {
+                      setInValidEmailPhone(false)
+                    }, 2500)
+                    return
+                  }
                   mutationCreateOrder({
                     variables: {
                       customerName: name,
@@ -361,9 +393,9 @@ function BookingScreen({ navigation, route }) {
                       numberOfPeople: +portion,
                       restaurantId: id,
                     },
-                  });
-                  await addEvent();
-                  await schedulePushNotification();
+                  })
+                  await addEvent()
+                  await schedulePushNotification()
                 } catch (error) {
                   console.log(error);
                 }
@@ -389,15 +421,9 @@ function BookingScreen({ navigation, route }) {
       (tempDate.getMonth() + 1) +
       '/' +
       tempDate.getFullYear()
-    console.log(
-      '🚀 ~ file: BookingScreen.js ~ line 392 ~ onChangeDate ~ tempDate.getDate()',
-      tempDate.getDate()
-    )
     setSelectedTimeStamp(tempDate.getTime())
     setTextDate(fDate)
   }
-  const showDialog = () => setVisibleAlert(true);
-  const hideDialog = () => setVisibleAlert(false);
 
   const onChangeTime = (event, selectedDate) => {
     const currentDate = selectedDate
@@ -410,8 +436,43 @@ function BookingScreen({ navigation, route }) {
       tempDate.getMinutes() < 10
         ? `0${tempDate.getMinutes()}`
         : tempDate.getMinutes()
-    if (new Date() > tempDate) {
-      console.log('Mau time traveling bang?')
+
+    let fDateChoose =
+      (tempDate.getDate() - 1) +
+      '/' +
+      (tempDate.getMonth() + 1) +
+      '/' +
+      tempDate.getFullYear()
+    let fDateNow =
+      (new Date().getDate()) +
+      '/' +
+      (new Date().getMonth() + 1) +
+      '/' +
+      new Date().getFullYear()
+
+    if (fDateChoose === fDateNow) {
+      let hoursChoose =
+        tempDate.getHours() < 10 ? `0${tempDate.getHours()}` : tempDate.getHours()
+      let minutesChoose =
+        tempDate.getMinutes() < 10
+          ? `0${tempDate.getMinutes()}`
+          : tempDate.getMinutes()
+      let fTimeChoose = hoursChoose + ':' + minutesChoose
+      let hoursNow =
+        new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()
+      let minutesNow =
+        new Date().getMinutes() < 10
+          ? `0${new Date().getMinutes()}`
+          : new Date().getMinutes()
+      let fTimeNow = hoursNow + ':' + minutesNow
+      if (fTimeNow > fTimeChoose) {
+        setMessageAlert(true)
+        setTimeout(() => {
+          setMessageAlert(false)
+        }, 2500)
+        console.log('Mau time traveling bang?')
+      }
+
     }
     let fTime = hours + ':' + minutes
     setSelectedHours(tempDate.getHours())
@@ -689,6 +750,11 @@ function BookingScreen({ navigation, route }) {
             minuteInterval={15}
           />
         )}
+        {
+          messageAlertBooking && (
+            <Text style={{ color: Color.red, alignSelf: 'center' }}>*Please select your booking details</Text>
+          )
+        }
         <TouchableOpacity style={styles.headerIdentity} onPress={showModal}>
           <Text style={styles.textHeaderCalendar}>Enter your details here!</Text>
         </TouchableOpacity>
