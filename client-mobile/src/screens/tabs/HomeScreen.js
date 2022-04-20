@@ -89,36 +89,49 @@ export default HomeScreen = ({ navigation }) => {
     return (
       <View
         style={{
-          backgroundColor: "floralwhite",
+          // backgroundColor: "floralwhite",
           borderRadius: 20,
-          height: 200,
-          width: Dimensions.get("window").width - 125,
+          height: 190,
+          justifyContent: "space-between",
+          // alignItems: "center",
+          // top: -30,
+          flexDirection: 'column',
+          width: Dimensions.get("window").width - 55,
+          // marginBottom: 10,
         }}
       >
-        <ImageBackground
+        <Image
           source={item.image}
           style={{
             flex: 1,
-            resizeMode: "cover",
-            justifyContent: "flex-end",
+            // resizeMode: "stretch",
+            width: '100%',
+            // width: Dimensions.get("window").width - 120,
+            // height: '100%',
+            // borderTopLeftRadius: 20,
+            // top: 0,
+            borderRadius: 20,
+            bottom: -31,
+            // justifyContent: "flex-end",
+
           }}
           imageStyle={{ borderRadius: 20 }}
         >
-          <View
-            style={{
-              backgroundColor: "rgba(0,0,0,0.5)",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              alignItems: "center",
-              borderBottomRightRadius: 20,
-              borderBottomLeftRadius: 20,
-              paddingBottom: 10,
-            }}
-          >
-            <Text style={{ fontSize: 30, color: Color.light }}>{item.title}</Text>
-            <Text style={{ color: Color.light }}>{item.text}</Text>
-          </View>
-        </ImageBackground>
+        </Image>
+        <View
+          style={{
+            backgroundColor: "rgba(0,0,0,0.5)",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            alignItems: "center",
+            borderBottomRightRadius: 20,
+            borderBottomLeftRadius: 20,
+            paddingBottom: 5,
+            // top: -20,
+          }}
+        >
+          <Text style={item.image === 15 ? styles.caroSubBottom2 : styles.caroSubBottom}>{item.title}</Text>
+        </View>
       </View>
     );
   }
@@ -170,7 +183,7 @@ export default HomeScreen = ({ navigation }) => {
                 ref={carouselRef}
                 data={state.carouselItems}
                 sliderWidth={width}
-                itemWidth={width - 90}
+                itemWidth={width - 30}
                 useScrollView={true}
                 scrollInterpolator={scrollInterpolator}
                 slideInterpolatedStyle={animatedStyles}

@@ -11,6 +11,9 @@ import {
   ScrollView,
   StyleSheet,
   KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Platform,
 } from 'react-native'
 import styles from '../../../assets/styles/styles'
 import { useMutation, useQuery } from '@apollo/client'
@@ -484,103 +487,106 @@ function CartScreen({ navigation, route }) {
 
   return (
     <>
-      <View style={styles.containerx}>
-        <View style={styles.cartTitle}>
-          <Text style={styles.cartTitleText}>{data.restaurant.name}</Text>
-        </View>
-        <ScrollView>
-          <View>
-            {itemDetail.map((item) => {
-              return (
-                <CartListItems
-                  key={item.id}
-                  name={item.name}
-                  price={item.price}
-                  quantity={item.quantity}
-                  description={item.description}
-                  image={item.image}
-                  itemId={item.id}
-                  navigation={navigation}
-                  table={tableNumber}
-                />
-              )
-            })}
-          </View>
-          <View style={styles.headCheckout}>
-            <Text style={styles.headCheckoutText}>Total Price</Text>
-            <Text style={styles.headPriceText}>
-              {currencyFormat(myPrice)},-
-            </Text>
-          </View>
-          <View>
-            <Snackbar
-              visible={message.visible}
-              onDismiss={() => setMessage({ visible: false })}
-              action={{
-                label: 'X',
-              }}
-            >
-              Name & Email is required.
-            </Snackbar>
-          </View>
-          {/* <KeyboardAvoidingView
-            behavior="padding"
-          > */}
-          <View style={stylesSignIn.container}>
-            <View style={stylesSignIn.wrapperInput}>
-              <View style={stylesSignIn.formInputCart}>
-                <TextInput
-                  label='Name'
-                  value={name}
-                  mode={'outlined'}
-                  style={{
-                    backgroundColor: Color.white,
-                    height: 45,
-                    fontSize: 13,
-                    marginBottom: 3,
-                  }}
-                  theme={{ colors: { text: Color.dark, primary: Color.red } }}
-                  onChangeText={(name) => setName(name)}
-                />
-                <TextInput
-                  label='Phone Number'
-                  value={phoneNumber}
-                  mode={'outlined'}
-                  style={{
-                    backgroundColor: Color.white,
-                    height: 45,
-                    fontSize: 13,
-                    marginBottom: 3,
-                  }}
-                  theme={{ colors: { text: Color.dark, primary: Color.red } }}
-                  onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
-                />
-                <TextInput
-                  label='Email'
-                  value={email}
-                  mode={'outlined'}
-                  style={{
-                    backgroundColor: Color.white,
-                    height: 45,
-                    fontSize: 13,
-                    marginTop: 3,
-                  }}
-                  theme={{ colors: { text: Color.dark, primary: Color.red } }}
-                  onChangeText={(email) => setEmail(email)}
-                />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={stylesz.container}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.containerx}>
+            <View style={styles.cartTitle}>
+              <Text style={styles.cartTitleText}>{data.restaurant.name}</Text>
+            </View>
+            <ScrollView>
+              <View>
+                {itemDetail.map((item) => {
+                  return (
+                    <CartListItems
+                      key={item.id}
+                      name={item.name}
+                      price={item.price}
+                      quantity={item.quantity}
+                      description={item.description}
+                      image={item.image}
+                      itemId={item.id}
+                      navigation={navigation}
+                      table={tableNumber}
+                    />
+                  )
+                })}
               </View>
-            </View>
+              <View style={styles.headCheckout}>
+                <Text style={styles.headCheckoutText}>Total Price</Text>
+                <Text style={styles.headPriceText}>
+                  {currencyFormat(myPrice)},-
+                </Text>
+              </View>
+              <View>
+                <Snackbar
+                  visible={message.visible}
+                  onDismiss={() => setMessage({ visible: false })}
+                  action={{
+                    label: 'X',
+                  }}
+                >
+                  Name & Email is required.
+                </Snackbar>
+              </View>
+              <View style={stylesSignIn.container}>
+                <View style={stylesSignIn.wrapperInput}>
+                  <View style={stylesSignIn.formInputCart}>
+                    <TextInput
+                      label='Name'
+                      value={name}
+                      mode={'outlined'}
+                      style={{
+                        backgroundColor: Color.white,
+                        height: 45,
+                        fontSize: 13,
+                        marginBottom: 3,
+                      }}
+                      theme={{ colors: { text: Color.dark, primary: Color.red } }}
+                      onChangeText={(name) => setName(name)}
+                    />
+                    <TextInput
+                      label='Phone Number'
+                      value={phoneNumber}
+                      mode={'outlined'}
+                      style={{
+                        backgroundColor: Color.white,
+                        height: 45,
+                        fontSize: 13,
+                        marginBottom: 3,
+                      }}
+                      theme={{ colors: { text: Color.dark, primary: Color.red } }}
+                      onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+                    />
+                    <TextInput
+                      label='Email'
+                      value={email}
+                      mode={'outlined'}
+                      style={{
+                        backgroundColor: Color.white,
+                        height: 45,
+                        fontSize: 13,
+                        marginTop: 3,
+                      }}
+                      theme={{ colors: { text: Color.dark, primary: Color.red } }}
+                      onChangeText={(email) => setEmail(email)}
+                    />
+                  </View>
+                </View>
+              </View>
+            </ScrollView>
+            {Object.keys(cart).length > 0 && (
+              <TouchableOpacity style={styles.fabRestaurant2} onPress={checkInput}>
+                <View style={styles.btnAddChart}>
+                  <Text style={styles.textAddChart}>Checkout</Text>
+                </View>
+              </TouchableOpacity>
+            )}
           </View>
-          {/* </KeyboardAvoidingView> */}
-        </ScrollView>
-        {Object.keys(cart).length > 0 && (
-          <TouchableOpacity style={styles.fabRestaurant2} onPress={checkInput}>
-            <View style={styles.btnAddChart}>
-              <Text style={styles.textAddChart}>Checkout</Text>
-            </View>
-          </TouchableOpacity>
-        )}
-      </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </>
   )
 }
@@ -616,3 +622,29 @@ const stylesSignIn = StyleSheet.create({
     elevation: 14,
   },
 })
+
+
+const stylesz = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  inner: {
+    padding: 24,
+    flex: 1,
+    justifyContent: "space-around"
+  },
+  header: {
+    fontSize: 36,
+    marginBottom: 48
+  },
+  textInput: {
+    height: 40,
+    borderColor: "#000000",
+    borderBottomWidth: 1,
+    marginBottom: 36
+  },
+  btnContainer: {
+    backgroundColor: "white",
+    marginTop: 12
+  }
+});

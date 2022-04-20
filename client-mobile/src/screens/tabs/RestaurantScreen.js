@@ -185,8 +185,8 @@ function RestaurantScreen({ route, navigation }) {
       {data && (
         <View style={styles.container}>
           <ScrollView>
-            <View style={styles.carouselWrap}>
-              <View style={styles.contentWrap}>
+            <View style={styles.carouselWrap2}>
+              <View style={styles.contentWrap2}>
                 <Carousel
                   style={stylex.carousel}
                   data={carouselImage}
@@ -339,11 +339,13 @@ const stylex = StyleSheet.create({
   },
   item: {
     borderWidth: 2,
+    // width: ,
     backgroundColor: 'white',
     flex: 1,
     borderRadius: 5,
     borderColor: 'white',
     elevation: 3,
+    padding: 10,
   },
   imageBackground: {
     flex: 2,
