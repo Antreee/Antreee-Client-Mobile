@@ -65,6 +65,7 @@ function BookingScreen({ navigation, route }) {
   const [show, setShow] = useState(false)
   const [textDate, setTextDate] = useState('empty')
   const [textTime, setTextTime] = useState('empty')
+
   const [selectedTimestamp, setSelectedTimeStamp] = useState('')
   const [selectedHours, setSelectedHours] = useState('')
   const [selectedMinutes, setSelectedMinutes] = useState('')
@@ -96,7 +97,6 @@ function BookingScreen({ navigation, route }) {
         } else {
           calendarId = nuerpayCalendar.id
         }
-        console.log(`Here is your Available calendar id: ${calendarId}`)
         setExpoCalendarId(calendarId)
       }
     })()
@@ -274,6 +274,29 @@ function BookingScreen({ navigation, route }) {
     alignItems: 'center',
   }
   if (visible) {
+    let fDate =
+      new Date().getDate() +
+      '/' +
+      (new Date().getMonth() + 1) +
+      '/' +
+      new Date().getFullYear()
+
+    let hours =
+      new Date().getHours() < 10
+        ? `0${new Date().getHours()}`
+        : new Date().getHours()
+
+    if (fDate === textDate) {
+      if (hours > textTime.split(':')[0]) {
+        console.log('Alert hereeeeeeeeeeee')
+        setMessageAlert(true)
+        setTimeout(() => {
+        setMessageAlert(false)
+      }, 2500)
+      return 
+      }
+    }
+
     return (
       <Provider>
         <Portal>
@@ -390,6 +413,10 @@ function BookingScreen({ navigation, route }) {
       (tempDate.getMonth() + 1) +
       '/' +
       tempDate.getFullYear()
+    console.log(
+      '🚀 ~ file: BookingScreen.js ~ line 392 ~ onChangeDate ~ tempDate.getDate()',
+      tempDate.getDate()
+    )
     setSelectedTimeStamp(tempDate.getTime())
     setTextDate(fDate)
   }
@@ -407,14 +434,7 @@ function BookingScreen({ navigation, route }) {
       tempDate.getMinutes() < 10
         ? `0${tempDate.getMinutes()}`
         : tempDate.getMinutes()
-
-    console.log("masuk", new Date().getHours(), "--", tempDate.getHours())
-    if (new Date().getTime() > selectedTimestamp) {
-      setMessageAlert(true)
-      setTimeout(() => {
-        setMessageAlert(false)
-      }, 2500)
-      // return
+    if (new Date() > tempDate) {
       console.log('Mau time traveling bang?')
     }
     let fTime = hours + ':' + minutes
