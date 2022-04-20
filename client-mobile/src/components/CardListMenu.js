@@ -30,6 +30,7 @@ export default function CardListMenu({ myMenus, navigation, id, tableNumber }) {
     if (cart[itemId] == 0) {
       delete cart[itemId];
       setCart({ ...cart });
+
     }
   }
 

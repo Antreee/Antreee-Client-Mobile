@@ -16,7 +16,7 @@ const { Navigator, Screen } = createNativeStackNavigator()
 import Splash from './src/screens/Splash'
 import Tabs from './src/components/Tabs'
 import QrScanScreen from './src/screens/tabs/QrScanScreen'
-import AuthScreen from './src/screens/AuthScreen'
+// import AuthScreen from './src/screens/AuthScreen'
 import BookingScreen from './src/screens/tabs/BookingScreen'
 import CartScreen from './src/screens/tabs/CartScreen'
 // import RestaurantScreen from './src/screens/RestaurantScreen';
