@@ -774,6 +774,7 @@ const stylex = StyleSheet.create({
     borderWidth: 2,
     backgroundColor: "white",
     flex: 1,
+    width: 337,
     borderRadius: 5,
     borderColor: "white",
     elevation: 3,

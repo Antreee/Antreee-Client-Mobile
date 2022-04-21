@@ -396,6 +396,7 @@ const styles = StyleSheet.create({
       flexWrap: "wrap",
       justifyContent: "space-between",
       // padding: 10,
+      // borderWidth: 1,
       marginBottom: 20,
    },
    lestOfWrap: {
@@ -425,7 +426,7 @@ const styles = StyleSheet.create({
       elevation: 4,
       marginTop: 10,
       marginBottom: 10,
-      height: 320,
+      height: 285,
    },
    itemListItem: {
       width: width / 2.3,
@@ -445,7 +446,7 @@ const styles = StyleSheet.create({
       elevation: 4,
       marginTop: 10,
       marginBottom: 10,
-      height: 300,
+      height: 250,
    },
    imgCardMenu: {
       width: 150,
