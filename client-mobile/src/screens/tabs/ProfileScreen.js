@@ -1,15 +1,14 @@
 import { View, Text, FlatList, Image, ScrollView, Dimensions, TouchableOpacity } from "react-native";
 import styles from "../../../assets/styles/styles";
 import Color from "../../assets/Color";
-import users from "../../../data/users";
 import Fontisto from "react-native-vector-icons/Fontisto";
 const width = Dimensions.get("window").width;
 import Svg, { Path } from "react-native-svg"
 import Ionicons from "react-native-vector-icons/Ionicons"
-import { Modal, Portal, Button, Provider } from 'react-native-paper';
+import { Modal, Portal, Provider } from 'react-native-paper';
 import { useState } from "react";
 
-function ProfileScreen(props, { navigation }) {
+function ProfileScreen(props) {
    const [visible, setVisible] = useState(false);
 
    const showModal = () => setVisible(true);
@@ -69,16 +68,16 @@ function ProfileScreen(props, { navigation }) {
             style={{
                backgroundColor: Color.white,
                alignItems: "center",
-               width: 210,
+               width: 335,
                borderRadius: 10,
-               height: 300,
+               height: 350,
                justifyContent: "center",
                marginLeft: 10,
                marginRight: 10,
-               padding: 10,
+               // padding: 10,
             }}
          >
-            <Image source={item.image} style={{ width: 200, height: 245, borderRadius: 10 }} />
+            <Image source={item.image} style={{ width: 300, height: 310, borderRadius: 10 }} />
             <Text style={{ fontWeight: "bold", color: Color.dark }}>{item.name}</Text>
             <Text style={{ color: Color.darkGray }}>{item.role}</Text>
          </View>
@@ -91,7 +90,7 @@ function ProfileScreen(props, { navigation }) {
             <View style={styles.headwrapper}>
                <View style={styles.logoWrapper}>
                   <Image
-                     source={require("../../assets/logo.png")}
+                     source={require("../../../assets/newLogo.png")}
                      style={styles.logo}
                   />
                </View>
@@ -116,6 +115,7 @@ function ProfileScreen(props, { navigation }) {
             <View style={{
                height: 50,
                width: width,
+               alignItems: 'center',
                justifyContent: 'center',
                paddingLeft: 10,
             }}>
@@ -140,21 +140,93 @@ function ProfileScreen(props, { navigation }) {
                <Text style={{
                   color: Color.darkGray,
                   textAlign: 'justify',
-               }}>Introducing NuerPay (read NewerPay) , a smart and sophisticated mobile app that elevates your dining experience. There is no need for waiting in line anymore, you could just book your favourite restaurant directly from our app. We will remind you when your booked time is coming. After you get there, you will be greeted by our custom QR Code on your table that you can scan, order, and pay directly from our app! Gone is the day where you wait for waiters to get the menus, take your orders and the best of all, no more getting wrong orders!</Text>
+                  lineHeight: 20,
+               }}>{`    Introducing NuerPay (read NewerPay), a smart and sophisticated mobile app that elevates your dining experience. There is no need for waiting in line anymore, you could just book your favourite restaurant directly from our app. We will remind you when your booked time is coming.`}</Text>
+               <Text style={{
+                  color: Color.darkGray,
+                  textAlign: 'justify',
+                  lineHeight: 20,
+               }}>{`    After you get there, you will be greeted by our custom QR Code on your table that you can scan, order, and pay directly from our app! Gone is the day where you wait for waiters to get the menus, take your orders and the best of all, no more getting wrong orders!`}</Text>
             </View>
+
+            {/* <View style={{
+               width: width / 1.1,
+               height: 200,
+               alignSelf: 'center',
+               alignItems: 'center',
+               justifyContent: 'center',
+               shadowColor: "#000",
+               shadowOffset: {
+                  width: 0,
+                  height: 2,
+               },
+               shadowOpacity: 0.25,
+               shadowRadius: 3.84,
+               elevation: 5,
+               backgroundColor: Color.white,
+               borderRadius: 10,
+               flexDirection: 'row'
+            }}>
+               <View style={{
+                  width: width / 2.6,
+                  borderWidth: 1,
+                  height: 190,
+                  borderTopLeftRadius: 10,
+                  borderBottomLeftRadius: 10,
+                  padding: 10,
+                  justifyContent: 'center',
+               }}>
+                  <Text style={{
+                     fontWeight: 'bold',
+                     color: Color.dark
+                  }}>Tomy</Text>
+                  <Text style={{
+                     color: Color.darkGray,
+                     fontSize: 12,
+                  }}>Full Stack - Leader</Text>
+                  <Text style={{
+                     fontSize: 12,
+                     // fontWeight: 'bold',
+                     color: Color.dark
+                  }}>Economic</Text>
+               </View>
+               <View style={{
+                  width: width / 2,
+                  borderWidth: 1,
+                  height: 190,
+                  borderTopRightRadius: 10,
+                  borderBottomRightRadius: 10,
+                  // padding: 5,
+               }}>
+
+                  <Image
+                     source={require('../../assets/image/tomy.jpg')}
+                     style={{
+                        width: width / 2.1,
+                        height: 175,
+                        borderRadius: 10,
+                     }}
+                  />
+
+               </View>
+            </View> */}
 
             <View style={{
                height: 30,
-               width: 100,
+               width: width / 1.1,
                flexDirection: 'row',
-               justifyContent: 'space-between',
+               justifyContent: 'center',
                paddingLeft: 10,
             }}>
-               <Fontisto
-                  name="arrow-left-l"
-                  size={30}
-                  color={Color.red}
-               />
+               <Text style={{ color: Color.dark, fontWeight: 'bold', fontSize: 15 }}>Co- Founders</Text>
+            </View>
+            <View style={{
+               height: 30,
+               width: width / 1.1,
+               flexDirection: 'row',
+               justifyContent: 'flex-end',
+               paddingLeft: 10,
+            }}>
                <Fontisto
                   name="arrow-right-l"
                   size={30}
@@ -162,15 +234,19 @@ function ProfileScreen(props, { navigation }) {
                />
             </View>
             <View style={{
-               height: 350,
+               height: 400,
                width: width,
+               justifyContent: 'center',
+               alignItems: 'center',
+               alignSelf: 'center',
+               // paddingLeft: 70,
             }}>
                <FlatList
                   data={[
                      {
                         key: 1,
                         name: "Tommy",
-                        role: 'Full Stack - Captain',
+                        role: 'Full Stack - Leader',
                         image: require('../../assets/image/tomy.jpg'),
                      },
                      {
@@ -182,13 +258,13 @@ function ProfileScreen(props, { navigation }) {
                      {
                         key: 3,
                         name: 'Rasyid Arifin',
-                        role: 'Back End',
+                        role: 'Full Stack',
                         image: require('../../assets/image/acid.jpg'),
                      },
                      {
                         key: 4,
                         name: 'Arda F.',
-                        role: 'Back End',
+                        role: 'Full Stack',
                         image: require('../../assets/image/arda.jpg'),
                      },
                      {
@@ -203,8 +279,30 @@ function ProfileScreen(props, { navigation }) {
                   keyExtractor={(item) => item.key}
                />
             </View>
-         </ScrollView>
-      </View>
+            <View style={{
+               width: width,
+               height: 50,
+               justifyContent: 'center',
+               alignItems: 'center'
+            }}>
+               <Text style={{ color: Color.dark, fontWeight: 'bold', fontSize: 15 }}>Our Partners</Text>
+            </View>
+            <View style={styles.ourPartnerWrap}>
+               <View style={styles.ourPartnerBox}>
+                  <Text style={{ color: Color.dark, fontWeight: 'bold', fontSize: 15 }}>GoMank</Text>
+               </View>
+               <View style={styles.ourPartnerBox}>
+                  <Text style={{ color: Color.dark, fontWeight: 'bold', fontSize: 15 }}>Mahakarya Auction</Text>
+               </View>
+               <View style={styles.ourPartnerBox}>
+                  <Text style={{ color: Color.dark, fontWeight: 'bold', fontSize: 15 }}>Palms Ballroom</Text>
+               </View>
+               <View style={styles.ourPartnerBox}>
+                  <Text style={{ color: Color.dark, fontWeight: 'bold', fontSize: 15 }}>LaundFazz</Text>
+               </View>
+            </View>
+         </ScrollView >
+      </View >
    );
 }
 

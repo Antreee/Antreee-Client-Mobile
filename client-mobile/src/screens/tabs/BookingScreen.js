@@ -553,8 +553,8 @@ function BookingScreen({ navigation, route }) {
   return (
     <View style={styles.containerx}>
       <ScrollView>
-        <View style={styles.carouselWrap}>
-          <View style={styles.contentWrap}>
+        <View style={styles.carouselWrap2}>
+          <View style={styles.contentWrap2}>
             <Carousel
               style={stylex.carousel}
               data={carouselImage}
