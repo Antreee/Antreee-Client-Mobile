@@ -783,8 +783,6 @@ const styles = StyleSheet.create({
    cartTitle: {
       backgroundColor: Color.red,
       width: width,
-      height: 50,
-      borderRadius: 5,
       shadowColor: "#000",
       shadowOffset: {
          width: 0,
@@ -795,6 +793,7 @@ const styles = StyleSheet.create({
       elevation: 5,
       alignItems: "center",
       justifyContent: "center",
+      padding: 10,
    },
    cartTitleText: {
       color: Color.white,
