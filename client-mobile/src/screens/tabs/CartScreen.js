@@ -175,89 +175,89 @@ function CartScreen({ navigation, route }) {
     );
   }
 
-  if (visibleDetail) {
-    return (
-      <Provider>
-        <Portal>
-          <Modal
-            visible={visibleDetail}
-            onDismiss={hideModalDetail}
-            contentContainerStyle={containerStyle2}
-          >
-            <View
-              style={{
-                width: windowWidth / 1.1,
-                height: 50,
-                backgroundColor: Color.red,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text style={{ color: Color.white, fontSize: 15, fontWeight: "bold" }}>
-                Input Your Details
-              </Text>
-            </View>
-            <View style={styles.wrapIdentity}>
-              <TextInput
-                label="Name"
-                value={name}
-                mode={"outlined"}
-                style={{
-                  backgroundColor: Color.white,
-                  height: 45,
-                  fontSize: 12,
-                  marginBottom: 3,
-                }}
-                theme={{ colors: { text: Color.dark, primary: Color.red } }}
-                onChangeText={(name) => setName(name)}
-              />
-              <TextInput
-                label="PhoneNumber"
-                value={phoneNumber}
-                mode={"outlined"}
-                style={{
-                  backgroundColor: Color.white,
-                  height: 45,
-                  fontSize: 12,
-                  marginBottom: 3,
-                }}
-                theme={{ colors: { text: Color.dark, primary: Color.red } }}
-                onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
-              />
-              <TextInput
-                label="Email"
-                value={email}
-                mode={"outlined"}
-                style={{
-                  backgroundColor: Color.white,
-                  height: 45,
-                  fontSize: 12,
-                  marginTop: 3,
-                }}
-                theme={{ colors: { text: Color.dark, primary: Color.red } }}
-                onChangeText={(email) => {
-                  setEmail(email);
-                }}
-              />
-            </View>
-            <TouchableOpacity
-              style={{
-                backgroundColor: Color.red,
-                width: 150,
-                height: 50,
-                borderRadius: 10,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onPress={checkInput}
-            >
-              <Text style={{ color: Color.white, fontWeight: "bold" }}>Book Now!</Text>
-            </TouchableOpacity>
-          </Modal>
-        </Portal>
-      </Provider>
-    );
-  }
+  // if (visibleDetail) {
+  //   return (
+  //     <Provider>
+  //       <Portal>
+  //         <Modal
+  //           visible={visibleDetail}
+  //           onDismiss={hideModalDetail}
+  //           contentContainerStyle={containerStyle2}
+  //         >
+  //           <View
+  //             style={{
+  //               width: windowWidth / 1.1,
+  //               height: 50,
+  //               backgroundColor: Color.red,
+  //               justifyContent: "center",
+  //               alignItems: "center",
+  //             }}
+  //           >
+  //             <Text style={{ color: Color.white, fontSize: 15, fontWeight: "bold" }}>
+  //               Input Your Details
+  //             </Text>
+  //           </View>
+  //           <View style={styles.wrapIdentity}>
+  //             <TextInput
+  //               label="Name"
+  //               value={name}
+  //               mode={"outlined"}
+  //               style={{
+  //                 backgroundColor: Color.white,
+  //                 height: 45,
+  //                 fontSize: 12,
+  //                 marginBottom: 3,
+  //               }}
+  //               theme={{ colors: { text: Color.dark, primary: Color.red } }}
+  //               onChangeText={(name) => setName(name)}
+  //             />
+  //             <TextInput
+  //               label="PhoneNumber"
+  //               value={phoneNumber}
+  //               mode={"outlined"}
+  //               style={{
+  //                 backgroundColor: Color.white,
+  //                 height: 45,
+  //                 fontSize: 12,
+  //                 marginBottom: 3,
+  //               }}
+  //               theme={{ colors: { text: Color.dark, primary: Color.red } }}
+  //               onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+  //             />
+  //             <TextInput
+  //               label="Email"
+  //               value={email}
+  //               mode={"outlined"}
+  //               style={{
+  //                 backgroundColor: Color.white,
+  //                 height: 45,
+  //                 fontSize: 12,
+  //                 marginTop: 3,
+  //               }}
+  //               theme={{ colors: { text: Color.dark, primary: Color.red } }}
+  //               onChangeText={(email) => {
+  //                 setEmail(email);
+  //               }}
+  //             />
+  //           </View>
+  //           <TouchableOpacity
+  //             style={{
+  //               backgroundColor: Color.red,
+  //               width: 150,
+  //               height: 50,
+  //               borderRadius: 10,
+  //               justifyContent: "center",
+  //               alignItems: "center",
+  //             }}
+  //             onPress={checkInput}
+  //           >
+  //             <Text style={{ color: Color.white, fontWeight: "bold" }}>Book Now!</Text>
+  //           </TouchableOpacity>
+  //         </Modal>
+  //       </Portal>
+  //     </Provider>
+  //   );
+  // }
 
   let itemDetail = [];
   let myPrice = 0;
@@ -314,9 +314,6 @@ function CartScreen({ navigation, route }) {
   const width = Dimensions.get("window").width;
 
   if (mutationData) {
-    setTimeout(() => {
-      hideModal();
-    }, 20000);
     return (
       <Provider>
         <Portal>
