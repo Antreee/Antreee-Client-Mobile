@@ -195,7 +195,7 @@ function BookingScreen({ navigation, route }) {
       </>
     );
   }
-  const goBackHome = () => navigation.goBack;
+  const goBackHome = () => navigation.goBack();
   if (mutationData) {
     return (
       <>
@@ -215,7 +215,7 @@ function BookingScreen({ navigation, route }) {
               </Text>
             </View>
             <TouchableOpacity onPress={goBackHome} style={styles.btnBackHome}>
-              <Text style={styles.btnBackHomeText}>Back Home</Text>
+              <Text style={styles.btnBackHomeText}>Go Back</Text>
             </TouchableOpacity>
           </View>
         </View>

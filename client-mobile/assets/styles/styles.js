@@ -426,7 +426,7 @@ const styles = StyleSheet.create({
       elevation: 4,
       marginTop: 10,
       marginBottom: 10,
-      height: 285,
+      height: 305,
    },
    itemListItem: {
       width: width / 2.3,
@@ -446,7 +446,7 @@ const styles = StyleSheet.create({
       elevation: 4,
       marginTop: 10,
       marginBottom: 10,
-      height: 250,
+      height: 270,
    },
    imgCardMenu: {
       width: 150,
