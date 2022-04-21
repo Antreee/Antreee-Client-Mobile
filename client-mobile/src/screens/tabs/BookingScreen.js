@@ -211,9 +211,7 @@ function BookingScreen({ navigation, route }) {
               <Text style={styles.textEmptyBooked}>
                 Your booking has been confirmed!
               </Text>
-              <Text style={styles.textEmptyBookedSub}>
-                We have added the booking info to your calendar!
-                Thank you for using our services!
+              <Text style={styles.textEmptyBookedSub}>Thank you for using our services!
               </Text>
             </View>
             <TouchableOpacity onPress={goBackHome} style={styles.btnBackHome}>
