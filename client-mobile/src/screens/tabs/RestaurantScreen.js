@@ -339,7 +339,7 @@ const stylex = StyleSheet.create({
   },
   item: {
     borderWidth: 2,
-    // width: ,
+    // width: 100,
     backgroundColor: 'white',
     flex: 1,
     borderRadius: 5,
@@ -349,6 +349,7 @@ const stylex = StyleSheet.create({
   },
   imageBackground: {
     flex: 2,
+    width: 320,
     backgroundColor: '#EBEBEB',
     borderWidth: 5,
     borderColor: 'white',

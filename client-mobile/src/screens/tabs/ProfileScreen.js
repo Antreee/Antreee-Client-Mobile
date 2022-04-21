@@ -221,7 +221,7 @@ function ProfileScreen(props) {
                justifyContent: 'center',
                paddingLeft: 10,
             }}>
-               <Text style={{ color: Color.dark, fontWeight: 'bold', fontSize: 20 }}>Co- Founders</Text>
+               <Text style={{ color: Color.dark, fontWeight: 'bold', fontSize: 20 }}>Co-Founders</Text>
             </View>
             <View style={{
                height: 30,
@@ -292,16 +292,44 @@ function ProfileScreen(props) {
             </View>
             <View style={styles.ourPartnerWrap}>
                <View style={styles.ourPartnerBox}>
-                  <Text style={{ color: Color.dark, fontWeight: 'bold', fontSize: 15 }}>GoMank</Text>
+                  <Image
+                     source={require('../../assets/partners/cuci-01.png')}
+                     style={{
+                        width: 300,
+                        height: 90,
+                        borderRadius: 10,
+                     }}
+                  />
                </View>
-               <View style={styles.ourPartnerBox}>
-                  <Text style={{ color: Color.dark, fontWeight: 'bold', fontSize: 15 }}>Mahakarya Auction</Text>
+               <View style={styles.ourPartnerBox2}>
+                  <Image
+                     source={require('../../assets/partners/mahakarya.png')}
+                     style={{
+                        width: 300,
+                        height: 230,
+                        borderRadius: 10,
+                     }}
+                  />
                </View>
-               <View style={styles.ourPartnerBox}>
-                  <Text style={{ color: Color.dark, fontWeight: 'bold', fontSize: 15 }}>Palms Ballroom</Text>
+               <View style={styles.ourPartnerBox2}>
+                  <Image
+                     source={require('../../assets/partners/Logo-Palms.jpg')}
+                     style={{
+                        width: 260,
+                        height: 120,
+                        borderRadius: 10,
+                     }}
+                  />
                </View>
-               <View style={styles.ourPartnerBox}>
-                  <Text style={{ color: Color.dark, fontWeight: 'bold', fontSize: 15 }}>LaundFazz</Text>
+               <View style={styles.ourPartnerBox2}>
+                  <Image
+                     source={require('../../assets/partners/logo_gomank-01.png')}
+                     style={{
+                        width: 260,
+                        height: 120,
+                        borderRadius: 10,
+                     }}
+                  />
                </View>
             </View>
          </ScrollView >

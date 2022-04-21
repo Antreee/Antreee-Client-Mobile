@@ -346,14 +346,31 @@ function CartScreen({ navigation, route }) {
                     <Text style={styles.textEmptyBooked}>Thank you for your patronage.</Text>
                     <Text style={styles.textEmptyBookedSub}>Please enjoy your meal!</Text>
                   </View>
-                  <TouchableOpacity
-                    onPress={() => {
-                      setVisible(true);
-                    }}
-                    style={styles.btnBackHome}
-                  >
-                    <Text style={styles.btnBackHomeText}>Open Modal</Text>
-                  </TouchableOpacity>
+                  <View style={{
+                    width: width,
+                    // height: 60,
+                    // borderWidth: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: 'row'
+                  }}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setVisible(true);
+                      }}
+                      style={styles.btnBackHome2}
+                    >
+                      <Text style={styles.btnBackHomeText}>Review Payment</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("HomeScreen");
+                      }}
+                      style={styles.btnBackHome}
+                    >
+                      <Text style={styles.btnBackHomeText}>Back Home</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </>
