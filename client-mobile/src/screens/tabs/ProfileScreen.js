@@ -78,8 +78,11 @@ function ProfileScreen(props) {
             }}
          >
             <Image source={item.image} style={{ width: 300, height: 310, borderRadius: 10 }} />
-            <Text style={{ fontWeight: "bold", color: Color.dark }}>{item.name}</Text>
-            <Text style={{ color: Color.darkGray }}>{item.role}</Text>
+            <Text style={{
+               fontWeight: "bold", color: Color.dark,
+               fontSize: 20, marginTop: 5,
+            }}>{item.name}</Text>
+            <Text style={{ color: Color.darkGray, fontSize: 15 }}>{item.role}</Text>
          </View>
       );
    }
@@ -218,7 +221,7 @@ function ProfileScreen(props) {
                justifyContent: 'center',
                paddingLeft: 10,
             }}>
-               <Text style={{ color: Color.dark, fontWeight: 'bold', fontSize: 15 }}>Co- Founders</Text>
+               <Text style={{ color: Color.dark, fontWeight: 'bold', fontSize: 20 }}>Co- Founders</Text>
             </View>
             <View style={{
                height: 30,
@@ -251,7 +254,7 @@ function ProfileScreen(props) {
                      },
                      {
                         key: 2,
-                        name: "Aditya Furkon Hariyadi",
+                        name: "Aditya Furkon Hendriadi",
                         role: 'Full Stack',
                         image: require('../../assets/image/adit.jpg'),
                      },
@@ -285,7 +288,7 @@ function ProfileScreen(props) {
                justifyContent: 'center',
                alignItems: 'center'
             }}>
-               <Text style={{ color: Color.dark, fontWeight: 'bold', fontSize: 15 }}>Our Partners</Text>
+               <Text style={{ color: Color.dark, fontWeight: 'bold', fontSize: 20 }}>Our Partners</Text>
             </View>
             <View style={styles.ourPartnerWrap}>
                <View style={styles.ourPartnerBox}>
