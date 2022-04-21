@@ -204,8 +204,8 @@ function CartScreen({ navigation, route }) {
                 mode={"outlined"}
                 style={{
                   backgroundColor: Color.white,
-                  height: 40,
-                  fontSize: 13,
+                  height: 45,
+                  fontSize: 12,
                   marginBottom: 3,
                 }}
                 theme={{ colors: { text: Color.dark, primary: Color.red } }}
@@ -217,8 +217,8 @@ function CartScreen({ navigation, route }) {
                 mode={"outlined"}
                 style={{
                   backgroundColor: Color.white,
-                  height: 40,
-                  fontSize: 13,
+                  height: 45,
+                  fontSize: 12,
                   marginBottom: 3,
                 }}
                 theme={{ colors: { text: Color.dark, primary: Color.red } }}
@@ -230,8 +230,8 @@ function CartScreen({ navigation, route }) {
                 mode={"outlined"}
                 style={{
                   backgroundColor: Color.white,
-                  height: 40,
-                  fontSize: 13,
+                  height: 45,
+                  fontSize: 12,
                   marginTop: 3,
                 }}
                 theme={{ colors: { text: Color.dark, primary: Color.red } }}

@@ -195,7 +195,7 @@ function BookingScreen({ navigation, route }) {
       </>
     );
   }
-  const goBackHome = () => navigation.navigate("HomeScreen");
+  const goBackHome = () => navigation.goBack;
   if (mutationData) {
     return (
       <>
@@ -319,8 +319,9 @@ function BookingScreen({ navigation, route }) {
                 style={{
                   backgroundColor: Color.white,
                   height: 45,
-                  fontSize: 13,
+                  fontSize: 12,
                   marginBottom: 3,
+                  // padding: 10,
                 }}
                 theme={{ colors: { text: Color.dark, primary: Color.red } }}
                 onChangeText={(name) => setName(name)}
@@ -332,7 +333,7 @@ function BookingScreen({ navigation, route }) {
                 style={{
                   backgroundColor: Color.white,
                   height: 45,
-                  fontSize: 13,
+                  fontSize: 12,
                   marginBottom: 3,
                 }}
                 theme={{ colors: { text: Color.dark, primary: Color.red } }}
@@ -345,7 +346,7 @@ function BookingScreen({ navigation, route }) {
                 style={{
                   backgroundColor: Color.white,
                   height: 45,
-                  fontSize: 13,
+                  fontSize: 12,
                   marginTop: 3,
                 }}
                 theme={{ colors: { text: Color.dark, primary: Color.red } }}
