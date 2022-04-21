@@ -13,11 +13,11 @@ export default function RestaurantCard({ resto, navigation }) {
           <Image style={homeStyles.imgStyle} source={{ uri: resto.logoUrl }} />
         </View>
         <View style={homeStyles.cardDsc}>
-          <Text style={resto.name === "J.CO Donuts & Coffee Ringroad City Walk" ?
+          <Text style={resto.name === "J.CO Donuts & Coffee Ringroad City Walk" || resto.name === "Fountain Ice Cream Cafe & Restaurant" ?
             fontStyles.cardRestoTitle : fontStyles.cardRestoTitle2}>{resto.name}</Text>
           <Badge
             style={
-              resto.name === "J.CO Donuts & Coffee Ringroad City Walk"
+              resto.name === "J.CO Donuts & Coffee Ringroad City Walk" || resto.name === "Fountain Ice Cream Cafe & Restaurant"
                 ? fontStyles.cardDistance2
                 : fontStyles.cardDistance
             }

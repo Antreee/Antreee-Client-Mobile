@@ -339,13 +339,12 @@ const stylex = StyleSheet.create({
   },
   item: {
     borderWidth: 2,
-    // width: 100,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     flex: 1,
+    width: 337,
     borderRadius: 5,
-    borderColor: 'white',
+    borderColor: "white",
     elevation: 3,
-    padding: 10,
   },
   imageBackground: {
     flex: 2,
