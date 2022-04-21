@@ -40,6 +40,7 @@ function CartScreen({ navigation, route }) {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [message, setMessage] = useState({ visible: false });
+  const [messageInValid, setMessageInValid] = useState({ visible: false });
   // const [myPrice, setMyPrice] = useState(0)
   const [
     mutationCreateOrder,
@@ -287,10 +288,22 @@ function CartScreen({ navigation, route }) {
   }
 
   function checkInput() {
-    if (name === "" || email === "") {
+    let checkMail = email.toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )
+    let checkPhone = phoneNumber.match(
+      /^(^\+62|62|^08)(\d{3,4}-?){2}\d{3,4}$/g
+    )
+    if (name === "" || email === "" || phoneNumber === "") {
       setMessage({ visible: true });
       setTimeout(() => {
         setMessage({ visible: false });
+      }, 2000);
+    } else if (!checkMail || !checkPhone) {
+      setMessageInValid({ visible: true });
+      setTimeout(() => {
+        setMessageInValid({ visible: false });
       }, 2000);
     } else {
       authenticate();
@@ -460,7 +473,16 @@ function CartScreen({ navigation, route }) {
                     label: 'X',
                   }}
                 >
-                  Name & Email is required.
+                  Name, Email & Phone Number is required.
+                </Snackbar>
+                <Snackbar
+                  visible={messageInValid.visible}
+                  onDismiss={() => setMessage({ visible: false })}
+                  action={{
+                    label: 'X',
+                  }}
+                >
+                  Invalid Email or Phone Number.
                 </Snackbar>
               </View>
               <View style={stylesSignIn.container}>

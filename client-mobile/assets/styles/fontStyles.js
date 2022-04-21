@@ -65,7 +65,7 @@ const fontStyles = StyleSheet.create({
       fontSize: 8,
       alignItems: 'center',
       justifyContent: 'center',
-      top: -15,
+      top: -5,
       shadowColor: "#000",
       shadowOffset: {
          width: 0,
@@ -82,7 +82,7 @@ const fontStyles = StyleSheet.create({
       fontSize: 8,
       alignItems: 'center',
       justifyContent: 'center',
-      top: -30,
+      top: -15,
       shadowColor: "#000",
       shadowOffset: {
          width: 0,

@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
       width: width,
       height: 240,
       alignItems: "center",
-      // marginTop: 10,
    },
    contentMenuWrap: {
       width: width,
@@ -951,6 +950,8 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignSelf: 'flex-end',
       right: 15,
+      marginBottom: 10,
+      marginTop: 5,
    },
    priceMinus: {
       width: 30,
@@ -1222,7 +1223,7 @@ const styles = StyleSheet.create({
    },
    logo: {
       height: 60,
-      width: 180,
+      width: 200,
    },
    logoWrapper: {
       width: 200,
@@ -1243,7 +1244,30 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
    },
-
+   ourPartnerBox: {
+      width: width / 1.1,
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: Color.white,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      borderRadius: 10,
+      marginBottom: 10,
+   },
+   ourPartnerWrap: {
+      width: width,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: 20,
+      padding: 10
+   },
 });
 
 export default styles;
