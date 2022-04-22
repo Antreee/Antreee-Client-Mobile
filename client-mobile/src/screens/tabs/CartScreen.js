@@ -345,8 +345,6 @@ function CartScreen({ navigation, route }) {
                   </View>
                   <View style={{
                     width: width,
-                    // height: 60,
-                    // borderWidth: 1,
                     justifyContent: "center",
                     alignItems: "center",
                     flexDirection: 'row'
