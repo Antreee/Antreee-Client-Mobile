@@ -109,6 +109,14 @@ function RestaurantScreen({ route, navigation }) {
           {restaurant?.openingHours}
         </Text>
       )
+    } else {
+      return (
+        <Text style={styles.available}>
+          {' '}
+          <Text style={styles.availableOpen}>Closed</Text>{' '}
+          {restaurant?.openingHours}
+        </Text>
+      )
     }
   }
 

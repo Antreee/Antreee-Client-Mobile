@@ -27,7 +27,7 @@
       "package": "com.NuerPay"
     },
     "web": {
-      "favicon": "./assets/justLogo.png"
+      "favicon": "./assets/icon.png"
     }
   }
 }
