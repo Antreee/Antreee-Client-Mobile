@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Text, View, StyleSheet, Image, Button, ActivityIndicator } from 'react-native'
+import { Text, View, StyleSheet, Image, ActivityIndicator } from 'react-native'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import { RestaurantContext } from '../../components/Context'
 import Color from '../../assets/Color'

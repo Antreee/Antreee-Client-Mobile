@@ -13,7 +13,6 @@ import {
 import styles from '../../../assets/styles/styles'
 import Color from '../../assets/Color'
 import Carousel from 'react-native-anchor-carousel'
-import { Button, Modal } from 'react-native-paper'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
@@ -31,7 +30,6 @@ function RestaurantScreen({ route, navigation }) {
   const { id, tableNumber } = route.params
     ? route.params
     : { id: null, tableNumber: null }
-
 
   const carouselRef = useRef(null)
   const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX)
@@ -98,13 +96,11 @@ function RestaurantScreen({ route, navigation }) {
     }
   })
 
-  const items = data.itemsByRestaurantId
   const myCuisine = data.restaurant?.cuisine.join(', ')
   const able = () => {
     if (restaurant?.available) {
       return (
         <Text style={styles.available}>
-          {' '}
           <Text style={styles.availableOpen}>OPEN</Text>{' '}
           {restaurant?.openingHours}
         </Text>
@@ -112,7 +108,6 @@ function RestaurantScreen({ route, navigation }) {
     } else {
       return (
         <Text style={styles.available}>
-          {' '}
           <Text style={styles.availableOpen}>Closed</Text>{' '}
           {restaurant?.openingHours}
         </Text>
@@ -216,7 +211,9 @@ function RestaurantScreen({ route, navigation }) {
                 <TouchableOpacity
                   style={styles.btnMap}
                   onPress={() => {
-                    Linking.openURL(`google.navigation:q=${restaurantLat}+${restaurantLong}`)
+                    Linking.openURL(
+                      `google.navigation:q=${restaurantLat}+${restaurantLong}`
+                    )
                   }}
                 >
                   <FontAwesome5
@@ -268,7 +265,6 @@ function RestaurantScreen({ route, navigation }) {
               <View style={styles.restaurantAddressIcon}>
                 <MaterialCommunityIcons
                   name='text-box-plus-outline'
-
                   size={20}
                   color={Color.white}
                 />
@@ -347,11 +343,11 @@ const stylex = StyleSheet.create({
   },
   item: {
     borderWidth: 2,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     flex: 1,
     width: 337,
     borderRadius: 5,
-    borderColor: "white",
+    borderColor: 'white',
     elevation: 3,
   },
   imageBackground: {

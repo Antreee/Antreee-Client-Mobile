@@ -6,7 +6,6 @@ import { CartContext, RestaurantContext } from "./Context";
 import Color from "../assets/Color";
 
 export default function CardListMenu({ myMenus, navigation, id, tableNumber }) {
-  // const [mutationAddToCart, { data, loading, error }] = useMutation(ADD_TO_CART)
   const { cart, setCart } = useContext(CartContext);
   const { restaurantState, setRestaurantState } = useContext(RestaurantContext);
 

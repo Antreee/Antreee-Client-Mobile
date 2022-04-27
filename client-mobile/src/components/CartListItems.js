@@ -6,8 +6,6 @@ import { useContext, useState } from "react";
 import { CartContext } from "./Context";
 
 export default function CartListItems({
-  navigation,
-  table,
   name,
   price,
   quantity,
@@ -15,7 +13,6 @@ export default function CartListItems({
   image,
   itemId,
 }) {
-  const [qty, setQty] = useState(quantity);
   const { cart, setCart } = useContext(CartContext);
 
   function currencyFormat(num) {

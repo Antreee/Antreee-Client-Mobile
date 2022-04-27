@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import * as eva from '@eva-design/eva'
@@ -13,13 +12,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 const { Navigator, Screen } = createNativeStackNavigator()
 
 // Screens:
-import Splash from './src/screens/Splash'
 import Tabs from './src/components/Tabs'
 import QrScanScreen from './src/screens/tabs/QrScanScreen'
-// import AuthScreen from './src/screens/AuthScreen'
 import BookingScreen from './src/screens/tabs/BookingScreen'
 import CartScreen from './src/screens/tabs/CartScreen'
-// import RestaurantScreen from './src/screens/RestaurantScreen';
 import { ApolloProvider } from '@apollo/client'
 import client from './config/apollo'
 import { CartContext, RestaurantContext } from './src/components/Context'
@@ -73,12 +69,3 @@ export default function App() {
     </>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})

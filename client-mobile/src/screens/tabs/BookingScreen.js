@@ -53,7 +53,6 @@ function BookingScreen({ navigation, route }) {
     variables: { id, itemsByRestaurantIdId2: id },
   })
   const [visible, setVisible] = useState(false)
-  const [visibleAlert, setVisibleAlert] = useState(false)
   const [
     mutationCreateOrder,
     { data: mutationData, loading: mutationLoading, error: mutationError },
@@ -505,7 +504,6 @@ function BookingScreen({ navigation, route }) {
     if (restaurant.available) {
       return (
         <Text style={styles.available}>
-          {" "}
           <Text style={styles.availableOpen}>OPEN</Text> {restaurant.openingHours}
         </Text>
       );
@@ -514,7 +512,6 @@ function BookingScreen({ navigation, route }) {
 
   const date = new Date();
   date.setDate(date.getDate() + 1);
-  let todayDate = date.toISOString().slice(0, 10);
 
   const carouselImage = restaurant.mainImagesUrl.map((el) => {
     return {

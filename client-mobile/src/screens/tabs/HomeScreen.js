@@ -1,99 +1,96 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from 'react'
 import {
   Text,
   View,
-  FlatList,
   Image,
   ScrollView,
-  ImageBackground,
   ActivityIndicator,
   Dimensions,
-} from "react-native";
-import styles from "../../../assets/styles/styles";
-import { Icon } from "@ui-kitten/components";
-import { Searchbar } from "react-native-paper";
-import fontStyles from "../../../assets/styles/fontStyles";
-import Carousel from "react-native-snap-carousel";
-import Color from "../../assets/Color";
-import RestaurantCard from "../../components/RestaurantCard";
-import { useQuery } from "@apollo/client";
-import { GET_RESTAURANTS } from "../../../config/queries";
-import { animatedStyles, scrollInterpolator } from "../../components/animations";
-import * as Location from "expo-location";
+} from 'react-native'
+import styles from '../../../assets/styles/styles'
+import { Searchbar } from 'react-native-paper'
+import fontStyles from '../../../assets/styles/fontStyles'
+import Carousel from 'react-native-snap-carousel'
+import Color from '../../assets/Color'
+import RestaurantCard from '../../components/RestaurantCard'
+import { useQuery } from '@apollo/client'
+import { GET_RESTAURANTS } from '../../../config/queries'
+import { animatedStyles, scrollInterpolator } from '../../components/animations'
+import * as Location from 'expo-location'
 
 export default HomeScreen = ({ navigation }) => {
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [location, setLocation] = useState(null)
+  const [errorMsg, setErrorMsg] = useState(null)
 
   useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
+    ;(async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync()
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied')
+        return
       }
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-    })();
-  }, []);
+      let location = await Location.getCurrentPositionAsync({})
+      setLocation(location)
+    })()
+  }, [])
 
   const { loading, error, data, refetch } = useQuery(GET_RESTAURANTS, {
     variables: {
       stringCoordinates: location
         ? `${location.coords.longitude},${location.coords.latitude}`
-        : "106.82710988104893,-6.1752963962989424",
-      search: "",
+        : '106.82710988104893,-6.1752963962989424',
+      search: '',
     },
-  });
+  })
 
   const [state, setState] = useState({
     activeIndex: 2,
     carouselItems: [
       {
-        title: "Chicken Wings",
-        image: require("../../assets/imgTemplate/img01.png"),
+        title: 'Chicken Wings',
+        image: require('../../assets/imgTemplate/img01.png'),
       },
       {
-        title: "Chicken & Corn Soup",
-        image: require("../../assets/imgTemplate/img02.png"),
+        title: 'Chicken & Corn Soup',
+        image: require('../../assets/imgTemplate/img02.png'),
       },
       {
-        title: "Taro, Peach, Lychee Tea",
-        image: require("../../assets/imgTemplate/img03.png"),
+        title: 'Taro, Peach, Lychee Tea',
+        image: require('../../assets/imgTemplate/img03.png'),
       },
       {
-        title: "Choco Lava",
-        image: require("../../assets/imgTemplate/img04.png"),
+        title: 'Choco Lava',
+        image: require('../../assets/imgTemplate/img04.png'),
       },
       {
-        title: "Hamburg Steak with Egg",
-        image: require("../../assets/imgTemplate/img05.png"),
+        title: 'Hamburg Steak with Egg',
+        image: require('../../assets/imgTemplate/img05.png'),
       },
       {
-        title: "Curry Beef Pepper Rice with Cheese",
-        image: require("../../assets/imgTemplate/img06.png"),
+        title: 'Curry Beef Pepper Rice with Cheese',
+        image: require('../../assets/imgTemplate/img06.png'),
       },
       {
-        title: "Tira Miss U",
-        image: require("../../assets/imgTemplate/img07.png"),
+        title: 'Tira Miss U',
+        image: require('../../assets/imgTemplate/img07.png'),
       },
       {
-        title: "Donuts Selection",
-        image: require("../../assets/imgTemplate/img08.png"),
+        title: 'Donuts Selection',
+        image: require('../../assets/imgTemplate/img08.png'),
       },
     ],
-  });
+  })
 
-  function _renderItem({ item, index }) {
+  function _renderItem({ item }) {
     return (
       <View
         style={{
           borderRadius: 20,
           height: 190,
-          justifyContent: "space-between",
+          justifyContent: 'space-between',
           flexDirection: 'column',
-          width: Dimensions.get("window").width - 55,
+          width: Dimensions.get('window').width - 55,
         }}
       >
         <Image
@@ -105,27 +102,32 @@ export default HomeScreen = ({ navigation }) => {
             bottom: -31,
           }}
           imageStyle={{ borderRadius: 20 }}
-        >
-        </Image>
+        ></Image>
         <View
           style={{
-            backgroundColor: "rgba(0,0,0,0.5)",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            alignItems: "center",
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            alignItems: 'center',
             borderBottomRightRadius: 20,
             borderBottomLeftRadius: 20,
             paddingBottom: 5,
           }}
         >
-          <Text style={item.image === 15 ? styles.caroSubBottom2 : styles.caroSubBottom}>{item.title}</Text>
+          <Text
+            style={
+              item.image === 15 ? styles.caroSubBottom2 : styles.caroSubBottom
+            }
+          >
+            {item.title}
+          </Text>
         </View>
       </View>
-    );
+    )
   }
 
-  let carouselRef = useRef();
-  const width = Dimensions.get("window").width;
+  let carouselRef = useRef()
+  const width = Dimensions.get('window').width
 
   return (
     <>
@@ -134,19 +136,20 @@ export default HomeScreen = ({ navigation }) => {
         <ScrollView>
           <View style={styles.headerApp}>
             <View style={styles.headerApp2}>
-              <Image source={require("../../../assets/newLogo.png")}
+              <Image
+                source={require('../../../assets/newLogo.png')}
                 style={{ height: 55, width: 200 }}
               />
             </View>
             {/* SEARCH */}
             <View style={styles.searchWrap}>
               <Searchbar
-                placeholder="Search in NuerPay"
+                placeholder='Search in NuerPay'
                 onChangeText={(value) =>
                   refetch({
                     stringCoordinates: location
                       ? `${location.coords.longitude},${location.coords.latitude}`
-                      : "106.82710988104893,-6.1752963962989424",
+                      : '106.82710988104893,-6.1752963962989424',
                     search: value,
                   })
                 }
@@ -159,7 +162,7 @@ export default HomeScreen = ({ navigation }) => {
 
           {/* ======= */}
 
-          {/* Carosel */}
+          {/* Carousel */}
           <View style={styles.contentWrap}>
             <View style={styles.titleWrap}>
               <View style={styles.redBox} />
@@ -169,7 +172,7 @@ export default HomeScreen = ({ navigation }) => {
             </View>
             <View style={styles.carouselWrap}>
               <Carousel
-                layout={"default"}
+                layout={'default'}
                 ref={carouselRef}
                 data={state.carouselItems}
                 sliderWidth={width}
@@ -179,7 +182,9 @@ export default HomeScreen = ({ navigation }) => {
                 slideInterpolatedStyle={animatedStyles}
                 inactiveSlideShift={0}
                 renderItem={_renderItem}
-                onSnapToItem={(index) => setState({ ...state, activeIndex: index })}
+                onSnapToItem={(index) =>
+                  setState({ ...state, activeIndex: index })
+                }
               />
             </View>
           </View>
@@ -189,7 +194,9 @@ export default HomeScreen = ({ navigation }) => {
             <View style={styles.titleWrap}>
               <View style={styles.redBox} />
               <View style={styles.contentTitle}>
-                <Text style={fontStyles.darkFontBold}>Restaurants Near You</Text>
+                <Text style={fontStyles.darkFontBold}>
+                  Restaurants Near You
+                </Text>
               </View>
             </View>
             {loading && (
@@ -199,18 +206,24 @@ export default HomeScreen = ({ navigation }) => {
                     height: 40,
                   }}
                 >
-                  <ActivityIndicator size="small" color={Color.red} />
+                  <ActivityIndicator size='small' color={Color.red} />
                 </View>
               </>
             )}
             {data &&
               data.restaurants.map((el) => {
-                return <RestaurantCard key={el._id} resto={el} navigation={navigation} />;
+                return (
+                  <RestaurantCard
+                    key={el._id}
+                    resto={el}
+                    navigation={navigation}
+                  />
+                )
               })}
           </View>
           {/* ============== */}
         </ScrollView>
       </View>
     </>
-  );
-};
+  )
+}

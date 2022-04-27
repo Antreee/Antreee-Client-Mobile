@@ -1,20 +1,17 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-// import BookingScreen from "../screens/tabs/BookingScreen";
-// import CartScreen from "../screens/tabs/CartScreen";
 import QrScanScreen from '../screens/tabs/QrScanScreen'
 import ProfileScreen from '../screens/tabs/ProfileScreen'
-import { View, Image, Text, TouchableOpacity } from 'react-native'
+import { View, Image, TouchableOpacity } from 'react-native'
 import Color from '../assets/Color'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import HomeNavigator from './HomeNavigator'
 
 const Tab = createBottomTabNavigator()
 
-const Tabs = ({ navigation }) => {
+const Tabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        // tabBarShowLabel: false,
         tabBarStyle: {
           height: 50,
           position: 'absolute',
@@ -68,7 +65,7 @@ const Tabs = ({ navigation }) => {
         name='QrScanScreen'
         component={QrScanScreen}
         options={({ navigation }) => ({
-          tabBarButton: (props) => (
+          tabBarButton: () => (
             <TouchableOpacity
               onPress={() => navigation.navigate('QrScanScreen')}
               style={{
@@ -107,7 +104,7 @@ const Tabs = ({ navigation }) => {
         component={ProfileScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color }) => (
             <Ionicons name='ios-information-circle' color={color} size={32} />
           ),
           tabBarLabel: 'About Us',
